@@ -1,4 +1,3 @@
-from telegram import Emoji
 
 # -------- Place to define dicts and lists for keyboards -------- #
 

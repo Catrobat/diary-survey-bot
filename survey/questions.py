@@ -16,7 +16,7 @@ from admin.settings import DEFAULT_TIMEZONE
 from admin.debug import debug
 from admin.survey_specific import survey_function
 
-from telegram import Bot, Update, ReplyKeyboardMarkup, ReplyKeyboardRemove, Emoji
+from telegram import Bot, Update, ReplyKeyboardMarkup, ReplyKeyboardRemove
 from telegram.ext import Job, JobQueue
 from telegram import TelegramError
 
@@ -160,7 +160,7 @@ def question_handler(bot: Bot, update: Update, user_map: DataSet, job_queue: Job
         debug('QUEUE', 'next block in ' + str(due) + ' seconds. User: ' + str(user.chat_id_), log=True)
         new_job = Job(queue_next, due, repeat=False, context=[user, job_queue])
         user.job_ = new_job
-        job_queue.put(new_job)
+        job_queue._put(new_job)
 
 
 # This function is getting used to generate
@@ -193,7 +193,7 @@ def store_answer(user, message, question, job_queue):
                 debug('QUEUE', 'next block in ' + str(due) + ' seconds. User: ' + str(user.chat_id_), log=True)
                 new_job = Job(queue_next, due, repeat=False, context=[user, job_queue])
                 user.job_ = new_job
-                job_queue.put(new_job)
+                job_queue._put(new_job)
             elif element[0] == "DATA":
                 if element[2] == "ADD":
                     if element[1] not in user.data_set_:
@@ -293,7 +293,7 @@ def queue_next(bot: Bot, job: Job):
         debug('QUEUE', 'next block in ' + str(due) + ' seconds. User: ' + str(user.chat_id_), log=True)
         new_job = Job(queue_next, due, repeat=False, context=[user, job_queue])
         user.job_ = new_job
-        job_queue.put(new_job)
+        job_queue._put(new_job)
         return
 
     # Sending the question
@@ -323,7 +323,7 @@ def queue_next(bot: Bot, job: Job):
 
     debug('QUEUE', 'next block in ' + str(due) + ' seconds. User: ' + str(user.chat_id_), log=True)
     new_job = Job(queue_next, due, repeat=False, context=[user, job_queue])
-    job_queue.put(new_job)
+    job_queue._put(new_job)
     return
 
 
@@ -394,7 +394,7 @@ def valid_answer(question, message, user):
 def finished(user, job_queue):
     user.last_ = True
     new_job = Job(finalize, 86400, repeat=False, context=user)
-    job_queue.put(new_job)
+    job_queue._put(new_job)
     return
 
 
@@ -462,7 +462,7 @@ def continue_survey(user, bot, job_queue):
         debug('QUEUE', 'next block in ' + str(due) + ' seconds. User: ' + str(user.chat_id_), log=True)
         new_job = Job(queue_next, due, repeat=False, context=[user, job_queue])
         user.job_ = new_job
-        job_queue.put(new_job)
+        job_queue._put(new_job)
     return
 
 
@@ -512,7 +512,7 @@ def initialize_participants(job_queue: JobQueue):
 
                     debug('QUEUE', 'next block in ' + str(due) + ' seconds. User: ' + str(user.chat_id_), log=True)
                     new_job = Job(queue_next, due, repeat=False, context=[user, job_queue])
-                    job_queue.put(new_job)
+                    job_queue._put(new_job)
     except sqlite3.Error as error:
         print(error)
     return user_map
