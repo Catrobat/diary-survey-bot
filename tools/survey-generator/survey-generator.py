@@ -1,3 +1,13 @@
+"""
+diary-survey-bot 2.0
+
+Software-Design: Philipp Feldner
+Documentation: https://github.com/Catrobat/diary-survey-bot
+
+Telegram API:
+https://github.com/python-telegram-bot/python-telegram-bot
+"""
+
 import json
 from collections import OrderedDict
 import random
@@ -10,7 +20,15 @@ SAMPLE_DATA = [
 
     ["How much did you drink today (in l)?", []],
 
-    ["How much time did you spent studying today? (in h)", []]
+    ["How much time did you spent studying today? (in h)", []],
+
+    ["What is your gender?", [["male"], ["female"]]],
+
+    ["Do you have siblings?", [["Yes"], ["No"]]],
+
+    ["Who wrote the book: Brave New World?", [["Aldous Huxley"], ["George Orwell"]]],
+
+    ["Do you have any programming experience?", [["Yes"], ["No"]]]
 ]
 
 
@@ -186,6 +204,7 @@ def generate_sample_survey(nr_of_days, nr_of_blocks, nr_of_questions, sample_dat
 
     return survey
 
-survey = generate_sample_survey(2, 2, 2, SAMPLE_DATA)
 
+# Todo write a proper argparse and possibly add questions for first and last day/block
+survey = generate_sample_survey(2, 2, 2, SAMPLE_DATA)
 print(json.dumps(survey.get_object()))

@@ -1,10 +1,20 @@
+"""
+diary-survey-bot 2.0
+
+Software-Design: Philipp Feldner
+Documentation: https://github.com/Catrobat/diary-survey-bot
+
+Telegram API:
+https://github.com/python-telegram-bot/python-telegram-bot
+"""
+
 # List of chat_ids that are admins
 ADMINS = ['0x0', '0x0']
 
 # Debug mode on/off
 DEBUG = True
 
-# /delete command enabled/disabled
+# /delete_me command enabled/disabled
 DELETE = True
 
 # For testing purposes. Sets all block scheduling to x seconds.
@@ -23,6 +33,7 @@ CONDITION_SCHEME = 'OR'
 
 # Scheduling intervals for question blocks.
 # IMPORTANT: If you choose intervals, make sure they are at least 30min!
+# Todo: add documentation
 SCHEDULE_INTERVALS = {
                         "RANDOM_1": ["08:00", "12:00"],
                         "RANDOM_2": ["13:00", "15:00"],

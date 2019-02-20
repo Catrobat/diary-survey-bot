@@ -1,7 +1,18 @@
+"""
+diary-survey-bot 2.0
+
+Software-Design: Philipp Feldner
+Documentation: https://github.com/Catrobat/diary-survey-bot
+
+Telegram API:
+https://github.com/python-telegram-bot/python-telegram-bot
+"""
+
 import json
 from admin.settings import DEFAULT_LANGUAGE
 
 
+# TODO add guide on how to add languages
 class DataSet:
     participants = {}
     q_set_de_ = None

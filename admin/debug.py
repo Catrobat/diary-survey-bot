@@ -1,3 +1,13 @@
+"""
+diary-survey-bot 2.0
+
+Software-Design: Philipp Feldner
+Documentation: https://github.com/Catrobat/diary-survey-bot
+
+Telegram API:
+https://github.com/python-telegram-bot/python-telegram-bot
+"""
+
 from admin.settings import DEBUG
 
 

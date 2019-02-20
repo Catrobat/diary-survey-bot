@@ -1,3 +1,13 @@
+"""
+diary-survey-bot 2.0
+
+Software-Design: Philipp Feldner
+Documentation: https://github.com/Catrobat/diary-survey-bot
+
+Telegram API:
+https://github.com/python-telegram-bot/python-telegram-bot
+"""
+
 import sqlite3
 import pickle
 import shutil
@@ -475,13 +485,10 @@ def continue_survey(user, bot, job_queue):
 def initialize_participants(job_queue: JobQueue):
     user_map = DataSet()
     try:
-        # Todo: auto-initalize function
         db = sqlite3.connect('survey/participants.db')
         cursor = db.cursor()
         cursor.execute("SELECT * FROM participants ORDER BY (ID)")
         participants = cursor.fetchall()
-        # print(participants)
-
         for row in participants:
             user = Participant(row[1], init=False)
             user.conditions_ = pickle.loads(row[2])
@@ -498,7 +505,6 @@ def initialize_participants(job_queue: JobQueue):
             user.block_ = row[12]
             user.pointer_ = row[13]
             user_map.participants[row[1]] = user
-
             if user.language_ != '':
                 q_set = user_map.return_question_set_by_language(user.language_)
                 user.q_set_ = q_set

@@ -1,19 +1,17 @@
 """
 diary-survey-bot 2.0
 
-Software-Design: Philipp Feldner (Computer Science Student TU Graz)
-Documentation: https://github.com/philippfeldner/diary-survey-bot
+Software-Design: Philipp Feldner
+Documentation: https://github.com/Catrobat/diary-survey-bot
 
 Telegram API:
 https://github.com/python-telegram-bot/python-telegram-bot
 """
-import sqlite3
 
 from telegram import Bot, Update, ReplyKeyboardMarkup, ReplyKeyboardRemove
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from telegram import TelegramError
 
-from survey.data_set import DataSet
 from survey.questions import initialize_participants
 from survey.questions import question_handler
 from survey.questions import continue_survey
@@ -27,8 +25,8 @@ from admin.settings import DEFAULT_LANGUAGE
 from admin.settings import DELETE
 
 import os
-import sys
 import argparse
+import sqlite3
 
 data_set = None
 
