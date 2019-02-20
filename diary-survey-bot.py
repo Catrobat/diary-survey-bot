@@ -1,9 +1,5 @@
 """
-diary-survey-bot
-
-Developed in association with Uni-Graz.
-Idea: Lisa Eckerstorfer MSc.
-Supervisor: Univ.-Prof. Dr.phil. Dipl.-Psych. Katja Corcoran
+diary-survey-bot 2.0
 
 Software-Design: Philipp Feldner (Computer Science Student TU Graz)
 Documentation: https://github.com/philippfeldner/diary-survey-bot
@@ -11,7 +7,7 @@ Documentation: https://github.com/philippfeldner/diary-survey-bot
 Telegram API:
 https://github.com/python-telegram-bot/python-telegram-bot
 """
-
+import sqlite3
 
 from telegram import Bot, Update, ReplyKeyboardMarkup, ReplyKeyboardRemove
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
@@ -31,6 +27,8 @@ from admin.settings import DEFAULT_LANGUAGE
 from admin.settings import DELETE
 
 import os
+import sys
+import argparse
 
 data_set = None
 
@@ -120,11 +118,34 @@ def info(bot: Bot, update: Update):
             return
 
 
+def database_setup(clear):
+    try:
+        db = sqlite3.connect('survey/participants.db')
+        db.execute("CREATE TABLE participants (data_set BLOB, ID INTEGER, conditions BLOB, timezone TEXT,"
+                   "country TEXT, gender TEXT, language TEXT, question INTEGER,age INTEGER, day INTEGER"
+                   "q_idle INTEGER, active INTEGER, block INTEGER, pointer INTEGER)")
+        if clear:
+            db.execute("DROP TABLE participants")
+            db.execute("CREATE TABLE participants (data_set BLOB, ID INTEGER, conditions BLOB, timezone TEXT,"
+                       "country TEXT, gender TEXT, language TEXT, question INTEGER,age INTEGER, day INTEGER"
+                       "q_idle INTEGER, active INTEGER, block INTEGER, pointer INTEGER)")
+
+        db.commit()
+        db.close()
+    except sqlite3.Error as error:
+        print(error)
+
+
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("token", help="Enter the API token for your bot.", type=str)
+    parser.add_argument("-c", "--clear", help="Clear the database", action="store_true")
 
+    args = parser.parse_args()
+    token = args.token
+    database_setup(args.clear)
 
-    # Enter your own token here
-    updater = Updater("739345028:AAFc0t60KK-jqFI3DbA9Iz7irKICJCcGEIA")
+    updater = Updater(token)
 
     dp = updater.dispatcher
     global data_set

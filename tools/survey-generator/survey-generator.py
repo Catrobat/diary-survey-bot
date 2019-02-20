@@ -15,14 +15,15 @@ SAMPLE_DATA = [
 
 
 class Question:
-    def __init__(self, text="", choice=[], condition_required=[], condition=[], commands=[], meta=[], status=[]):
-        self.text = text
-        self.choice = choice
-        self.condition_required = condition_required
-        self.condition = condition
-        self.commands = commands
-        self.meta = meta
-        self.status = status
+    def __init__(self):
+        self.text = ""
+        self.choice = []
+        self.condition_required = []
+        self.condition = []
+        self.commands = []
+        self.meta = ""
+        self.status = ""
+        self.variable = ""
 
     # Todo: proper format checking
     def set_text(self, text):
@@ -67,20 +68,27 @@ class Question:
         else:
             print("status: " + status + " should be a string.")
 
+    def set_variable(self, variable):
+        if isinstance(variable, str):
+            self.variable = variable
+        else:
+            print("variable: " + variable + " should be a string.")
+
     def get_object(self):
         return OrderedDict([("text", self.text),
                             ("choice", self.choice),
                             ("condition_required", self.condition_required),
                             ("condition", self.condition),
-                            ("commands", self.commands)])
+                            ("commands", self.commands),
+                            ("variable", self.variable)])
 
 
 class Block:
-    def __init__(self, time="", settings=[], meta="", questions=[]):
-        self.time = time
-        self.settings = settings
-        self.meta = meta
-        self.questions = questions
+    def __init__(self):
+        self.time = ""
+        self.settings = []
+        self.meta = ""
+        self.questions = []
 
     def set_time(self, time):
         if isinstance(time, str):
@@ -114,13 +122,13 @@ class Block:
 
 
 class Day:
-    def __init__(self, day="", meta="", blocks=[]):
-        self.day = day
-        self.meta = meta
-        self.blocks = blocks
+    def __init__(self):
+        self.day = -1
+        self.meta = ""
+        self.blocks = []
 
     def set_day(self, day):
-        if isinstance(day, str):
+        if isinstance(day, int):
             self.day = day
         else:
             print("day: " + day + " should be a string.")
@@ -159,51 +167,25 @@ class Survey:
 
 def generate_sample_survey(nr_of_days, nr_of_blocks, nr_of_questions, sample_data):
     t_map = {0: "0800", 1: "1200", 2: "1600", 3: "2000"}
-
     survey = Survey()
     for i in range(nr_of_days):
-        day = Day(str(i))
-        survey.add_day(day)
+        day = Day()
+        day.set_day(i + 1)
         for j in range(nr_of_blocks):
-            block = Block(t_map[j])
-            day.add_block(block)
+            block = Block()
+            block.set_time(t_map[j])
             for k in range(nr_of_questions):
                 pick = random.choice(sample_data)
-                question = Question(pick[0], pick[1])
+                question = Question()
+                question.set_text(pick[0])
+                question.set_choice(pick[1])
+                question.set_variable("question" + str(k))
                 block.add_question(question)
+            day.add_block(block)
+        survey.add_day(day)
 
     return survey
 
-
-# data = random.choice(SAMPLE_DATA)
-#
-# question1 = Question()
-# question1.set_text(data[0])
-# question1.set_choice(data[1])
-# question2 = Question()
-# question3 = Question()
-# block = Block()
-# day = Day()
-# survey = Survey()
-#
-# block.add_question(question1)
-# block.add_question(question2)
-# block.add_question(question3)
-# day.add_block(block)
-# survey.add_day(day)
-#
-# question4 = Question()
-# question5 = Question()
-# question6 = Question()
-# block2 = Block()
-# day2 = Day()
-#
-# block2.add_question(question4)
-# block2.add_question(question5)
-# block2.add_question(question6)
-# day2.add_block(block2)
-# survey.add_day(day2)
-
-survey = generate_sample_survey(3, 3, 3, SAMPLE_DATA)
+survey = generate_sample_survey(2, 2, 2, SAMPLE_DATA)
 
 print(json.dumps(survey.get_object()))

@@ -1,13 +1,18 @@
-# diary-survey-bot
+# diary-survey-bot 2.0
 
-**Developed in association with Uni-Graz.**  
-**Idea:** Lisa Eckerstorfer MSc.  
-**Supervisor:** Univ.-Prof. Dr.phil. Dipl.-Psych. Katja Corcoran
+**This is the continuation of the original 
+[diary-survey-bot](https://github.com/philippfeldner/diary-survey-bot).**  
+**The continued development is part of my Bachelorthesis and the project will**  
+**be maintained by the team of the [Catrobat](https://github.com/Catrobat) project.**
+
 
 **Software-Design:** Philipp Feldner (Computer Science Student TU Graz)  
 **Twitter/Telegram:** [@PhilippFeldner](https://twitter.com/PhilippFeldner)  
 **Email:** [feldnerphilipp@gmail.com](mailto:feldnerphilipp@gmail.com)  
-**Telegram API:** https://github.com/python-telegram-bot/python-telegram-bot
+**Supervisors:**
+[Univ.-Prof. Dipl.-Ing. Dr.techn. Wolfgang Slany](https://github.com/wslany), [Dr.techn. BSc MSc Bernadette Spieler](https://github.com/bernadettespieler)  
+
+
 
 
 ## Table of Contents:

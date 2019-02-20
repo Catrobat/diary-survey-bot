@@ -61,6 +61,9 @@ def calc_block_time(time_t):
         debug("BLOCK", "Error undefined schedule interval", log=True)
         return "00:00"
 
+    if isinstance(interval, str):
+        return interval
+
     hh_start = int(interval[0][:2])
     hh_end = int(interval[1][:2])
     mm_begin = int(interval[0][3:])

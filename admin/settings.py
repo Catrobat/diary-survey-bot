@@ -9,7 +9,7 @@ DELETE = True
 
 # For testing purposes. Sets all block scheduling to x seconds.
 # To deactivate set it to False (0)
-QUICK_TEST = 5
+QUICK_TEST = 15
 
 # Default language if something goes wrong.
 DEFAULT_LANGUAGE = 'de'
@@ -22,17 +22,33 @@ DEFAULT_TIMEZONE = 'Europe/Vienna'
 CONDITION_SCHEME = 'OR'
 
 # Scheduling intervals for question blocks.
+# IMPORTANT: If you choose intervals, make sure they are at least 30min!
 SCHEDULE_INTERVALS = {
                         "RANDOM_1": ["08:00", "12:00"],
                         "RANDOM_2": ["13:00", "15:00"],
-                        "RANDOM_3": ["16:00", "20:00"]
+                        "RANDOM_3": ["16:00", "20:00"],
+                        "0700": "07:00",
+                        "0800": "08:00",
+                        "0900": "09:00",
+                        "1000": "10:00",
+                        "1100": "11:00",
+                        "1200": "12:00",
+                        "1300": "13:00",
+                        "1400": "14:00",
+                        "1500": "15:00",
+                        "1600": "16:00",
+                        "1700": "17:00",
+                        "1800": "18:00",
+                        "1900": "19:00",
+                        "2000": "20:00",
+                        "2100": "21:00"
                      }
 
 INFO_TEXT = {
-                "de": "pokemon@uni-graz.at",
-                "en": "pokemon@uni-graz.at",
-                "fr": "pokemon@uni-graz.at",
-                "es": "pokemon@uni-graz.at"
+                "de": "https://github.com/Catrobat/diary-survey-bot",
+                "en": "https://github.com/Catrobat/diary-survey-bot",
+                "fr": "https://github.com/Catrobat/diary-survey-bot",
+                "es": "https://github.com/Catrobat/diary-survey-bot"
             }
 
 STOP_TEXT = {
@@ -55,8 +71,3 @@ STOP_TEXT = {
                       " tu préfères arrêter de participer. Si tu changes d'avis, envoie-nous"
                       " un message avec le mot \"/start\", tu pourras recommencer tout de suite."
             }
-
-
-
-
-
