@@ -21,6 +21,7 @@
 - [Usage](#usage)
   - [Question format](#question-format)
   - [Settings](#settings)
+  - [Languages](#languages)
 - [Technical details](#technical-details)
   - [Database](#database)
   - [CSV](#csv)
@@ -243,6 +244,18 @@ own python functions.
 Emojis can simply be added as Unicode symbols into your text.
 [Link](http://unicode.org/emoji/charts/full-emoji-list.html).
 
+### Languages:
+If you desire to add an additional language you need to follow those steps:
+1. add an entry in the languages keyboard that you can find in the
+ **keyboard_presets.py** file.
+2. extend the set_language function in **participants.py** for your language.
+3. add a member to the DataSet class (format: q_set_xx, xx: language abbreviation)
+in the **data_set.py** file.
+4. extend the DataSet Constructor for your language. (**data_set.py**)
+5. extend the *return_question_set_by_language* function for your language 
+(**data_set.py**)  
+6. now you can write question_set_xx.json in the usual format and place them in
+the *survey/* module
 
 ## Technical Details:
 
@@ -264,3 +277,5 @@ This program was developed with the
 [Pycharm IDE by Jetbrains](https://www.jetbrains.com/pycharm/)
 and tested on a local machine. The telegram API is https based
 so you might need to check if necessary ports are open.
+
+

@@ -10,4 +10,5 @@ def app():
     w.show()
     sys.exit(my_app.exec_())
 
+
 app()

@@ -36,7 +36,8 @@ def start(bot: Bot, update: Update, job_queue):
     if update.message.chat_id not in data_set.participants:
         reply_markup = ReplyKeyboardMarkup(languages)
         try:
-            bot.send_message(chat_id=update.message.chat_id, text="Please choose a language:", reply_markup=reply_markup)
+            bot.send_message(chat_id=update.message.chat_id, text="Please choose a language:",
+                             reply_markup=reply_markup)
         except TelegramError as error:
             if error.message == 'Unauthorized':
                 return
@@ -97,7 +98,7 @@ def stop(bot: Bot, update: Update):
 def msg_handler(bot, update, job_queue):
     global data_set
     question_handler(bot, update, data_set, job_queue)
-    
+
 
 def info(bot: Bot, update: Update):
     global data_set
@@ -157,7 +158,6 @@ def main():
     updater.start_polling()
     updater.idle()
 
+
 if __name__ == '__main__':
     main()
-
-
