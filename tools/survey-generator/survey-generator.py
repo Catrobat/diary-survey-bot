@@ -7,7 +7,7 @@ Documentation: https://github.com/Catrobat/diary-survey-bot
 Telegram API:
 https://github.com/python-telegram-bot/python-telegram-bot
 """
-
+import argparse
 import json
 from collections import OrderedDict
 import random
@@ -43,7 +43,6 @@ class Question:
         self.status = ""
         self.variable = ""
 
-    # Todo: proper format checking
     def set_text(self, text):
         if isinstance(text, str):
             self.text = text
@@ -191,7 +190,7 @@ def generate_sample_survey(nr_of_days, nr_of_blocks, nr_of_questions, sample_dat
         day.set_day(i + 1)
         for j in range(nr_of_blocks):
             block = Block()
-            block.set_time(t_map[j])
+            block.set_time(t_map.setdefault(j, "1200"))
             for k in range(nr_of_questions):
                 pick = random.choice(sample_data)
                 question = Question()
@@ -205,6 +204,17 @@ def generate_sample_survey(nr_of_days, nr_of_blocks, nr_of_questions, sample_dat
     return survey
 
 
-# Todo write a proper argparse and possibly add questions for first and last day/block
-survey = generate_sample_survey(2, 2, 2, SAMPLE_DATA)
-print(json.dumps(survey.get_object()))
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("days", help="Enter the amount of days for your survey.", type=int)
+    parser.add_argument("blocks", help="Enter the amount of blocks for your survey.", type=int)
+    parser.add_argument("questions", help="Enter the amount of questions for your survey.", type=int)
+
+    args = parser.parse_args()
+    survey = generate_sample_survey(args.days, args.blocks, args.questions, SAMPLE_DATA)
+
+    with open('question_set_de.json', 'w') as outfile:
+        json.dump(survey.get_object(), outfile, indent=2)
+
+if __name__ == '__main__':
+    main()

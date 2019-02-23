@@ -186,8 +186,10 @@ important that this timezone is a timezone defined in
 [pytz](https://pypi.python.org/pypi/pytz?).
 Otherwise the program might crash.
 - **SCHEDULE_INTERVALS:** A python dictionary that maps the Keywords from the
-time value (question-blocks) to a interval format like this: ["hh:mm","hh:mm"]
-with a minimum offset from 30min.
+time value (question-blocks) to a interval format like this: 
+KEYWORD: ["hh:mm","hh:mm"] with a minimum offset from 30min. 
+Further more simple fixed schedules can be
+defined as KEYWORD: "hh:mm".
 - **INFO_TEXT:** A python dictionary that maps the info text for the /info to a
 language abbreviation.
 - **STOP_TEXT:** A python dictionary that maps the stop text for the /stop to a
