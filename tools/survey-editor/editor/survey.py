@@ -1,35 +1,4 @@
-"""
-diary-survey-bot 2.0
-
-Software-Design: Philipp Feldner
-Documentation: https://github.com/Catrobat/diary-survey-bot
-
-Telegram API:
-https://github.com/python-telegram-bot/python-telegram-bot
-"""
-import argparse
-import json
 from collections import OrderedDict
-import random
-
-SAMPLE_DATA = [
-    ["Considering your complete experience with our company, how likely would you be to recommend us to a friend "
-     "or colleague?", [["1"], ["2"], ["3"], ["4"]], ["5"]],
-
-    ["Are you in any physical pain?", [["Yes"], ["No"]]],
-
-    ["How much did you drink today (in l)?", []],
-
-    ["How much time did you spent studying today? (in h)", []],
-
-    ["What is your gender?", [["male"], ["female"]]],
-
-    ["Do you have siblings?", [["Yes"], ["No"]]],
-
-    ["Who wrote the book: Brave New World?", [["Aldous Huxley"], ["George Orwell"]]],
-
-    ["Do you have any programming experience?", [["Yes"], ["No"]]]
-]
 
 
 class Question:
@@ -93,7 +62,6 @@ class Question:
 
     def set_force_kb_reply(self):
         self.choice.append(["FORCE_KB_REPLY"])
-
 
     def get_object(self):
         return OrderedDict([("text", self.text),
@@ -184,41 +152,3 @@ class Survey:
 
     def get_object(self):
         return self.days
-
-
-def generate_sample_survey(nr_of_days, nr_of_blocks, nr_of_questions, sample_data):
-    t_map = {0: "0800", 1: "1200", 2: "1600", 3: "2000"}
-    survey = Survey()
-    for i in range(nr_of_days):
-        day = Day()
-        day.set_day(i + 1)
-        for j in range(nr_of_blocks):
-            block = Block()
-            block.set_time(t_map.setdefault(j, "1200"))
-            for k in range(nr_of_questions):
-                pick = random.choice(sample_data)
-                question = Question()
-                question.set_text(pick[0])
-                question.set_choice(pick[1])
-                question.set_variable("question" + str(k))
-                block.add_question(question)
-            day.add_block(block)
-        survey.add_day(day)
-
-    return survey
-
-
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("days", help="Enter the amount of days for your survey.", type=int)
-    parser.add_argument("blocks", help="Enter the amount of blocks for your survey.", type=int)
-    parser.add_argument("questions", help="Enter the amount of questions for your survey.", type=int)
-
-    args = parser.parse_args()
-    survey = generate_sample_survey(args.days, args.blocks, args.questions, SAMPLE_DATA)
-
-    with open('question_set_de.json', 'w') as outfile:
-        json.dump(survey.get_object(), outfile, indent=2)
-
-if __name__ == '__main__':
-    main()
