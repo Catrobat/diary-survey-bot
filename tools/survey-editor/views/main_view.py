@@ -48,5 +48,6 @@ class MainView(QMainWindow):
     @pyqtSlot(bool)
     def change_view(self):
         print("hello")
+        self.setCentralWidget(self.question_view)
         self.question_view.show()
 
