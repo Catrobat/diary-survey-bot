@@ -8,7 +8,7 @@
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication
-from model.survey import Survey
+from model.survey import Survey, Model
 from controllers.main_controller import MainController
 from views.main_view_ui import Ui_main_window
 from views.main_view import MainView
@@ -17,7 +17,7 @@ from views.main_view import MainView
 class App(QApplication):
     def __init__(self, sys_argv):
         super(App, self).__init__(sys_argv)
-        self.model = Survey
+        self.model = Model()
         self.main_controller = MainController(self.model)
         self.main_view = MainView(self.model, self.main_controller)
         self.main_view.show()

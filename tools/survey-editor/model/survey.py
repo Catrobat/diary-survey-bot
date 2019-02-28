@@ -1,6 +1,5 @@
 from collections import OrderedDict
 
-
 class Question:
     def __init__(self):
         self.text = ""
@@ -141,7 +140,8 @@ class Day:
 
 
 class Survey:
-    def __init__(self):
+    def __init__(self, language):
+        self.language = language
         self.days = []
 
     def add_day(self, day):
@@ -152,3 +152,12 @@ class Survey:
 
     def get_object(self):
         return self.days
+
+
+class Model:
+    def __init__(self):
+        self.dir = ""
+        self.languages = []
+        self.surveys = {}
+
+
