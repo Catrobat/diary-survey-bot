@@ -94,13 +94,13 @@ class Question:
     def set_force_kb_reply(self):
         self.choice.append(["FORCE_KB_REPLY"])
 
-
     def get_object(self):
         return OrderedDict([("text", self.text),
                             ("choice", self.choice),
                             ("condition_required", self.condition_required),
                             ("condition", self.condition),
                             ("commands", self.commands),
+                            ("meta", self.meta),
                             ("variable", self.variable)])
 
 
@@ -152,7 +152,7 @@ class Day:
         if isinstance(day, int):
             self.day = day
         else:
-            print("day: " + day + " should be a string.")
+            print("day: " + day + " should be a int.")
 
     def set_meta(self, meta):
         if isinstance(meta, str):

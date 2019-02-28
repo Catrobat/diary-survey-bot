@@ -1,3 +1,4 @@
+import json
 import re
 import os
 
@@ -20,8 +21,8 @@ class MainView(QMainWindow):
         self._ui.setupUi(self)
 
         # connect widgets to controller
-        #self._ui.spinBox_amount.valueChanged.connect(self._main_controller.change_amount)
-        #self._ui.pushButton_reset.clicked.connect(lambda: self._main_controller.change_amount(0))
+        # self._ui.spinBox_amount.valueChanged.connect(self._main_controller.change_amount)
+        # self._ui.pushButton_reset.clicked.connect(lambda: self._main_controller.change_amount(0))
 
         self._ui.placeholder_1.clicked.connect(self.change_view)
         question_controller = QuestionController(Question)
@@ -36,7 +37,7 @@ class MainView(QMainWindow):
         # self._model.enable_reset_changed.connect(self.on_enable_reset_changed)
 
         # set a default value
-        #self._main_controller.change_amount(42)
+        # self._main_controller.change_amount(42)
 
     # @pyqtSlot(int)
     # def on_amount_changed(self, value):
@@ -57,20 +58,27 @@ class MainView(QMainWindow):
         self.question_view.show()
 
     def init_project(self):
-        rootdir = str(QFileDialog.getExistingDirectory(self._ui.widget, "Select Directory"))
-        print("working directory set to: " + rootdir)
-        self._model.dir = rootdir
+        root_dir = str(QFileDialog.getExistingDirectory(self._ui.widget, "Select Directory"))
+        print("working directory set to: " + root_dir)
+        self._model.dir = root_dir
 
         regex = re.compile('(question_set_..\.json)')
 
-        for root, dirs, files in os.walk(rootdir):
+        for root, dirs, files in os.walk(root_dir):
             for file in files:
                 if regex.match(file):
-                    self._ui.listWidget.addItem(file)
+                    try:
+                        language = file.split("_")[2].split(".")[0]
+                        with open(root_dir + "/" + file) as fp:
+                            survey = json.load(fp)
+                            self._model.add_survey(survey, language)
+                    except ValueError as e:
+                        # Todo: Error handling
+                        print(e)
+
+        default = self._model.default_language
+        for item in self._model.surveys[default].days:
+            self._ui.listWidget.addItem(item.info())
 
     def test(self):
         print(self._ui.listWidget.currentItem().text())
-
-
-
-
