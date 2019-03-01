@@ -1,20 +1,16 @@
-import json
-import re
-import os
-
 from PyQt5.QtWidgets import QMainWindow, QFileDialog
 from PyQt5.QtCore import pyqtSlot
 
+from controllers.block_controller import BlockController
 from controllers.question_controller import QuestionController
+from views.block_view import BlockView
 from views.main_view_ui import Ui_main_window
 from views.question_view import QuestionView
 from model.survey import Question
 
-# The view class should contain the minimal code required to connect to the signals coming from
-# the widgets in your layout.View events can call and pass basic information to a method in the view
-# class and onto a method in a controller class, where any logic should be.
 
-
+# The view class should mainly contain code to handle events and trigger
+# events in/from the user interface.
 class MainView(QMainWindow):
     def __init__(self, model, main_controller):
         super().__init__()
@@ -26,38 +22,21 @@ class MainView(QMainWindow):
 
         self.day_frame_active = False
 
+        self.block_view = None
+
         # connect widgets to controller
-        # self._ui.spinBox_amount.valueChanged.connect(self._main_controller.change_amount)
         # self._ui.pushButton_reset.clicked.connect(lambda: self._main_controller.change_amount(0))
 
-        self._ui.placeholder_1.clicked.connect(self.change_view)
-        question_controller = QuestionController(Question)
-        self.question_view = QuestionView(Question, question_controller)
+        # self._ui.placeholder_1.clicked.connect(self.change_view)
+        # question_controller = QuestionController(Question)
+        # self.question_view = QuestionView(Question, question_controller)
 
         # Register connections here
         self._ui.directory_tool.clicked.connect(self.change_root_dir)
         self._ui.day_list.itemSelectionChanged.connect(self.day_list_event)
         self._ui.block_list.itemSelectionChanged.connect(self.block_list_event)
 
-        # listen for model event signals
-        # self._model.amount_changed.connect(self.on_amount_changed)
-        # self._model.even_odd_changed.connect(self.on_even_odd_changed)
-        # self._model.enable_reset_changed.connect(self.on_enable_reset_changed)
-
-        # set a default value
-        # self._main_controller.change_amount(42)
-
-    # @pyqtSlot(int)
-    # def on_amount_changed(self, value):
-    #     self._ui.spinBox_amount.setValue(value)
-    #
-    # @pyqtSlot(str)
-    # def on_even_odd_changed(self, value):
-    #     self._ui.label_even_odd.setText(value)
-    #
-    # @pyqtSlot(bool)
-    # def on_enable_reset_changed(self, value):
-    #     self._ui.pushButton_reset.setEnabled(value)
+        self._ui.edit_block_button.clicked.connect(self.edit_block)
 
     def enable_day(self):
         self._ui.headline_day.setEnabled(True)
@@ -84,6 +63,7 @@ class MainView(QMainWindow):
         self.day_frame_active = False
 
     def change_view(self):
+        # Todo: remove/change
         print("hello")
         self.setCentralWidget(self.question_view)
         self.question_view.show()
@@ -126,5 +106,13 @@ class MainView(QMainWindow):
         if not self._ui.block_list.selectedItems():
             return
 
+        index = self._ui.block_list.currentRow()
+        self._model.u_block = self._model.u_day.blocks[index]
+
         self._ui.edit_block_button.setEnabled(True)
         self._ui.delete_block_button.setEnabled(True)
+
+    def edit_block(self):
+        self.block_view = BlockView(self._model, BlockController(self._model))
+        self.setCentralWidget(self.block_view)
+        self.block_view.show()

@@ -6,25 +6,14 @@ from PyQt5.QtCore import QObject, pyqtSlot
 
 
 # The controller class performs any logic and sets data in the model.
-
-
 class MainController(QObject):
     def __init__(self, model):
         super().__init__()
         self._model = model
         self._view = None
 
-    @pyqtSlot(int)
-    def change_amount(self, value):
-        self._model.amount = value
-
-        # calculate even or odd
-        self._model.even_odd = 'odd' if value % 2 else 'even'
-
-        # calculate button enabled state
-        self._model.enable_reset = True if value else False
-
     def init_project(self):
+        # Todo: add handling of some config.json file
         regex = re.compile('(question_set_..\.json)')
         root_dir = self._model.dir
 
@@ -46,9 +35,6 @@ class MainController(QObject):
 
         self._model.u_survey = self._model.surveys[self._model.default_language]
         self._view.fill_day_list(day_list)
-
-    def placeholder(self):
-        print()
 
 
 

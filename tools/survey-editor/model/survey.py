@@ -249,6 +249,7 @@ class Model:
         # Todo: Find a place to define default language
         self.default_language = "de"
 
+        self.u_language = self.default_language
         self.u_survey = None
         self.u_day = None
         self.u_block = None
