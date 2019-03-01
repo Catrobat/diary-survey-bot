@@ -20,6 +20,7 @@ class App(QApplication):
         self.model = Model()
         self.main_controller = MainController(self.model)
         self.main_view = MainView(self.model, self.main_controller)
+        self.main_controller._view = self.main_view
         self.main_view.show()
 
 

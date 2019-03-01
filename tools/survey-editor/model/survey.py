@@ -12,6 +12,28 @@ class Question:
         self.status = ""
         self.variable = ""
 
+        self.survey = None
+        self.day = None
+        self.block = None
+
+    def set_survey(self, survey):
+        if isinstance(survey, Survey):
+            self.survey = survey
+        else:
+            print("survey should be of type Survey.")
+
+    def set_day(self, day):
+        if isinstance(day, Day):
+            self.day = day
+        else:
+            print("day should be of type Day.")
+
+    def set_block(self, block):
+        if isinstance(block, Block):
+            self.block = block
+        else:
+            print("block should be of type Block.")
+
     def set_text(self, text):
         if isinstance(text, str):
             self.text = text
@@ -79,6 +101,21 @@ class Block:
         self.meta = ""
         self.questions = []
 
+        self.survey = None
+        self.day = None
+
+    def set_survey(self, survey):
+        if isinstance(survey, Survey):
+            self.survey = survey
+        else:
+            print("survey should be of type Survey.")
+
+    def set_day(self, day):
+        if isinstance(day, Day):
+            self.day = day
+        else:
+            print("day should be of type Day.")
+
     def set_time(self, time):
         if isinstance(time, str):
             self.time = time
@@ -109,12 +146,23 @@ class Block:
                             ("meta", self.meta),
                             ("questions", self.questions)])
 
+    def info(self):
+        return self.time + " | " + str(len(self.questions)) + " questions"
+
 
 class Day:
     def __init__(self):
         self.day = -1
         self.meta = ""
         self.blocks = []
+
+        self.survey = None
+
+    def set_survey(self, survey):
+        if isinstance(survey, Survey):
+            self.survey = survey
+        else:
+            print("survey should be of type Survey.")
 
     def set_day(self, day):
         if isinstance(day, int):
@@ -151,15 +199,21 @@ class Survey:
             try:
                 for day in survey:
                     d = Day()
+                    d.set_survey(self)
                     d.set_day(day["day"])
                     d.set_meta(day["meta"])
                     for block in day["blocks"]:
                         b = Block()
+                        b.set_survey(self)
+                        b.set_day(d)
                         b.set_time(block["time"])
                         b.set_meta(block["meta"])
                         b.set_settings(block["settings"])
                         for question in block["questions"]:
                             q = Question()
+                            q.set_survey(self)
+                            q.set_day(d)
+                            q.set_block(b)
                             q.set_text(question["text"])
                             q.set_meta(question["meta"])
                             q.set_choice(question["choice"])
@@ -194,6 +248,11 @@ class Model:
         self.surveys = {}
         # Todo: Find a place to define default language
         self.default_language = "de"
+
+        self.u_survey = None
+        self.u_day = None
+        self.u_block = None
+        self.u_question = None
 
     def add_survey(self, json_survey, language):
         self.languages.append(language)
