@@ -13,21 +13,25 @@ class MainController(QObject):
         self._view = None
 
     def init_project(self):
+        self._view.disable_lang()
         # Todo: add handling of some config.json file
         regex = re.compile('(question_set_..\.json)')
         root_dir = self._model.dir
+        lang_list = []
 
         for root, dirs, files in os.walk(root_dir):
             for file in files:
                 if regex.match(file):
                     try:
                         language = file.split("_")[2].split(".")[0]
+                        lang_list.append(language)
                         with open(root_dir + "/" + file) as fp:
                             survey = json.load(fp)
                             self._model.add_survey(survey, language)
                     except ValueError as e:
                         # Todo: Error handling
                         print(e)
+                        return -1
 
         day_list = []
         for day in self._model.surveys[self._model.default_language].days:
@@ -35,6 +39,7 @@ class MainController(QObject):
 
         self._model.u_survey = self._model.surveys[self._model.default_language]
         self._view.fill_day_list(day_list)
+        self._view.fill_lang_list(lang_list)
 
 
 

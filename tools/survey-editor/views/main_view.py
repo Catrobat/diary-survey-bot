@@ -62,6 +62,22 @@ class MainView(QMainWindow):
         self._ui.delete_block_button.setDisabled(True)
         self.day_frame_active = False
 
+    def enable_lang(self):
+        self._ui.headline_languages.setEnabled(True)
+        self._ui.lang_add_button.setEnabled(True)
+        self._ui.lang_delete_button.setEnabled(True)
+        self._ui.iso_label.setEnabled(True)
+        self._ui.lang_field.setEnabled(True)
+        self._ui.lang_list.setEnabled(True)
+
+    def disable_lang(self):
+        self._ui.headline_languages.setDisabled(True)
+        self._ui.lang_add_button.setDisabled(True)
+        self._ui.lang_delete_button.setDisabled(True)
+        self._ui.iso_label.setDisabled(True)
+        self._ui.lang_field.setDisabled(True)
+        self._ui.lang_list.setDisabled(True)
+
     def change_view(self):
         # Todo: remove/change
         print("hello")
@@ -71,8 +87,10 @@ class MainView(QMainWindow):
     def change_root_dir(self):
         self._model.dir = str(QFileDialog.getExistingDirectory(self._ui.directory_tool, "Select Directory"))
         self._controller.init_project()
+        self._ui.directory_display.setText(self._model.dir)
 
     def fill_day_list(self, day_list):
+        self._ui.day_list.clear()
         for info in day_list:
             self._ui.day_list.addItem(info)
 
@@ -80,6 +98,13 @@ class MainView(QMainWindow):
         self._ui.block_list.clear()
         for info in block_list:
             self._ui.block_list.addItem(info)
+
+    def fill_lang_list(self, lang_list):
+        self._ui.lang_list.clear()
+        for info in lang_list:
+            self._ui.lang_list.addItem(info)
+
+        self.enable_lang()
 
     def day_list_event(self):
         self._ui.delete_block_button.setDisabled(True)
