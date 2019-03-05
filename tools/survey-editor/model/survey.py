@@ -226,7 +226,6 @@ class Survey:
                     self.add_day(d)
             except KeyError as e:
                 print(e)
-        print(self)
 
     def info(self):
         pass
@@ -246,8 +245,17 @@ class Model:
         self.dir = ""
         self.languages = []
         self.surveys = {}
-        # Todo: Find a place to define default language
+        self.main_view = None
+        self.main_widget = None
+
         self.default_language = "de"
+        self.recent_projects = []
+        self.time_slots = []
+        self.strict_time_slots = True
+        self.custom_keyboards = []
+
+        self.keyboard_templates = []
+        self.question_templates = []
 
         self.u_language = self.default_language
         self.u_survey = None
@@ -259,3 +267,6 @@ class Model:
         self.languages.append(language)
         survey = Survey(json_survey, language)
         self.surveys[language] = survey
+
+    def update_config_file(self):
+        pass  # Todo

@@ -2,11 +2,8 @@ from PyQt5.QtWidgets import QMainWindow, QFileDialog
 from PyQt5.QtCore import pyqtSlot
 
 from controllers.block_controller import BlockController
-from controllers.question_controller import QuestionController
 from views.block_view import BlockView
 from views.main_view_ui import Ui_main_window
-from views.question_view import QuestionView
-from model.survey import Question
 
 
 # The view class should mainly contain code to handle events and trigger
@@ -19,22 +16,20 @@ class MainView(QMainWindow):
         self._controller = main_controller
         self._ui = Ui_main_window()
         self._ui.setupUi(self)
+        self._model.main_view = self
+        self._model.main_widget = self.centralWidget()
 
         self.day_frame_active = False
-
         self.block_view = None
-
-        # connect widgets to controller
-        # self._ui.pushButton_reset.clicked.connect(lambda: self._main_controller.change_amount(0))
-
-        # self._ui.placeholder_1.clicked.connect(self.change_view)
-        # question_controller = QuestionController(Question)
-        # self.question_view = QuestionView(Question, question_controller)
 
         # Register connections here
         self._ui.directory_tool.clicked.connect(self.change_root_dir)
         self._ui.day_list.itemSelectionChanged.connect(self.day_list_event)
         self._ui.block_list.itemSelectionChanged.connect(self.block_list_event)
+
+        self._ui.project_list.itemSelectionChanged.connect(self.activate_project_options)
+        self._ui.load_project_button.clicked.connect(self.load_project)
+        self._ui.delete_project_button.clicked.connect(self.delete_project)
 
         self._ui.edit_block_button.clicked.connect(self.edit_block)
 
@@ -78,16 +73,15 @@ class MainView(QMainWindow):
         self._ui.lang_field.setDisabled(True)
         self._ui.lang_list.setDisabled(True)
 
-    def change_view(self):
-        # Todo: remove/change
-        print("hello")
-        self.setCentralWidget(self.question_view)
-        self.question_view.show()
-
     def change_root_dir(self):
         self._model.dir = str(QFileDialog.getExistingDirectory(self._ui.directory_tool, "Select Directory"))
         self._controller.init_project()
         self._ui.directory_display.setText(self._model.dir)
+
+    def fill_project_list(self, project_list):
+        self._ui.project_list.clear()
+        for project in project_list:
+            self._ui.project_list.addItem(project)
 
     def fill_day_list(self, day_list):
         self._ui.day_list.clear()
@@ -141,3 +135,23 @@ class MainView(QMainWindow):
         self.block_view = BlockView(self._model, BlockController(self._model))
         self.setCentralWidget(self.block_view)
         self.block_view.show()
+
+    def activate_project_options(self):
+        self._ui.load_project_button.setEnabled(True)
+        self._ui.delete_project_button.setEnabled(True)
+
+    def deactivate_project_options(self):
+        self._ui.load_project_button.setDisabled(True)
+        self._ui.delete_project_button.setDisabled(True)
+
+    def load_project(self):
+        index = self._ui.project_list.currentRow()
+        self._model.dir = self._model.recent_projects[index]
+        self._controller.init_project()
+
+    def delete_project(self):
+        index = self._ui.project_list.currentRow()
+        self._ui.project_list.takeItem(index)
+        del self._model.recent_projects[index]
+        if len(self._model.recent_projects) == 0:
+            self.deactivate_project_options()

@@ -21,3 +21,11 @@ class BlockView(QWidget):
         q_controller = QuestionController(self._model)
         q = QuestionView(self._model, q_controller)
         self._ui.tabWidget.addTab(q, self._model.default_language)
+
+        self._ui.back_to_days_button.clicked.connect(self.back_to_days)
+
+    def back_to_days(self):
+        self._model.main_view.setCentralWidget()
+
+
+
