@@ -2,7 +2,9 @@ from PyQt5.QtWidgets import QMainWindow, QFileDialog
 from PyQt5.QtCore import pyqtSlot
 
 from controllers.block_controller import BlockController
+from controllers.day_controller import DayController
 from views.block_view import BlockView
+from views.day_view import DayView
 from views.main_view_ui import Ui_main_window
 
 
@@ -13,145 +15,19 @@ class MainView(QMainWindow):
         super().__init__()
 
         self._model = model
+        self._model.main_view = self
         self._controller = main_controller
         self._ui = Ui_main_window()
         self._ui.setupUi(self)
-        self._model.main_view = self
-        self._model.main_widget = self.centralWidget()
 
-        self.day_frame_active = False
-        self.block_view = None
+        self.day_controller = DayController(self._model)
+        self.block_controller = BlockController(self._model)
 
-        # Register connections here
-        self._ui.directory_tool.clicked.connect(self.change_root_dir)
-        self._ui.day_list.itemSelectionChanged.connect(self.day_list_event)
-        self._ui.block_list.itemSelectionChanged.connect(self.block_list_event)
+        self.day_view = DayView(self._model, self.day_controller)
+        self.block_view = BlockView(self._model, self.block_controller)
 
-        self._ui.project_list.itemSelectionChanged.connect(self.activate_project_options)
-        self._ui.load_project_button.clicked.connect(self.load_project)
-        self._ui.delete_project_button.clicked.connect(self.delete_project)
+        self.day_controller._view = self.day_view
+        self.block_controller._view = self.block_view
 
-        self._ui.edit_block_button.clicked.connect(self.edit_block)
-
-    def enable_day(self):
-        self._ui.headline_day.setEnabled(True)
-        self._ui.label_day.setEnabled(True)
-        self._ui.day_field.setEnabled(True)
-        self._ui.label_meta.setEnabled(True)
-        self._ui.meta_field.setEnabled(True)
-        self._ui.label_blocks.setEnabled(True)
-        self._ui.block_list.setEnabled(True)
-        self._ui.new_block_button.setEnabled(True)
-        self.day_frame_active = True
-
-    def disable_day(self):
-        self._ui.headline_day.setDisabled(True)
-        self._ui.label_day.setDisabled(True)
-        self._ui.day_field.setDisabled(True)
-        self._ui.label_meta.setDisabled(True)
-        self._ui.meta_field.setDisabled(True)
-        self._ui.label_blocks.setDisabled(True)
-        self._ui.block_list.setEnabled(True)
-        self._ui.new_block_button.setDisabled(True)
-        self._ui.edit_block_button.setDisabled(True)
-        self._ui.delete_block_button.setDisabled(True)
-        self.day_frame_active = False
-
-    def enable_lang(self):
-        self._ui.headline_languages.setEnabled(True)
-        self._ui.lang_add_button.setEnabled(True)
-        self._ui.lang_delete_button.setEnabled(True)
-        self._ui.iso_label.setEnabled(True)
-        self._ui.lang_field.setEnabled(True)
-        self._ui.lang_list.setEnabled(True)
-
-    def disable_lang(self):
-        self._ui.headline_languages.setDisabled(True)
-        self._ui.lang_add_button.setDisabled(True)
-        self._ui.lang_delete_button.setDisabled(True)
-        self._ui.iso_label.setDisabled(True)
-        self._ui.lang_field.setDisabled(True)
-        self._ui.lang_list.setDisabled(True)
-
-    def change_root_dir(self):
-        self._model.dir = str(QFileDialog.getExistingDirectory(self._ui.directory_tool, "Select Directory"))
-        self._controller.init_project()
-        self._ui.directory_display.setText(self._model.dir)
-
-    def fill_project_list(self, project_list):
-        self._ui.project_list.clear()
-        for project in project_list:
-            self._ui.project_list.addItem(project)
-
-    def fill_day_list(self, day_list):
-        self._ui.day_list.clear()
-        for info in day_list:
-            self._ui.day_list.addItem(info)
-
-    def fill_block_list(self, block_list):
-        self._ui.block_list.clear()
-        for info in block_list:
-            self._ui.block_list.addItem(info)
-
-    def fill_lang_list(self, lang_list):
-        self._ui.lang_list.clear()
-        for info in lang_list:
-            self._ui.lang_list.addItem(info)
-
-        self.enable_lang()
-
-    def day_list_event(self):
-        self._ui.delete_block_button.setDisabled(True)
-        self._ui.edit_block_button.setDisabled(True)
-
-        if not self._ui.day_list.selectedItems():
-            return
-
-        if not self.day_frame_active:
-            self.enable_day()
-
-        index = self._ui.day_list.currentRow()
-        day = self._model.u_survey.days[index]
-        self._model.u_day = day
-        self._ui.day_field.setValue(day.day)
-        self._ui.meta_field.setPlainText(day.meta)
-
-        block_list = []
-        for block in day.blocks:
-            block_list.append(block.info())
-        self.fill_block_list(block_list)
-
-    def block_list_event(self):
-        if not self._ui.block_list.selectedItems():
-            return
-
-        index = self._ui.block_list.currentRow()
-        self._model.u_block = self._model.u_day.blocks[index]
-
-        self._ui.edit_block_button.setEnabled(True)
-        self._ui.delete_block_button.setEnabled(True)
-
-    def edit_block(self):
-        self.block_view = BlockView(self._model, BlockController(self._model))
-        self.setCentralWidget(self.block_view)
-        self.block_view.show()
-
-    def activate_project_options(self):
-        self._ui.load_project_button.setEnabled(True)
-        self._ui.delete_project_button.setEnabled(True)
-
-    def deactivate_project_options(self):
-        self._ui.load_project_button.setDisabled(True)
-        self._ui.delete_project_button.setDisabled(True)
-
-    def load_project(self):
-        index = self._ui.project_list.currentRow()
-        self._model.dir = self._model.recent_projects[index]
-        self._controller.init_project()
-
-    def delete_project(self):
-        index = self._ui.project_list.currentRow()
-        self._ui.project_list.takeItem(index)
-        del self._model.recent_projects[index]
-        if len(self._model.recent_projects) == 0:
-            self.deactivate_project_options()
+        self._ui.stackedWidget.addWidget(self.day_view)
+        self._ui.stackedWidget.addWidget(self.block_view)

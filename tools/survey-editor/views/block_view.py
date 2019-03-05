@@ -25,7 +25,7 @@ class BlockView(QWidget):
         self._ui.back_to_days_button.clicked.connect(self.back_to_days)
 
     def back_to_days(self):
-        self._model.main_view.setCentralWidget()
+        self._model.main_view._ui.stackedWidget.setCurrentIndex(0)
 
 
 
