@@ -26,12 +26,22 @@ class DayView(QWidget):
         self._ui.directory_tool.clicked.connect(self.change_root_dir)
         self._ui.day_list.itemSelectionChanged.connect(self.day_list_event)
         self._ui.block_list.itemSelectionChanged.connect(self.block_list_event)
-
         self._ui.project_list.itemSelectionChanged.connect(self.activate_project_options)
         self._ui.load_project_button.clicked.connect(self.load_project)
         self._ui.delete_project_button.clicked.connect(self.delete_project)
-
         self._ui.edit_block_button.clicked.connect(self.edit_block)
+
+    def enable_days(self):
+        self._ui.headline_days.setEnabled(True)
+        self._ui.day_list.setEnabled(True)
+        self._ui.new_day_button.setEnabled(True)
+        self._ui.delete_day_button.setEnabled(True)
+
+    def disable_days(self):
+        self._ui.headline_days.setDisabled(True)
+        self._ui.day_list.setDisabled(True)
+        self._ui.new_day_button.setDisabled(True)
+        self._ui.delete_day_button.setDisabled(True)
 
     def enable_day(self):
         self._ui.headline_day.setEnabled(True)
@@ -132,11 +142,7 @@ class DayView(QWidget):
         self._ui.delete_block_button.setEnabled(True)
 
     def edit_block(self):
-        # Todo
-        #self.block_view = BlockView(self._model, BlockController(self._model))
-        #self.setCentralWidget(self.block_view)
-        #self.block_view.show()
-        self._model.main_view._ui.stackedWidget.setCurrentIndex(1)
+        self.parent().setCurrentIndex(1)
 
     def activate_project_options(self):
         self._ui.load_project_button.setEnabled(True)

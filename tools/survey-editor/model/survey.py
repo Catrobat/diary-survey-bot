@@ -1,3 +1,4 @@
+import json
 from collections import OrderedDict
 
 
@@ -146,6 +147,9 @@ class Block:
                             ("meta", self.meta),
                             ("questions", self.questions)])
 
+    def get_number_of_questions(self):
+        return len(self.questions)
+
     def info(self):
         return self.time + " | " + str(len(self.questions)) + " questions"
 
@@ -187,8 +191,15 @@ class Day:
                             ("meta", self.meta),
                             ("blocks", self.blocks)])
 
+    def get_number_of_questions(self):
+        amount = 0
+        for block in self.blocks:
+            amount += block.get_number_of_questions()
+        return amount
+
     def info(self):
-        return "#" + str(self.day) + " | " + str(len(self.blocks)) + " blocks"
+        return "#" + str(self.day) + " | " + str(len(self.blocks)) + " blocks | " + \
+               str(self.get_number_of_questions()) + " questions"
 
 
 class Survey:
@@ -239,14 +250,18 @@ class Survey:
     def get_object(self):
         return self.days
 
+    def get_number_of_questions(self):
+        amount = 0
+        for day in self.days:
+            amount += day.get_number_of_questions()
+        return amount
+
 
 class Model:
     def __init__(self):
         self.dir = ""
         self.languages = []
         self.surveys = {}
-        self.main_view = None
-        self.main_widget = None
 
         self.default_language = "de"
         self.recent_projects = []
@@ -269,4 +284,18 @@ class Model:
         self.surveys[language] = survey
 
     def update_config_file(self):
-        pass  # Todo
+        config = OrderedDict([("default-language", self.default_language),
+                              ("recent-projects", self.recent_projects),
+                              ("time-slots", self.time_slots),
+                              ("custom-keyboard", self.custom_keyboards),
+                              ("keyboard-templates", self.keyboard_templates),
+                              ("question-templates", self.question_templates),
+                              ("strict-time-slots", self.strict_time_slots)])
+
+        try:
+            with open(self.dir + "/config.json", "w") as fp:
+                json.dump(config, fp)
+        except FileExistsError as e:
+            # Todo: Error handling
+            print(e)
+            return -1

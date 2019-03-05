@@ -4,6 +4,7 @@ import re
 from PyQt5.QtCore import QObject, pyqtSlot
 
 # The controller class performs any logic and sets data in the model.
+from resources.languages import iso_639_choices
 
 
 class DayController(QObject):
@@ -35,13 +36,19 @@ class DayController(QObject):
                         return -1
 
         day_list = []
+        self._model.languages = lang_list
         for day in self._model.surveys[self._model.default_language].days:
             day_list.append(day.info())
 
         self._model.u_survey = self._model.surveys[self._model.default_language]
         self._view.fill_day_list(day_list)
-        self._view.fill_lang_list(lang_list)
+
+        lang_info = []
+        for item in lang_list:
+            lang_info.append(item + " -> " + iso_639_choices[item])
+        self._view.fill_lang_list(lang_info)
         self._view.fill_project_list(self._model.recent_projects)
+        self._view.enable_days()
 
     def init_config(self):
         try:

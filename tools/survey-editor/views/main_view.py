@@ -28,6 +28,12 @@ class MainView(QMainWindow):
 
         self.day_controller._view = self.day_view
         self.block_controller._view = self.block_view
-
         self._ui.stackedWidget.addWidget(self.day_view)
         self._ui.stackedWidget.addWidget(self.block_view)
+
+        self._ui.stackedWidget.currentChanged.connect(self.widget_change)
+
+    def widget_change(self):
+        index = self._ui.stackedWidget.currentIndex()
+        if index == 1:
+            self.block_view.populate()
