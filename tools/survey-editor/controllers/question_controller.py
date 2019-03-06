@@ -12,5 +12,5 @@ class QuestionController(QObject):
     def update_choice(self, choices):
         choice = []
         for i in range(choices.count()):
-            choice.append(choices.item(i))
-        print(choice)
+            choice.append(choices.item(i).text())
+            # print(choice) todo

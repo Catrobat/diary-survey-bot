@@ -12,23 +12,109 @@ import json
 from collections import OrderedDict
 import random
 
-SAMPLE_DATA = [
+SAMPLE_DATA_EN = [
     ["Considering your complete experience with our company, how likely would you be to recommend us to a friend "
-     "or colleague?", [["1"], ["2"], ["3"], ["4"]], ["5"]],
+     "or colleague?", [["1"], ["2"], ["3"], ["4"]], ["5"],
+     "Question about company experience",
+     "XP"],
 
-    ["Are you in any physical pain?", [["Yes"], ["No"]]],
+    ["Are you in any physical pain?", [["Yes"], ["No"]],
+     "Question about physical pain",
+     "PAIN"],
 
-    ["How much did you drink today (in l)?", []],
+    ["How much did you drink today (in l)?", [],
+     "Question about drinking",
+     "DRINK"],
 
-    ["How much time did you spent studying today? (in h)", []],
+    ["How much time did you spent studying today (in h)?", [],
+     "Question about studying",
+     "STUDY"],
 
-    ["What is your gender?", [["male"], ["female"]]],
+    ["What is your gender?", [["male"], ["female"]],
+     "Question about gender",
+     "GENDER"],
 
-    ["Do you have siblings?", [["Yes"], ["No"]]],
+    ["Do you have siblings?", [["Yes"], ["No"]],
+     "Question about siblings",
+     "SIBLINGS"],
 
-    ["Who wrote the book: Brave New World?", [["Aldous Huxley"], ["George Orwell"]]],
+    ["Who wrote the book: Brave New World?", [["Aldous Huxley"], ["George Orwell"], ["Carl Sagan"]],
+     "Question about author",
+     "AUTHOR"],
 
-    ["Do you have any programming experience?", [["Yes"], ["No"]]]
+    ["Do you have any programming experience?", [["Yes"], ["No"]],
+     "Question about programming",
+     "PROGRAMMING"]
+]
+
+SAMPLE_DATA_DE = [
+    ["Wenn Sie Ihre gesammte Erfahrung mit unserer Firma in Betracht ziehen, wie wahrscheinlich ist es, dass Sie uns"
+     "an einen Freund weiterempfehlen.", [["1"], ["2"], ["3"], ["4"]], ["5"],
+     "Question about company experience",
+     "XP"],
+
+    ["Habe Sie irgendwelche Schmerzen", [["Ja"], ["Nein"]],
+     "Question about physical pain",
+     "PAIN"],
+
+    ["Wieviel haben Sie heute getrunken (in l)?", [],
+     "Question about drinking",
+     "DRINK"],
+
+    ["Wieviel Zeit haben Sie heute mit lernen verbracht (in h)?", [],
+     "Question about studying",
+     "STUDY"],
+
+    ["Sind sie männlich oder weiblich?", [["männlich"], ["weiblich"]],
+     "Question about gender",
+     "GENDER"],
+
+    ["Haben Sie Geschwister?", [["Ja"], ["Nein"]],
+     "Question about siblings",
+     "SIBLINGS"],
+
+    ["Wer ist der Autor des Buches: Brave New World?", [["Aldous Huxley"], ["George Orwell"], ["Carl Sagan"]],
+     "Question about author",
+     "AUTHOR"],
+
+    ["Haben Sie Programmiererfahrung?", [["Yes"], ["No"]],
+     "Question about programming",
+     "PROGRAMMING"]
+]
+
+SAMPLE_DATA_IT = [
+    ["Considerando la tua completa esperienza con la nostra azienda, quanto probabilmente vorresti raccomandarci "
+     "ad un amico o collega?", [["1"], ["2"], ["3"], ["4"]], ["5"],
+     "Question about company experience",
+     "XP"],
+
+    ["Senti dolore?", [["Si"], ["No"]],
+     "Question about physical pain",
+     "PAIN"],
+
+    ["Quanto hai bevuto oggi (in l)?", [],
+     "Question about drinking",
+     "DRINK"],
+
+    ["Quanto tempo hai studiato oggi (in h)?", [],
+     "Question about studying",
+     "STUDY"],
+
+    ["qual è il tuo genere?", [["maschio"], ["femina"]],
+     "Question about gender",
+     "GENDER"],
+
+    ["Hai fratelli?", [["Si"], ["No"]],
+     "Question about siblings",
+     "SIBLINGS"],
+
+    ["Chi ha scritto: Brave New World?", [["Aldous Huxley"], ["George Orwell"], ["Carl Sagan"]],
+     "Question about author",
+     "AUTHOR"],
+
+    ["Hai esperienza di programmazione?", [["Yes"], ["No"]],
+     "Question about programming",
+     "PROGRAMMING"]
 ]
 
 
@@ -215,10 +301,11 @@ def main():
     parser.add_argument("questions", help="Enter the amount of questions for your survey.", type=int)
 
     args = parser.parse_args()
-    survey = generate_sample_survey(args.days, args.blocks, args.questions, SAMPLE_DATA)
+    survey = generate_sample_survey(args.days, args.blocks, args.questions, SAMPLE_DATA_DE)
 
     with open('question_set_de.json', 'w') as outfile:
         json.dump(survey.get_object(), outfile, indent=2)
+
 
 if __name__ == '__main__':
     main()

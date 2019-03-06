@@ -10,11 +10,11 @@ class QuestionView(QWidget):
 
         self._lang = language
         self._model = model
-        self.controller = question_controller
+        self._controller = question_controller
         self._ui = Ui_question()
         self._ui.setupUi(self)
         # todo
-        #self._ui.choice_list..connect(lambda: self._controller.update_choice(self._ui.choice_list))
+        self._ui.choice_list.model().rowsMoved.connect(lambda: self._controller.update_choice(self._ui.choice_list))
 
     def populate(self):
         question = self._model.questions[self._lang]
@@ -25,7 +25,7 @@ class QuestionView(QWidget):
         self.fill_choices(question.choice)
         self.set_question_number(index + 1)
         self.fill_text(question.text)
-        #Todo
+        # Todo
 
     def set_question_number(self, nr):
         self._ui.headline.setText("Question #" + str(nr))
@@ -77,4 +77,3 @@ class QuestionView(QWidget):
         self._ui.rq_conditions_list.clear()
         for condition in conditions:
             self._ui.rq_conditions_list.addItem(condition)
-
