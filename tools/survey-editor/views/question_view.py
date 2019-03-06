@@ -8,18 +8,27 @@ class QuestionView(QWidget):
     def __init__(self, model, question_controller, language):
         super().__init__()
 
-        self._language = language
+        self._lang = language
         self._model = model
-        self._question_controller = question_controller
+        self.controller = question_controller
         self._ui = Ui_question()
         self._ui.setupUi(self)
-
-    def populate(self, language):
         # todo
-        pass
+        #self._ui.choice_list..connect(lambda: self._controller.update_choice(self._ui.choice_list))
+
+    def populate(self):
+        question = self._model.questions[self._lang]
+        index = question.block.questions.index(question)
+        self._ui.lang_info.setText(self._lang)
+        self._ui.day_info.setText("Day: #" + str(question.day.day))
+        self._ui.block_info.setText("Block: #" + str(question.day.blocks.index(question.block) + 1))
+        self.fill_choices(question.choice)
+        self.set_question_number(index + 1)
+        self.fill_text(question.text)
+        #Todo
 
     def set_question_number(self, nr):
-        self._ui.headline.setText("Question " + str(nr))
+        self._ui.headline.setText("Question #" + str(nr))
 
     def fill_text(self, text):
         self._ui.text_field.setPlainText(text)
@@ -36,7 +45,7 @@ class QuestionView(QWidget):
     def fill_choices(self, choices):
         self._ui.choice_list.clear()
         for choice in choices:
-            self._ui.choice_list.addItem(choice)
+            self._ui.choice_list.addItem(choice[0])
 
     def add_condition(self, condition):
         self._ui.choice_list.addItem(condition)
@@ -68,3 +77,4 @@ class QuestionView(QWidget):
         self._ui.rq_conditions_list.clear()
         for condition in conditions:
             self._ui.rq_conditions_list.addItem(condition)
+

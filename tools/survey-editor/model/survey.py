@@ -94,6 +94,9 @@ class Question:
                             ("commands", self.commands),
                             ("variable", self.variable)])
 
+    def info(self):
+        return "#" + str(self.block.questions.index(self) + 1) + " | " + self.text
+
 
 class Block:
     def __init__(self):
@@ -261,10 +264,9 @@ class Model:
     def __init__(self):
         self.dir = ""
         self.languages = []
-        self.surveys = {}
 
         self.default_language = "de"
-        self.recent_projects = []
+        self.recent_projects = ["/home/philipp/Development/Bachelorarbeit/diary-survey-bot/tools/survey-editor/survey"]
         self.time_slots = []
         self.strict_time_slots = True
         self.custom_keyboards = []
@@ -272,16 +274,28 @@ class Model:
         self.keyboard_templates = []
         self.question_templates = []
 
-        self.u_language = self.default_language
-        self.u_survey = None
-        self.u_day = None
-        self.u_block = None
-        self.u_question = None
+        self.lang = ""
+        self.surveys = {}
+        self.days = {}
+        self.blocks = {}
+        self.questions = {}
 
-    def add_survey(self, json_survey, language):
-        self.languages.append(language)
-        survey = Survey(json_survey, language)
-        self.surveys[language] = survey
+    def set_days(self, index):
+        for lang in self.languages:
+            self.days[lang] = self.surveys[lang].days[index]
+
+    def set_blocks(self, index):
+        for lang in self.languages:
+            self.blocks[lang] = self.days[lang].blocks[index]
+
+    def set_questions(self, index):
+        for lang in self.languages:
+            self.questions[lang] = self.blocks[lang].questions[index]
+
+    def add_survey(self, json_survey, lang):
+        self.languages.append(lang)
+        survey = Survey(json_survey, lang)
+        self.surveys[lang] = survey
 
     def update_config_file(self):
         config = OrderedDict([("default-language", self.default_language),
@@ -299,3 +313,6 @@ class Model:
             # Todo: Error handling
             print(e)
             return -1
+
+
+

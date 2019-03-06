@@ -7,8 +7,6 @@ from views.day_view_ui import Ui_Day
 
 # The view class should mainly contain code to handle events and trigger
 # events in/from the user interface.
-
-
 class DayView(QWidget):
     def __init__(self, model, day_controller):
         super().__init__()
@@ -21,6 +19,10 @@ class DayView(QWidget):
 
         self.day_frame_active = False
         self.block_view = None
+
+        # remove later
+        self._ui.project_list.addItem(
+            "/home/philipp/Development/Bachelorarbeit/diary-survey-bot/tools/survey-editor/survey")
 
         # Register connections here
         self._ui.directory_tool.clicked.connect(self.change_root_dir)
@@ -142,6 +144,9 @@ class DayView(QWidget):
         self._ui.delete_block_button.setEnabled(True)
 
     def edit_block(self):
+        self._model.lang = self._model.default_language
+        self._model.set_days(self._ui.day_list.currentRow())
+        self._model.set_blocks(self._ui.block_list.currentRow())
         self.parent().setCurrentIndex(1)
 
     def activate_project_options(self):

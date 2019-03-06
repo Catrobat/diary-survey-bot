@@ -7,3 +7,8 @@ class BlockController(QObject):
     def __init__(self, model):
         super().__init__()
         self._model = model
+
+    def get_question_info(self):
+        question_list = []
+        for question in self._model.u_block.questions:
+            pass
