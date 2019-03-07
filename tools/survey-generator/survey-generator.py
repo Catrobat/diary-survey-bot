@@ -14,78 +14,86 @@ import random
 
 SAMPLE_DATA_EN = [
     ["Considering your complete experience with our company, how likely would you be to recommend us to a friend "
-     "or colleague?", [["1"], ["2"], ["3"], ["4"]], ["5"],
-     "Question about company experience",
+     "or colleague?", [["1"], ["2"], ["3"], ["4"], ["5"]],
+     "Question about company experience.",
      "XP"],
 
     ["Are you in any physical pain?", [["Yes"], ["No"]],
-     "Question about physical pain",
+     "Question about physical pain.",
      "PAIN"],
 
     ["How much did you drink today (in l)?", [],
-     "Question about drinking",
+     "Question about drinking.",
      "DRINK"],
 
     ["How much time did you spent studying today (in h)?", [],
-     "Question about studying",
+     "Question about studying.",
      "STUDY"],
 
     ["What is your gender?", [["male"], ["female"]],
-     "Question about gender",
+     "Question about gender.",
      "GENDER"],
 
     ["Do you have siblings?", [["Yes"], ["No"]],
-     "Question about siblings",
+     "Question about siblings.",
      "SIBLINGS"],
 
     ["Who wrote the book: Brave New World?", [["Aldous Huxley"], ["George Orwell"], ["Carl Sagan"]],
-     "Question about author",
+     "Question about author.",
      "AUTHOR"],
 
     ["Do you have any programming experience?", [["Yes"], ["No"]],
-     "Question about programming",
-     "PROGRAMMING"]
+     "Question about programming.",
+     "PROGRAMMING"],
+
+    ["Choose a language!", [["German"], ["English"], ["Italian"]],
+     "Question about language.",
+     "LANGUAGE"]
 ]
 
 SAMPLE_DATA_DE = [
     ["Wenn Sie Ihre gesammte Erfahrung mit unserer Firma in Betracht ziehen, wie wahrscheinlich ist es, dass Sie uns"
-     "an einen Freund weiterempfehlen.", [["1"], ["2"], ["3"], ["4"]], ["5"],
-     "Question about company experience",
+     "an einen Freund weiterempfehlen.", [["1"], ["2"], ["3"], ["4"], ["5"]],
+     "Question about company experience.",
      "XP"],
 
     ["Habe Sie irgendwelche Schmerzen", [["Ja"], ["Nein"]],
-     "Question about physical pain",
+     "Question about physical pain.",
      "PAIN"],
 
     ["Wieviel haben Sie heute getrunken (in l)?", [],
-     "Question about drinking",
+     "Question about drinking.",
      "DRINK"],
 
     ["Wieviel Zeit haben Sie heute mit lernen verbracht (in h)?", [],
-     "Question about studying",
+     "Question about studying.",
      "STUDY"],
 
     ["Sind sie männlich oder weiblich?", [["männlich"], ["weiblich"]],
-     "Question about gender",
+     "Question about gender.",
      "GENDER"],
 
     ["Haben Sie Geschwister?", [["Ja"], ["Nein"]],
-     "Question about siblings",
+     "Question about siblings.",
      "SIBLINGS"],
 
     ["Wer ist der Autor des Buches: Brave New World?", [["Aldous Huxley"], ["George Orwell"], ["Carl Sagan"]],
-     "Question about author",
+     "Question about author.",
      "AUTHOR"],
 
     ["Haben Sie Programmiererfahrung?", [["Yes"], ["No"]],
-     "Question about programming",
-     "PROGRAMMING"]
+     "Question about programming.",
+     "PROGRAMMING"],
+
+    ["Wählen Sie eine Sprache!", [["Deutsch"], ["Englisch"], ["Italienisch"]],
+     "Question about language.",
+     "LANGUAGE"]
 ]
 
 SAMPLE_DATA_IT = [
     ["Considerando la tua completa esperienza con la nostra azienda, quanto probabilmente vorresti raccomandarci "
-     "ad un amico o collega?", [["1"], ["2"], ["3"], ["4"]], ["5"],
-     "Question about company experience",
+     "ad un amico o collega?", [["1"], ["2"], ["3"], ["4"], ["5"]],
+     "Question about company experience.",
      "XP"],
 
     ["Senti dolore?", [["Si"], ["No"]],
@@ -93,28 +101,32 @@ SAMPLE_DATA_IT = [
      "PAIN"],
 
     ["Quanto hai bevuto oggi (in l)?", [],
-     "Question about drinking",
+     "Question about drinking.",
      "DRINK"],
 
     ["Quanto tempo hai studiato oggi (in h)?", [],
-     "Question about studying",
+     "Question about studying.",
      "STUDY"],
 
     ["qual è il tuo genere?", [["maschio"], ["femina"]],
-     "Question about gender",
+     "Question about gender.",
      "GENDER"],
 
     ["Hai fratelli?", [["Si"], ["No"]],
-     "Question about siblings",
+     "Question about siblings.",
      "SIBLINGS"],
 
     ["Chi ha scritto: Brave New World?", [["Aldous Huxley"], ["George Orwell"], ["Carl Sagan"]],
-     "Question about author",
+     "Question about author.",
      "AUTHOR"],
 
     ["Hai esperienza di programmazione?", [["Yes"], ["No"]],
-     "Question about programming",
-     "PROGRAMMING"]
+     "Question about programming.",
+     "PROGRAMMING"],
+
+    ["Scegli una lingua!", [["Tedesco"], ["Inglese"], ["Italiano"]],
+     "Question about language.",
+     "LANGUAGE"]
 ]
 
 
@@ -274,24 +286,59 @@ class Survey:
 
 def generate_sample_survey(nr_of_days, nr_of_blocks, nr_of_questions, sample_data):
     t_map = {0: "0800", 1: "1200", 2: "1600", 3: "2000"}
-    survey = Survey()
+    survey_en = Survey()
+    survey_de = Survey()
+    survey_it = Survey()
     for i in range(nr_of_days):
-        day = Day()
-        day.set_day(i + 1)
+        day_en = Day()
+        day_de = Day()
+        day_it = Day()
+        day_en.set_day(i + 1)
+        day_de.set_day(i + 1)
+        day_it.set_day(i + 1)
         for j in range(nr_of_blocks):
-            block = Block()
-            block.set_time(t_map.setdefault(j, "1200"))
+            block_en = Block()
+            block_de = Block()
+            block_it = Block()
+            block_en.set_time(t_map.setdefault(j, "1200"))
+            block_de.set_time(t_map.setdefault(j, "1200"))
+            block_it.set_time(t_map.setdefault(j, "1200"))
             for k in range(nr_of_questions):
-                pick = random.choice(sample_data)
-                question = Question()
-                question.set_text(pick[0])
-                question.set_choice(pick[1])
-                question.set_variable("question" + str(k))
-                block.add_question(question)
-            day.add_block(block)
-        survey.add_day(day)
+                index = random.randint(0, len(SAMPLE_DATA_DE) - 1)
+                pick_en = SAMPLE_DATA_EN[index]
+                pick_de = SAMPLE_DATA_DE[index]
+                pick_it = SAMPLE_DATA_IT[index]
 
-    return survey
+                question_en = Question()
+                question_de = Question()
+                question_it = Question()
+
+                question_en.set_text(pick_en[0])
+                question_en.set_choice(pick_en[1])
+                question_en.set_meta(pick_en[2])
+                question_en.set_variable(pick_en[3])
+
+                question_de.set_text(pick_de[0])
+                question_de.set_choice(pick_de[1])
+                question_de.set_meta(pick_de[2])
+                question_de.set_variable(pick_de[3])
+
+                question_it.set_text(pick_it[0])
+                question_it.set_choice(pick_it[1])
+                question_it.set_meta(pick_it[2])
+                question_it.set_variable(pick_it[3])
+
+                block_en.add_question(question_en)
+                block_de.add_question(question_de)
+                block_it.add_question(question_it)
+            day_en.add_block(block_en)
+            day_de.add_block(block_de)
+            day_it.add_block(block_it)
+        survey_en.add_day(day_en)
+        survey_de.add_day(day_de)
+        survey_it.add_day(day_it
+                          )
+    return [("en", survey_en), ("de", survey_de), ("it", survey_it)]
 
 
 def main():
@@ -301,10 +348,12 @@ def main():
     parser.add_argument("questions", help="Enter the amount of questions for your survey.", type=int)
 
     args = parser.parse_args()
-    survey = generate_sample_survey(args.days, args.blocks, args.questions, SAMPLE_DATA_DE)
+    surveys = generate_sample_survey(args.days, args.blocks, args.questions, SAMPLE_DATA_DE)
 
-    with open('question_set_de.json', 'w') as outfile:
-        json.dump(survey.get_object(), outfile, indent=2)
+    for survey in surveys:
+        file = "question_set_" + survey[0] + ".json"
+        with open(file, 'w') as outfile:
+            json.dump(survey[1].get_object(), outfile, indent=2)
 
 
 if __name__ == '__main__':

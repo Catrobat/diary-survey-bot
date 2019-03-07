@@ -15,6 +15,8 @@ class QuestionView(QWidget):
         self._ui.setupUi(self)
         # todo
         self._ui.choice_list.model().rowsMoved.connect(lambda: self._controller.update_choice(self._ui.choice_list))
+        self._ui.choice_add_button.clicked.connect(self.add_choice)
+        self._ui.choice_delete_button.clicked.connect(self.delete_choice)
 
     def populate(self):
         question = self._model.questions[self._lang]
@@ -25,7 +27,17 @@ class QuestionView(QWidget):
         self.fill_choices(question.choice)
         self.set_question_number(index + 1)
         self.fill_text(question.text)
+        self.fill_meta(question.meta)
+        self.fill_variable(question.variable)
+        self.fill_commands(question.commands)
+        self.fill_condition(question.condition)
+        self.fill_condition_required(question.condition_required)
+
         # Todo
+        # Commands
+        # Conditions
+        # Conditions required
+        # ...
 
     def set_question_number(self, nr):
         self._ui.headline.setText("Question #" + str(nr))
@@ -36,11 +48,19 @@ class QuestionView(QWidget):
     def fill_meta(self, meta):
         self._ui.meta_field.setPlainText(meta)
 
-    def add_choice(self, choice):
-        self._ui.choice_list.addItem(choice)
+    def fill_variable(self, variable):
+        self._ui.variable_field.setText(variable)
+
+    def add_choice(self):
+        if self._ui.choice_field.toPlainText() != "":
+            self._ui.choice_list.addItem(self._ui.choice_field.toPlainText())
+            self._ui.choice_field.setPlainText("")
+            self._controller.update_choice(self._ui.choice_list)
 
     def delete_choice(self):
-        self._ui.choice_list.takeItem(self._ui.choice_list.currentIndex())
+        if self._ui.choice_list.selectedItems():
+            self._ui.choice_list.takeItem(self._ui.choice_list.currentRow())
+            self._controller.update_choice(self._ui.choice_list)
 
     def fill_choices(self, choices):
         self._ui.choice_list.clear()
@@ -53,7 +73,7 @@ class QuestionView(QWidget):
     def delete_condition(self):
         self._ui.choice_list.takeItem(self._ui.choice_list.currentIndex())
 
-    def fill_conditions(self, conditions):
+    def fill_condition(self, conditions):
         for condition in conditions:
             self._ui.condition_list.addItem(condition)
 

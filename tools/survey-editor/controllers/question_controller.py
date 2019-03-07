@@ -13,4 +13,4 @@ class QuestionController(QObject):
         choice = []
         for i in range(choices.count()):
             choice.append(choices.item(i).text())
-            # print(choice) todo
+        print(choice)
