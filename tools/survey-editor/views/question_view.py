@@ -10,13 +10,15 @@ class QuestionView(QWidget):
 
         self._lang = language
         self._model = model
+
         self._controller = question_controller
         self._ui = Ui_question()
         self._ui.setupUi(self)
-        # todo
+
         self._ui.choice_list.model().rowsMoved.connect(lambda: self._controller.update_choice(self._ui.choice_list))
         self._ui.choice_add_button.clicked.connect(self.add_choice)
         self._ui.choice_delete_button.clicked.connect(self.delete_choice)
+        self._ui.save_button.clicked.connect(self.save_data)
 
     def populate(self):
         question = self._model.questions[self._lang]
@@ -97,3 +99,11 @@ class QuestionView(QWidget):
         self._ui.rq_conditions_list.clear()
         for condition in conditions:
             self._ui.rq_conditions_list.addItem(condition)
+
+    def save_data(self):
+        variable = self._ui.variable_field.text()
+        meta = self._ui.meta_field.toPlainText()
+        text = self._ui.text_field.toPlainText()
+        self._model.set_question_metavar(meta, variable)
+        self._controller.update_question(text)
+        self._model.update_surveys()

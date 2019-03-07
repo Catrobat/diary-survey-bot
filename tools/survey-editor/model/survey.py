@@ -88,6 +88,7 @@ class Question:
 
     def get_object(self):
         return OrderedDict([("text", self.text),
+                            ("meta", self.meta),
                             ("choice", self.choice),
                             ("condition_required", self.condition_required),
                             ("condition", self.condition),
@@ -145,10 +146,13 @@ class Block:
             print("Object: " + question + " should be of type Question")
 
     def get_object(self):
+        questions = []
+        for question in self.questions:
+            questions.append(question.get_object())
         return OrderedDict([("time", self.time),
                             ("settings", self.settings),
                             ("meta", self.meta),
-                            ("questions", self.questions)])
+                            ("questions", questions)])
 
     def get_number_of_questions(self):
         return len(self.questions)
@@ -190,9 +194,12 @@ class Day:
             print("Object: " + block + " should be of type Block")
 
     def get_object(self):
+        blocks = []
+        for block in self.blocks:
+            blocks.append(block.get_object())
         return OrderedDict([("day", self.day),
                             ("meta", self.meta),
-                            ("blocks", self.blocks)])
+                            ("blocks", blocks)])
 
     def get_number_of_questions(self):
         amount = 0
@@ -251,7 +258,10 @@ class Survey:
             print("Object: " + day + " should be of type Day")
 
     def get_object(self):
-        return self.days
+        days = []
+        for day in self.days:
+            days.append(day.get_object())
+        return days
 
     def get_number_of_questions(self):
         amount = 0
@@ -313,6 +323,17 @@ class Model:
             # Todo: Error handling
             print(e)
             return -1
+
+    def update_surveys(self):
+        for lang in self.languages:
+            file = self.dir + "/question_set_" + lang + ".json"
+            with open(file, 'w') as outfile:
+                json.dump(self.surveys[lang].get_object(), outfile, indent=2)
+
+    def set_question_metavar(self, meta, var):
+        for lang in self.languages:
+            self.questions[lang].set_meta(meta)
+            self.questions[lang].set_variable(var)
 
 
 

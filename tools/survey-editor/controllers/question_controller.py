@@ -11,6 +11,16 @@ class QuestionController(QObject):
 
     def update_choice(self, choices):
         choice = []
+        lang = self._model.lang
+        question = self._model.questions[lang]
         for i in range(choices.count()):
-            choice.append(choices.item(i).text())
-        print(choice)
+            choice.append([choices.item(i).text()])
+        question.set_choice(choice)
+        self._model.update_surveys()
+
+    def update_question(self, text):
+        lang = self._model.lang
+        question = self._model.questions[lang]
+        question.set_text(text)
+
+
