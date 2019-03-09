@@ -32,6 +32,8 @@ class DayView(QWidget):
         self._ui.load_project_button.clicked.connect(self.load_project)
         self._ui.delete_project_button.clicked.connect(self.delete_project)
         self._ui.edit_block_button.clicked.connect(self.edit_block)
+        self._ui.meta_save_button.clicked.connect(self.save_meta)
+        self._ui.day_set_button.clicked.connect(self.set_day)
 
     def enable_days(self):
         self._ui.headline_days.setEnabled(True)
@@ -122,6 +124,7 @@ class DayView(QWidget):
         if not self.day_frame_active:
             self.enable_day()
 
+        self._model.set_days(self._ui.day_list.currentRow())
         index = self._ui.day_list.currentRow()
         day = self._model.u_survey.days[index]
         self._model.u_day = day
@@ -145,7 +148,6 @@ class DayView(QWidget):
 
     def edit_block(self):
         self._model.lang = self._model.default_language
-        self._model.set_days(self._ui.day_list.currentRow())
         self._model.set_blocks(self._ui.block_list.currentRow())
         self.parent().setCurrentIndex(1)
 
@@ -168,3 +170,10 @@ class DayView(QWidget):
         del self._model.recent_projects[index]
         if len(self._model.recent_projects) == 0:
             self.deactivate_project_options()
+
+    def save_meta(self):
+        meta = self._ui.meta_field.toPlainText()
+        self._model.save_day_meta(meta)
+
+    def set_day(self):
+        pass  # todo

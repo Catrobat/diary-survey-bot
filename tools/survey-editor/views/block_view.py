@@ -20,6 +20,7 @@ class BlockView(QWidget):
         self._ui.back_to_days_button.clicked.connect(self.back_to_days)
         self._ui.question_list.itemSelectionChanged.connect(self.question_list_event)
         self._ui.tabWidget.currentChanged.connect(self.tab_event)
+        self._ui.meta_save_button.clicked.connect(self.save_meta)
 
     def back_to_days(self):
         self.parent().setCurrentIndex(0)
@@ -64,3 +65,16 @@ class BlockView(QWidget):
         index = self._ui.tabWidget.indexOf(self._ui.tabWidget.currentWidget())
         self._model.lang = self._ui.tabWidget.tabText(index)
         self.question_widgets[self._model.lang].populate()
+
+    def save_meta(self):
+        meta = self._ui.meta_field.toPlainText()
+        self._model.save_block_meta(meta)
+
+    def previous_block(self):
+        self.change_block(-1)
+
+    def nex_block(self):
+        self.change_block(1)
+
+    def change_block(self, offset):
+        pass  # todo

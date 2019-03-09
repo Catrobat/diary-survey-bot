@@ -335,5 +335,23 @@ class Model:
             self.questions[lang].set_meta(meta)
             self.questions[lang].set_variable(var)
 
+    def save_day_meta(self, meta):
+        for lang in self.languages:
+            self.days[lang].set_meta(meta)
+        self.update_surveys()
+
+    def save_block_meta(self, meta):
+        for lang in self.languages:
+            self.blocks[lang].set_meta(meta)
+        self.update_surveys()
+
+    def set_nr_of_day(self, day, nr, mode):
+        # Todo
+        duplicate = False
+        for day in self.days[self.default_language]:
+            if day.day == nr:
+                duplicate = True
+
+
 
 

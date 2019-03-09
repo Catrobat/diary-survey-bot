@@ -120,7 +120,7 @@ SAMPLE_DATA_IT = [
      "Question about author.",
      "AUTHOR"],
 
-    ["Hai esperienza di programmazione?", [["Yes"], ["No"]],
+    ["Hai esperienza di programmazione?", [["Si"], ["No"]],
      "Question about programming.",
      "PROGRAMMING"],
 
