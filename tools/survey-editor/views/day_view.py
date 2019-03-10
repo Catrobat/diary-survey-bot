@@ -36,12 +36,16 @@ class DayView(QWidget):
         self._ui.day_set_button.clicked.connect(self.set_day)
 
     def enable_days(self):
+        self._ui.shift_down_button.setEnabled(True)
+        self._ui.shift_up_button.setEnabled(True)
         self._ui.headline_days.setEnabled(True)
         self._ui.day_list.setEnabled(True)
         self._ui.new_day_button.setEnabled(True)
         self._ui.delete_day_button.setEnabled(True)
 
     def disable_days(self):
+        self._ui.shift_down_button.setDisabled(True)
+        self._ui.shift_up_button.setDisabled(True)
         self._ui.headline_days.setDisabled(True)
         self._ui.day_list.setDisabled(True)
         self._ui.new_day_button.setDisabled(True)
@@ -51,6 +55,7 @@ class DayView(QWidget):
         self._ui.headline_day.setEnabled(True)
         self._ui.label_day.setEnabled(True)
         self._ui.day_field.setEnabled(True)
+        self._ui.day_set_button.setEnabled(True)
         self._ui.label_meta.setEnabled(True)
         self._ui.meta_field.setEnabled(True)
         self._ui.label_blocks.setEnabled(True)
@@ -62,6 +67,7 @@ class DayView(QWidget):
         self._ui.headline_day.setDisabled(True)
         self._ui.label_day.setDisabled(True)
         self._ui.day_field.setDisabled(True)
+        self._ui.day_set_button.setDisabled(True)
         self._ui.label_meta.setDisabled(True)
         self._ui.meta_field.setDisabled(True)
         self._ui.label_blocks.setDisabled(True)
