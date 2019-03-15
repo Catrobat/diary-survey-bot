@@ -25,6 +25,7 @@ class MainView(QMainWindow):
 
         self.day_view = DayView(self._model, self.day_controller)
         self.block_view = BlockView(self._model, self.block_controller)
+        self.block_view.day_view = self.day_view
 
         self.day_controller._view = self.day_view
         self.block_controller._view = self.block_view

@@ -16,11 +16,14 @@ class BlockView(QWidget):
         self._ui = Ui_Block()
         self._ui.setupUi(self)
         self.question_widgets = {}
+        self.day_view = None
 
         self._ui.back_to_days_button.clicked.connect(self.back_to_days)
         self._ui.question_list.itemSelectionChanged.connect(self.question_list_event)
         self._ui.tabWidget.currentChanged.connect(self.tab_event)
         self._ui.meta_save_button.clicked.connect(self.save_meta)
+        self._ui.new_question_button.clicked.connect(self.new_question)
+        self._ui.delete_question_button.clicked.connect(self.delete_question)
 
     def back_to_days(self):
         self.parent().setCurrentIndex(0)
@@ -43,6 +46,7 @@ class BlockView(QWidget):
         for i in range(len(self._model.languages)):
             if not self._ui.tabWidget.tabText(i) in self._model.languages:
                 q_view = QuestionView(self._model, q_controller, self._model.languages[i])
+                q_view._block_view = self
                 self._ui.tabWidget.addTab(q_view, self._model.languages[i])
                 self.question_widgets[self._model.languages[i]] = q_view
 
@@ -55,7 +59,11 @@ class BlockView(QWidget):
         self._ui.tabWidget.setEnabled(True)
         self._ui.tabWidget.currentWidget().setEnabled(True)
 
-        self._model.set_questions(self._ui.question_list.currentRow())
+        index = self._ui.question_list.currentRow()
+        if index == len(self._model.blocks[self._model.default_language].questions):
+            index = index - 1
+
+        self._model.set_questions(index)
         self.question_widgets[self._model.lang].populate()
 
     def tab_event(self):
@@ -73,8 +81,25 @@ class BlockView(QWidget):
     def previous_block(self):
         self.change_block(-1)
 
-    def nex_block(self):
+    def next_block(self):
         self.change_block(1)
 
     def change_block(self, offset):
-        pass  # todo
+        # todo
+        return
+
+    def new_question(self):
+        questions = self._controller.add_question()
+        self.fill_question_list(questions)
+        self.day_view.update_info()
+
+    def delete_question(self):
+        if not self._ui.question_list.selectedItems():
+            return
+        index = self._ui.question_list.currentRow()
+        questions = self._controller.delete_question(index)
+        self.fill_question_list(questions)
+        self.day_view.update_info()
+
+    def reorder_questions(self, order):
+        pass  # todo https://stackoverflow.com/questions/2177590/how-can-i-reorder-a-list

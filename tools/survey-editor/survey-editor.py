@@ -1,16 +1,7 @@
-# -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file 'mainwindow.ui'
-#
-# Created by: PyQt5 UI code generator 5.12
-#
-# WARNING! All changes made in this file will be lost!
 import sys
-from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication
-from model.survey import Survey, Model
+from model.survey import Model
 from controllers.main_controller import MainController
-from views.main_view_ui import Ui_main_window
 from views.main_view import MainView
 
 

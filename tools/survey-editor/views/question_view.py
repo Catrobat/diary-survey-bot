@@ -10,6 +10,7 @@ class QuestionView(QWidget):
 
         self._lang = language
         self._model = model
+        self._block_view = None
 
         self._controller = question_controller
         self._ui = Ui_question()
@@ -19,6 +20,8 @@ class QuestionView(QWidget):
         self._ui.choice_add_button.clicked.connect(self.add_choice)
         self._ui.choice_delete_button.clicked.connect(self.delete_choice)
         self._ui.save_button.clicked.connect(self.save_data)
+        self._ui.choice_list.itemSelectionChanged.connect(self.edit_choice)
+        self._ui.choice_list.itemDoubleClicked.connect(self.clear_selection)
 
     def populate(self):
         question = self._model.questions[self._lang]
@@ -54,15 +57,25 @@ class QuestionView(QWidget):
         self._ui.variable_field.setText(variable)
 
     def add_choice(self):
-        if self._ui.choice_field.toPlainText() != "":
-            self._ui.choice_list.addItem(self._ui.choice_field.toPlainText())
-            self._ui.choice_field.setPlainText("")
-            self._controller.update_choice(self._ui.choice_list)
+        if not self._ui.choice_list.selectedItems():
+            if self._ui.choice_field.toPlainText() != "":
+                self._ui.choice_list.addItem(self._ui.choice_field.toPlainText())
+                self._ui.choice_field.setPlainText("")
+                self._controller.update_choice(self._ui.choice_list)
+        else:
+            if self._ui.choice_field.toPlainText() != "":
+                index = self._ui.choice_list.currentRow()
+                self._ui.choice_list.item(index).setText(self._ui.choice_field.toPlainText())
+                self._ui.choice_field.setPlainText("")
+                self._ui.choice_list.clearSelection()
+                self._controller.update_choice(self._ui.choice_list)
 
     def delete_choice(self):
         if self._ui.choice_list.selectedItems():
             self._ui.choice_list.takeItem(self._ui.choice_list.currentRow())
             self._controller.update_choice(self._ui.choice_list)
+            self._ui.choice_field.setPlainText("")
+            self._ui.choice_list.clearSelection()
 
     def fill_choices(self, choices):
         self._ui.choice_list.clear()
@@ -107,3 +120,18 @@ class QuestionView(QWidget):
         self._model.set_question_metavar(meta, variable)
         self._controller.update_question(text)
         self._model.update_surveys()
+        if self._model.lang == self._model.default_language:
+            questions = []
+            for item in self._model.blocks[self._model.lang].questions:
+                questions.append(item.info())
+            self._block_view.fill_question_list(questions)
+
+    def edit_choice(self):
+        if not self._ui.choice_list.selectedItems():
+            return
+        index = self._ui.choice_list.currentRow()
+        self._ui.choice_field.setPlainText(self._ui.choice_list.item(index).text())
+
+    def clear_selection(self):
+        self._ui.choice_field.setPlainText("")
+        self._ui.choice_list.clearSelection()

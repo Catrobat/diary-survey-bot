@@ -183,3 +183,6 @@ class DayView(QWidget):
 
     def set_day(self):
         pass  # todo
+
+    def update_info(self):
+        pass  # todo

@@ -96,7 +96,7 @@ class Question:
                             ("variable", self.variable)])
 
     def info(self):
-        return "#" + str(self.block.questions.index(self) + 1) + " | " + self.text
+        return "#" + str(self.block.questions.index(self) + 1) + ": " + self.text
 
 
 class Block:
