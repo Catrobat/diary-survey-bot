@@ -1,6 +1,4 @@
-from PyQt5.QtWidgets import QMainWindow, QFileDialog
-from PyQt5.QtCore import pyqtSlot
-
+from PyQt5.QtWidgets import QMainWindow
 from controllers.block_controller import BlockController
 from controllers.day_controller import DayController
 from views.block_view import BlockView
@@ -29,6 +27,7 @@ class MainView(QMainWindow):
 
         self.day_controller._view = self.day_view
         self.block_controller._view = self.block_view
+
         self._ui.stackedWidget.addWidget(self.day_view)
         self._ui.stackedWidget.addWidget(self.block_view)
 

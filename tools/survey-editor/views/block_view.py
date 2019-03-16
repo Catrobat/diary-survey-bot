@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import QWidget
 
 from controllers.question_controller import QuestionController
+from resources.settings import scheduling, block_settings
 from views.block_view_ui import Ui_Block
 from views.question_view import QuestionView
 
@@ -17,13 +18,22 @@ class BlockView(QWidget):
         self._ui.setupUi(self)
         self.question_widgets = {}
         self.day_view = None
+        for item in scheduling:
+            self._ui.time_box.addItem(item)
 
+        for item in block_settings:
+            self._ui.settings_box.addItem(item)
+
+        self._ui.question_list.model().rowsMoved.connect(lambda: self._controller.reorder(self._ui.question_list))
         self._ui.back_to_days_button.clicked.connect(self.back_to_days)
         self._ui.question_list.itemSelectionChanged.connect(self.question_list_event)
         self._ui.tabWidget.currentChanged.connect(self.tab_event)
         self._ui.meta_save_button.clicked.connect(self.save_meta)
         self._ui.new_question_button.clicked.connect(self.new_question)
         self._ui.delete_question_button.clicked.connect(self.delete_question)
+        self._ui.time_box.currentIndexChanged.connect(self.handle_time)
+        self._ui.settings_add_button.clicked.connect(self.add_settings)
+        self._ui.settings_delete_button.clicked.connect(self.delete_settings)
 
     def back_to_days(self):
         self.parent().setCurrentIndex(0)
@@ -35,7 +45,11 @@ class BlockView(QWidget):
         block = self._model.blocks[lang]
         self._ui.headline.setText("Block #" + str(block.day.blocks.index(block) + 1))
         self._ui.meta_field.setPlainText(block.meta)
+
         self._ui.time_field.setText(block.time)
+        for i in range(self._ui.time_box.count()):
+            if self._ui.time_box.itemText(i) == block.time:
+                self._ui.time_box.setCurrentIndex(i)
 
         questions = []
         for item in block.questions:
@@ -77,6 +91,7 @@ class BlockView(QWidget):
     def save_meta(self):
         meta = self._ui.meta_field.toPlainText()
         self._model.save_block_meta(meta)
+        self.day_view.update_info()
 
     def previous_block(self):
         self.change_block(-1)
@@ -101,5 +116,26 @@ class BlockView(QWidget):
         self.fill_question_list(questions)
         self.day_view.update_info()
 
-    def reorder_questions(self, order):
-        pass  # todo https://stackoverflow.com/questions/2177590/how-can-i-reorder-a-list
+    def add_settings(self):
+        settings = []
+        for i in range(self._ui.settings_list.count()):
+            settings.append(self._ui.settings_list.item(i).text())
+
+        item = self._ui.settings_box.currentText()
+        if item not in settings:
+            self._ui.settings_list.addItem(item)
+            self._controller.add_settings(item)
+
+    def delete_settings(self):
+        if not self._ui.settings_list.selectedItems():
+            return
+        index = self._ui.settings_list.currentRow()
+        item = self._ui.settings_list.item(index).text()
+        self._ui.settings_list.takeItem(index)
+        self._controller.delete_settings(item)
+
+    def handle_time(self):
+        time = self._ui.time_box.currentText()
+        self._ui.time_field.setText(time)
+        self._controller.set_time(time)
+        self.day_view.update_info()

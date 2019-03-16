@@ -1,7 +1,4 @@
 from PyQt5.QtWidgets import QWidget, QFileDialog
-
-from controllers.block_controller import BlockController
-from views.block_view import BlockView
 from views.day_view_ui import Ui_Day
 
 
@@ -180,9 +177,20 @@ class DayView(QWidget):
     def save_meta(self):
         meta = self._ui.meta_field.toPlainText()
         self._model.save_day_meta(meta)
+        self.update_info()
 
     def set_day(self):
         pass  # todo
 
     def update_info(self):
-        pass  # todo
+        lang = self._model.default_language
+        days = []
+        blocks = []
+        for day in self._model.surveys[lang].days:
+            days.append(day.info())
+
+        for block in self._model.days[lang].blocks:
+            blocks.append(block.info())
+
+        self.fill_day_list(days)
+        self.fill_block_list(blocks)

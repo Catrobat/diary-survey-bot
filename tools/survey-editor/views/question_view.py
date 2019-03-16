@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QWidget
 from views.question_view_ui import Ui_question
+from resources.settings import question_commands
 
 
 # The view class should mainly contain code to handle events and trigger
@@ -15,6 +16,10 @@ class QuestionView(QWidget):
         self._controller = question_controller
         self._ui = Ui_question()
         self._ui.setupUi(self)
+
+        commands = [command[0] for command in question_commands]
+        for item in commands:
+            self._ui.commands_combobox.addItem(item)
 
         self._ui.choice_list.model().rowsMoved.connect(lambda: self._controller.update_choice(self._ui.choice_list))
         self._ui.choice_add_button.clicked.connect(self.add_choice)

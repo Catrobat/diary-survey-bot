@@ -133,6 +133,19 @@ class Block:
         else:
             print("settings: " + settings + " should be defined as nested lists. ")
 
+    def add_settings(self, item):
+        if isinstance(item, list):
+            self.settings.append(item)
+        else:
+            print("settings: " + item + " should be defined as nested lists. ")
+
+    def delete_settings(self, item):
+        if isinstance(item, list):
+            if item in self.settings:
+                self.settings.remove(item)
+        else:
+            print("settings: " + item + " should be defined as nested lists. ")
+
     def set_meta(self, meta):
         if isinstance(meta, str):
             self.meta = meta
@@ -158,7 +171,7 @@ class Block:
         return len(self.questions)
 
     def info(self):
-        return self.time + " | " + str(len(self.questions)) + " questions"
+        return self.time + " | " + str(len(self.questions)) + " questions | " + self.meta
 
 
 class Day:
@@ -208,8 +221,8 @@ class Day:
         return amount
 
     def info(self):
-        return "#" + str(self.day) + " | " + str(len(self.blocks)) + " blocks | " + \
-               str(self.get_number_of_questions()) + " questions"
+        return "#" + str(self.day) + ": " + str(len(self.blocks)) + " blocks | " + \
+               str(self.get_number_of_questions()) + " questions | " + self.meta
 
 
 class Survey:
