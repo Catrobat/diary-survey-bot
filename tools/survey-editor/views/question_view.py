@@ -74,6 +74,7 @@ class QuestionView(QWidget):
                 self._ui.choice_field.setPlainText("")
                 self._ui.choice_list.clearSelection()
                 self._controller.update_choice(self._ui.choice_list)
+        self.update_condition_choice_list()
 
     def delete_choice(self):
         if self._ui.choice_list.selectedItems():
@@ -81,11 +82,14 @@ class QuestionView(QWidget):
             self._controller.update_choice(self._ui.choice_list)
             self._ui.choice_field.setPlainText("")
             self._ui.choice_list.clearSelection()
+        self.update_condition_choice_list()
 
     def fill_choices(self, choices):
         self._ui.choice_list.clear()
+        self._ui.condition_choice_list.clear()
         for choice in choices:
             self._ui.choice_list.addItem(choice[0])
+        self.update_condition_choice_list()
 
     def add_condition(self, condition):
         self._ui.choice_list.addItem(condition)
@@ -136,7 +140,13 @@ class QuestionView(QWidget):
             return
         index = self._ui.choice_list.currentRow()
         self._ui.choice_field.setPlainText(self._ui.choice_list.item(index).text())
+        self.update_condition_choice_list()
 
     def clear_selection(self):
         self._ui.choice_field.setPlainText("")
         self._ui.choice_list.clearSelection()
+
+    def update_condition_choice_list(self):
+        self._ui.condition_choice_list.clear()
+        for i in range(self._ui.choice_list.count()):
+            self._ui.condition_choice_list.addItem(self._ui.choice_list.item(i).text())

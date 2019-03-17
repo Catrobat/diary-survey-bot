@@ -61,6 +61,7 @@ class BlockView(QWidget):
             if not self._ui.tabWidget.tabText(i) in self._model.languages:
                 q_view = QuestionView(self._model, q_controller, self._model.languages[i])
                 q_view._block_view = self
+                q_controller._view = q_view
                 self._ui.tabWidget.addTab(q_view, self._model.languages[i])
                 self.question_widgets[self._model.languages[i]] = q_view
 

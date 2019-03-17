@@ -8,6 +8,7 @@ class QuestionController(QObject):
     def __init__(self, model):
         super().__init__()
         self._model = model
+        self._view = None
 
     def update_choice(self, choices):
         choice = []
