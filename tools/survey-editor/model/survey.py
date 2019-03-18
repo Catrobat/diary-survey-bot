@@ -315,12 +315,16 @@ class Model:
         self.days = {}
         self.blocks = {}
         self.questions = {}
+        self.conditions = {}
 
     def set_days(self, index):
+        self.blocks = {}
+        self.questions = {}
         for lang in self.languages:
             self.days[lang] = self.surveys[lang].days[index]
 
     def set_blocks(self, index):
+        self.questions = {}
         for lang in self.languages:
             self.blocks[lang] = self.days[lang].blocks[index]
 
@@ -378,6 +382,29 @@ class Model:
             if day.day == nr:
                 duplicate = True
 
+    def get_current_coordinates(self):
+        day = self.days[self.lang]
+        block = self.blocks[self.lang]
+        question = self.questions[self.lang]
 
+        nr_of_day = self.surveys[self.lang].days.index(day)
+        nr_of_block = self.days[self.lang].blocks.index(block)
+        nr_of_question = self.blocks[self.lang].questions.index(question)
+        return [nr_of_day, nr_of_block, nr_of_question]
 
+    def init_condition_coordinates(self):
+        for lang in self.languages:
+            survey = self.surveys[lang]
+            for x in range(len(survey.days)):
+                day = survey.days[x]
+                for y in range(len(day.blocks)):
+                    block = day.blocks[y]
+                    for z in range(len(block.questions)):
+                        question = block.questions[z]
+                        for condition in question.condition:
+                            self.conditions[lang].append([x, y, z, condition])
 
+    def insert_condition_coordinates(self, coordinates):
+        tree = self.conditions[self.lang]
+        tree.append(coordinates)
+        self.conditions[self.lang] = sorted(tree, key=lambda k: [k[0], k[1], k[2]])

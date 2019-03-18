@@ -130,8 +130,7 @@ class DayView(QWidget):
 
         self._model.set_days(self._ui.day_list.currentRow())
         index = self._ui.day_list.currentRow()
-        day = self._model.u_survey.days[index]
-        self._model.u_day = day
+        day = self._model.surveys[self._model.default_language].days[index]
         self._ui.day_field.setValue(day.day)
         self._ui.meta_field.setPlainText(day.meta)
 
@@ -145,7 +144,7 @@ class DayView(QWidget):
             return
 
         index = self._ui.block_list.currentRow()
-        self._model.u_block = self._model.u_day.blocks[index]
+        self._model.set_blocks(index)
 
         self._ui.edit_block_button.setEnabled(True)
         self._ui.delete_block_button.setEnabled(True)

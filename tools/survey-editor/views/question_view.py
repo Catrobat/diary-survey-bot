@@ -45,6 +45,7 @@ class QuestionView(QWidget):
         self.fill_condition()
         self.fill_all_conditions_list()
         self.fill_condition_required()
+        print(self._model.conditions[self._model.lang])
 
         # Todo
         # Commands
@@ -114,6 +115,10 @@ class QuestionView(QWidget):
         key = self._ui.condition_list.item(index, 1).text()
         item = [choice, key]
         self._model.questions[self._model.lang].delete_condition(item)
+        coordinates = self._model.get_current_coordinates()
+        coordinates.append(item)
+        self._model.conditions[self._model.lang].remove(coordinates)
+        self._model.update_surveys()
         self.fill_condition()
 
     def fill_condition(self):
@@ -139,18 +144,21 @@ class QuestionView(QWidget):
 
     def fill_all_conditions_list(self):
         all_conditions = self._controller.calc_all_conditions()
-        self._ui.condition_list.setRowCount(0)
+        self._ui.all_conditions_list.setRowCount(0)
         for condition in all_conditions:
             size = self._ui.all_conditions_list.rowCount()
             self._ui.all_conditions_list.insertRow(size)
             self._ui.all_conditions_list.setItem(size, 0, QTableWidgetItem(condition[0]))
             self._ui.all_conditions_list.setItem(size, 1, QTableWidgetItem(condition[1]))
 
-    def fill_condition_required(self, conditions):
-        # Todo
-        self._ui.rq_conditions_list.clear()
+    def fill_condition_required(self):
+        conditions = self._model.questions[self._model.lang].condition_required
+        self._ui.rq_conditions_list.setRowCount(0)
         for condition in conditions:
-            self._ui.rq_conditions_list.addItem(condition)
+            size = self._ui.condition_list.rowCount()
+            self._ui.condition_list.insertRow(size)
+            self._ui.condition_list.setItem(size, 0, QTableWidgetItem(condition[0]))
+            self._ui.condition_list.setItem(size, 1, QTableWidgetItem(condition[1]))
 
     def save_data(self):
         variable = self._ui.variable_field.text()

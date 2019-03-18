@@ -30,17 +30,19 @@ class DayController(QObject):
                         with open(root_dir + "/" + file) as fp:
                             survey = json.load(fp)
                             self._model.add_survey(survey, language)
+                            self._model.conditions[language] = []
                     except ValueError as e:
                         # Todo: Error handling
                         print(e)
                         return -1
+
+        self._model.init_condition_coordinates()
 
         day_list = []
         self._model.languages = lang_list
         for day in self._model.surveys[self._model.default_language].days:
             day_list.append(day.info())
 
-        self._model.u_survey = self._model.surveys[self._model.default_language]
         self._view.fill_day_list(day_list)
 
         lang_info = []
