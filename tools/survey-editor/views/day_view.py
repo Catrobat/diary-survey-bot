@@ -25,6 +25,7 @@ class DayView(QWidget):
         self._ui.directory_tool.clicked.connect(self.change_root_dir)
         self._ui.day_list.itemSelectionChanged.connect(self.day_list_event)
         self._ui.block_list.itemSelectionChanged.connect(self.block_list_event)
+        self._ui.block_list.itemDoubleClicked.connect(self.edit_block)
         self._ui.project_list.itemSelectionChanged.connect(self.activate_project_options)
         self._ui.load_project_button.clicked.connect(self.load_project)
         self._ui.delete_project_button.clicked.connect(self.delete_project)

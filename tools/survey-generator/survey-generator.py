@@ -352,7 +352,7 @@ def main():
 
     for survey in surveys:
         file = "question_set_" + survey[0] + ".json"
-        with open(file, 'w') as outfile:
+        with open(file, 'w', encoding="utf-8") as outfile:
             json.dump(survey[1].get_object(), outfile, indent=2)
 
 

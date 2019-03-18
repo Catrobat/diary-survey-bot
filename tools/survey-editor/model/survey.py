@@ -53,6 +53,19 @@ class Question:
         else:
             print("condition_required: " + condition_required + " should be defined as nested lists. ")
 
+    def add_condition(self, item):
+        if isinstance(item, list) and len(item) == 2:
+            self.condition.append(item)
+        else:
+            print("settings: " + item + " should be defined as nested lists. ")
+
+    def delete_condition(self, item):
+        if isinstance(item, list):
+            if item in self.condition:
+                self.condition.remove(item)
+        else:
+            print("settings: " + item + " should be defined as nested lists. ")
+
     def set_condition(self, condition):
         if isinstance(condition, list):
             self.condition = condition
@@ -330,7 +343,7 @@ class Model:
                               ("strict-time-slots", self.strict_time_slots)])
 
         try:
-            with open(self.dir + "/config.json", "w") as fp:
+            with open(self.dir + "/config.json", "w", encoding="utf-8") as fp:
                 json.dump(config, fp)
         except FileExistsError as e:
             # Todo: Error handling
@@ -340,7 +353,7 @@ class Model:
     def update_surveys(self):
         for lang in self.languages:
             file = self.dir + "/question_set_" + lang + ".json"
-            with open(file, 'w') as outfile:
+            with open(file, 'w', encoding="utf-8") as outfile:
                 json.dump(self.surveys[lang].get_object(), outfile, indent=2)
 
     def set_question_metavar(self, meta, var):

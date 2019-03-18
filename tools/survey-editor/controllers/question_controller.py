@@ -24,4 +24,15 @@ class QuestionController(QObject):
         question = self._model.questions[lang]
         question.set_text(text)
 
+    def build_condition(self, keyword, choice):
+        # Todo add to datastructure that for finding rq_conditions
+        condition = [choice, keyword]
+        lang = self._model.lang
+        if condition in self._model.questions[lang].condition:
+            return False
+        self._model.questions[lang].add_condition(condition)
+        self._model.update_surveys()
+        return True
+
+
 
