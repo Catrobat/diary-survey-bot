@@ -30,6 +30,7 @@ class BlockController(QObject):
         return questions
 
     def delete_question(self, index):
+        print(self._model.get_current_coordinates())
         for lang in self._model.languages:
             del self._model.blocks[lang].questions[index]
 

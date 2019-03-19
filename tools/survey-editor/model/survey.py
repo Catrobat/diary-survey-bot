@@ -66,6 +66,19 @@ class Question:
         else:
             print("settings: " + item + " should be defined as nested lists. ")
 
+    def add_condition_rq(self, item):
+        if isinstance(item, list) and len(item) == 2:
+            self.condition_requiredcy.append(item)
+        else:
+            print("settings: " + item + " should be defined as nested lists. ")
+
+    def delete_condition_rq(self, item):
+        if isinstance(item, list):
+            if item in self.condition_required:
+                self.condition_required.remove(item)
+        else:
+            print("settings: " + item + " should be defined as nested lists. ")
+
     def set_condition(self, condition):
         if isinstance(condition, list):
             self.condition = condition
@@ -330,6 +343,7 @@ class Model:
 
     def set_questions(self, index):
         for lang in self.languages:
+            print(self.blocks[lang].questions)
             self.questions[lang] = self.blocks[lang].questions[index]
 
     def add_survey(self, json_survey, lang):
@@ -403,6 +417,14 @@ class Model:
                         question = block.questions[z]
                         for condition in question.condition:
                             self.conditions[lang].append([x, y, z, condition])
+
+    def cleanup_condition(self, condition):
+        survey = self.surveys[self.lang]
+        for day in survey.days:
+            for block in day.blocks:
+                for question in block.questions:
+                    if condition in question.condition_required:
+                        question.condition_required.remove(condition)
 
     def insert_condition_coordinates(self, coordinates):
         tree = self.conditions[self.lang]

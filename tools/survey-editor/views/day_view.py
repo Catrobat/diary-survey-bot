@@ -183,6 +183,8 @@ class DayView(QWidget):
         pass  # todo
 
     def update_info(self):
+        block_index = self._ui.block_list.currentRow()
+        day_index = self._ui.day_list.currentRow()
         lang = self._model.default_language
         days = []
         blocks = []
@@ -194,3 +196,7 @@ class DayView(QWidget):
 
         self.fill_day_list(days)
         self.fill_block_list(blocks)
+        day = self._ui.day_list.item(day_index)
+        block = self._ui.block_list.item(block_index)
+        self._ui.day_list.setCurrentItem(day)
+        self._ui.block_list.setCurrentItem(block)

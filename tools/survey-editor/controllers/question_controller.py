@@ -49,5 +49,4 @@ class QuestionController(QObject):
               (item[0] == coordinates[0] and item[1] == coordinates[1]) and item[2] >= coordinates[2]:
                 break
             relevant_conditions.append(item[3])
-        print(relevant_conditions)
         return relevant_conditions
