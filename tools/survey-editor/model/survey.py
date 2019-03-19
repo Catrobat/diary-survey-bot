@@ -57,27 +57,27 @@ class Question:
         if isinstance(item, list) and len(item) == 2:
             self.condition.append(item)
         else:
-            print("settings: " + item + " should be defined as nested lists. ")
+            print("condition: " + item + " should be defined as nested lists. ")
 
     def delete_condition(self, item):
         if isinstance(item, list):
             if item in self.condition:
                 self.condition.remove(item)
         else:
-            print("settings: " + item + " should be defined as nested lists. ")
+            print("condition: " + item + " should be defined as nested lists. ")
 
     def add_condition_rq(self, item):
         if isinstance(item, list) and len(item) == 2:
-            self.condition_requiredcy.append(item)
+            self.condition_required.append(item)
         else:
-            print("settings: " + item + " should be defined as nested lists. ")
+            print("condition required: " + item + " should be defined as nested lists. ")
 
     def delete_condition_rq(self, item):
         if isinstance(item, list):
             if item in self.condition_required:
                 self.condition_required.remove(item)
         else:
-            print("settings: " + item + " should be defined as nested lists. ")
+            print("condition required: " + item + " should be defined as nested lists. ")
 
     def set_condition(self, condition):
         if isinstance(condition, list):
@@ -90,6 +90,19 @@ class Question:
             self.commands = commands
         else:
             print("commands: " + commands + " should be defined as nested lists. ")
+
+    def add_command(self, item):
+        if isinstance(item, list):
+            self.commands.append(item)
+        else:
+            print("command: " + item + " should be defined as nested lists. ")
+
+    def delete_command(self, item):
+        if isinstance(item, list):
+            if item in self.commands:
+                self.commands.remove(item)
+        else:
+            print("command: " + item + " should be defined as nested lists. ")
 
     def set_meta(self, meta):
         if isinstance(meta, str):
@@ -343,7 +356,6 @@ class Model:
 
     def set_questions(self, index):
         for lang in self.languages:
-            print(self.blocks[lang].questions)
             self.questions[lang] = self.blocks[lang].questions[index]
 
     def add_survey(self, json_survey, lang):

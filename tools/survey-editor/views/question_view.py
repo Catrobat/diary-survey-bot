@@ -1,3 +1,5 @@
+import json
+
 from PyQt5.QtWidgets import QWidget, QTableWidgetItem
 from views.question_view_ui import Ui_question
 from resources.settings import question_commands
@@ -31,10 +33,14 @@ class QuestionView(QWidget):
         self._ui.condition_delete_button.clicked.connect(self.delete_condition)
         self._ui.condition_rq_add_button.clicked.connect(self.add_condition_rq)
         self._ui.condition_rq_delete_button.clicked.connect(self.delete_condition_rq)
+        self._ui.command_add_button.clicked.connect(self.add_command)
+        self._ui.command_data_add_button.clicked.connect(self.build_command)
+        self._ui.commands_delete_button.clicked.connect(self.delete_command)
 
     def populate(self):
         question = self._model.questions[self._lang]
         index = question.block.questions.index(question)
+        self._ui.keyword_field.setText("")
         self._ui.lang_info.setText(self._lang)
         self._ui.day_info.setText("Day: #" + str(question.day.day))
         self._ui.block_info.setText("Block: #" + str(question.day.blocks.index(question.block) + 1))
@@ -43,7 +49,7 @@ class QuestionView(QWidget):
         self.fill_text(question.text)
         self.fill_meta(question.meta)
         self.fill_variable(question.variable)
-        self.fill_commands(question.commands)
+        self.fill_commands()
         self.fill_condition()
         self.fill_all_conditions_list()
         self.fill_condition_required()
@@ -133,16 +139,47 @@ class QuestionView(QWidget):
             self._ui.condition_list.setItem(size, 0, QTableWidgetItem(condition[0]))
             self._ui.condition_list.setItem(size, 1, QTableWidgetItem(condition[1]))
 
-    def add_command(self, command):
-        self._ui.commands_list.addItem(command)
+    def add_command(self):
+        command = [self._ui.commands_combobox.currentText()]
+        if command in self._model.questions[self._model.lang].commands:
+            return
+        for lang in self._model.languages:
+            self._model.questions[lang].add_command(command)
+
+        self._model.update_surveys()
+        self.fill_commands()
+
+    def build_command(self):
+        if self._ui.data_name_field.text() == "":
+            return
+        data_name = self._ui.data_name_field.text()
+        operation = self._ui.data_box.currentText()
+        command = ["DATA", data_name, operation]
+
+        if command in self._model.questions[self._model.lang].commands:
+            return
+
+        for lang in self._model.languages:
+            self._model.questions[lang].add_command(command)
+
+        self._model.update_surveys()
+        self.fill_commands()
 
     def delete_command(self):
-        self._ui.commands_list.takeItem(self._ui.commands_list.currentIndex())
+        index = self._ui.commands_list.currentRow()
+        text = self._ui.commands_list.item(index).text()
+        command = text.replace("'", "").replace("[", "").replace("]", "").split(", ")
+        for lang in self._model.languages:
+            self._model.questions[lang].delete_command(command)
 
-    def fill_commands(self, commands):
+        self._model.update_surveys()
+        self.fill_commands()
+
+    def fill_commands(self):
+        commands = self._model.questions[self._model.lang].commands
         self._ui.commands_list.clear()
         for command in commands:
-            self._ui.commands_list.addItem(command)
+            self._ui.commands_list.addItem(str(command))
 
     def add_condition_rq(self):
         if not self._ui.all_conditions_list.selectedItems():

@@ -194,9 +194,14 @@ class DayView(QWidget):
         for block in self._model.days[lang].blocks:
             blocks.append(block.info())
 
+        self._ui.block_list.disconnect()
+        self._ui.day_list.disconnect()
         self.fill_day_list(days)
         self.fill_block_list(blocks)
         day = self._ui.day_list.item(day_index)
         block = self._ui.block_list.item(block_index)
         self._ui.day_list.setCurrentItem(day)
         self._ui.block_list.setCurrentItem(block)
+        self._ui.day_list.itemSelectionChanged.connect(self.day_list_event)
+        self._ui.block_list.itemSelectionChanged.connect(self.block_list_event)
+        self._ui.block_list.itemDoubleClicked.connect(self.edit_block)

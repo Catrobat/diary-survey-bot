@@ -75,11 +75,10 @@ class BlockView(QWidget):
         self._ui.tabWidget.currentWidget().setEnabled(True)
 
         index = self._ui.question_list.currentRow()
-        #if index == len(self._model.blocks[self._model.default_language].questions):
-        #    index = index - 1
+        if index == len(self._model.blocks[self._model.default_language].questions):
+            index = index - 1
 
         self._model.set_questions(index)
-        print(self._model.get_current_coordinates())
 
         self.question_widgets[self._model.lang].populate()
 
