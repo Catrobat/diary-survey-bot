@@ -1,3 +1,4 @@
+import copy
 import json
 from collections import OrderedDict
 
@@ -331,10 +332,11 @@ class Model:
         self.recent_projects = ["/home/philipp/Development/Bachelorarbeit/diary-survey-bot/tools/survey-editor/survey"]
         self.time_slots = []
         self.strict_time_slots = True
-        self.custom_keyboards = []
 
-        self.keyboard_templates = []
-        self.question_templates = []
+        self.choice_templates = {}
+        self.question_templates = {}
+        self.block_templates = {}
+        self.day_templates = {}
 
         self.lang = ""
         self.surveys = {}
@@ -442,3 +444,56 @@ class Model:
         tree = self.conditions[self.lang]
         tree.append(coordinates)
         self.conditions[self.lang] = sorted(tree, key=lambda k: [k[0], k[1], k[2]])
+
+    def add_day_template(self, key, days):
+        item = {}
+        for lang in self.languages:
+            item[lang] = copy.deepcopy(days[lang])
+        self.day_templates[key] = item
+        self.update_templates()
+
+    def add_block_template(self, key, blocks):
+        item = {}
+        for lang in self.languages:
+            item[lang] = copy.deepcopy(blocks[lang])
+        self.block_templates[key] = item
+        self.update_templates()
+
+    def add_question_template(self, key, questions):
+        item = {}
+        for lang in self.languages:
+            item[lang] = copy.deepcopy(questions[lang])
+        self.question_templates[key] = item
+        self.update_templates()
+
+    def add_choice_template(self, key, choice):
+        self.choice_templates[key] = choice
+        self.update_templates()
+
+    def get_choice_template_keys(self):
+        items = []
+        for key in self.choice_templates:
+            items.append(key)
+        return items
+
+    def get_question_template_keys(self):
+        items = []
+        for key in self.question_templates:
+            items.append(key)
+        return items
+
+    def get_block_template_keys(self):
+        items = []
+        for key in self.block_templates:
+            items.append(key)
+        return items
+
+    def get_day_template_keys(self):
+        items = []
+        for key in self.day_templates:
+            items.append(key)
+        return items
+
+    def update_templates(self):
+        # todo
+        pass

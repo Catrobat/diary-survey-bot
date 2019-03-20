@@ -36,6 +36,9 @@ class QuestionView(QWidget):
         self._ui.command_add_button.clicked.connect(self.add_command)
         self._ui.command_data_add_button.clicked.connect(self.build_command)
         self._ui.commands_delete_button.clicked.connect(self.delete_command)
+        self._ui.choice_template_load_button.clicked.connect(self.load_choice_template)
+        self._ui.choice_template_del_button.clicked.connect(self.delete_choice_template)
+        self._ui.choice_template_store_button.clicked.connect(self.store_choice_template)
 
     def populate(self):
         question = self._model.questions[self._lang]
@@ -53,6 +56,9 @@ class QuestionView(QWidget):
         self.fill_condition()
         self.fill_all_conditions_list()
         self.fill_condition_required()
+        self.fill_choice_templates()
+        self._ui.choice_template_field.setText("")
+
 
         # Todo
         # Commands
@@ -249,3 +255,28 @@ class QuestionView(QWidget):
         self._ui.condition_choice_list.clear()
         for i in range(self._ui.choice_list.count()):
             self._ui.condition_choice_list.addItem(self._ui.choice_list.item(i).text())
+
+    def fill_choice_templates(self):
+        keys = self._model.get_choice_template_keys()
+        self._ui.choice_template_box.clear()
+        self._ui.choice_template_box.addItems(keys)
+
+    def store_choice_template(self):
+        key = self._ui.choice_template_field.text()
+        if key == "":
+            return
+        self._model.add_choice_template(key, self._model.questions[self._model.lang].choice)
+        self._ui.choice_template_field.setText("")
+        self.fill_choice_templates()
+
+    def load_choice_template(self):
+        key = self._ui.choice_template_box.currentText()
+        choice = self._model.choice_templates[key]
+        self._model.questions[self._model.lang].choice = choice
+        self._model.update_surveys()
+        self.fill_choices(choice)
+
+    def delete_choice_template(self):
+        key = self._ui.choice_template_box.currentText()
+        del self._model.choice_templates[key]
+        self.fill_choice_templates()

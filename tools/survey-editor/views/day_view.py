@@ -50,6 +50,12 @@ class DayView(QWidget):
         self._ui.delete_day_button.setDisabled(True)
 
     def enable_day(self):
+        self._ui.day_template_box.setEnabled(True)
+        self._ui.day_template_field.setEnabled(True)
+        self._ui.day_template_load_button.setEnabled(True)
+        self._ui.day_template_store_button.setEnabled(True)
+        self._ui.day_template_del_button.setEnabled(True)
+        self._ui.meta_save_button.setEnabled(True)
         self._ui.headline_day.setEnabled(True)
         self._ui.label_day.setEnabled(True)
         self._ui.day_field.setEnabled(True)
@@ -62,6 +68,12 @@ class DayView(QWidget):
         self.day_frame_active = True
 
     def disable_day(self):
+        self._ui.day_template_box.setDisabled(True)
+        self._ui.day_template_field.setDisabled(True)
+        self._ui.day_template_load_button.setDisabled(True)
+        self._ui.day_template_store_button.setDisabled(True)
+        self._ui.day_template_del_button.setDisabled(True)
+        self._ui.meta_save_button.setDisabled(True)
         self._ui.headline_day.setDisabled(True)
         self._ui.label_day.setDisabled(True)
         self._ui.day_field.setDisabled(True)
