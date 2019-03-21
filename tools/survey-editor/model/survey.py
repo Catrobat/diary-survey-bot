@@ -334,7 +334,7 @@ class Model:
         self.strict_time_slots = True
 
         self.choice_templates = {}
-        self.question_templates = {}
+        self.question_templates = dict()
         self.block_templates = {}
         self.day_templates = {}
 
@@ -460,11 +460,7 @@ class Model:
         self.update_templates()
 
     def add_question_template(self, key, questions):
-        item = {}
-        for lang in self.languages:
-            item[lang] = copy.deepcopy(questions[lang])
-        self.question_templates[key] = item
-        self.update_templates()
+        self.question_templates[key] = questions
 
     def add_choice_template(self, key, choice):
         self.choice_templates[key] = choice
@@ -495,5 +491,9 @@ class Model:
         return items
 
     def update_templates(self):
-        # todo
+        file = self.dir + "/templates" + ".json"
+        with open(file, 'w', encoding="utf-8") as outfile:
+            pass
+            #todo
+            #json.dump(self.surveys[lang].get_object(), outfile, indent=2)
         pass

@@ -45,8 +45,25 @@ class QuestionController(QObject):
         conditions = self._model.conditions[self._model.lang]
         for item in conditions:
             if item[0] > coordinates[0] or \
-              (item[0] == coordinates[0] and item[1] > coordinates[1]) or \
-              (item[0] == coordinates[0] and item[1] == coordinates[1]) and item[2] >= coordinates[2]:
+                    (item[0] == coordinates[0] and item[1] > coordinates[1]) or \
+                            (item[0] == coordinates[0] and item[1] == coordinates[1]) and item[2] >= coordinates[2]:
                 break
             relevant_conditions.append(item[3])
         return relevant_conditions
+
+    def build_question_template(self, key, questions):
+        template = {}
+        for lang in questions:
+            template[lang] = questions[lang].get_object()
+        self._model.add_question_template(key, template)
+
+    def load_question_template(self, key):
+        template = self._model.question_templates[key]
+        for lang in template:
+            self._model.questions[lang].set_text(template[lang]["text"])
+            self._model.questions[lang].set_choice(template[lang]["choice"])
+            self._model.questions[lang].set_condition_required(template[lang]["condition_required"])
+            self._model.questions[lang].set_condition([])
+            self._model.questions[lang].set_commands(template[lang]["commands"])
+            self._model.questions[lang].set_meta(template[lang]["meta"])
+            self._model.questions[lang].set_variable(template[lang]["variable"])

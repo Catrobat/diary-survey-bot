@@ -39,6 +39,9 @@ class QuestionView(QWidget):
         self._ui.choice_template_load_button.clicked.connect(self.load_choice_template)
         self._ui.choice_template_del_button.clicked.connect(self.delete_choice_template)
         self._ui.choice_template_store_button.clicked.connect(self.store_choice_template)
+        self._ui.question_template_load_button.clicked.connect(self.load_question_template)
+        self._ui.question_template_del_button.clicked.connect(self.delete_question_template)
+        self._ui.question_template_store_button.clicked.connect(self.store_question_template)
 
     def populate(self):
         question = self._model.questions[self._lang]
@@ -58,7 +61,6 @@ class QuestionView(QWidget):
         self.fill_condition_required()
         self.fill_choice_templates()
         self._ui.choice_template_field.setText("")
-
 
         # Todo
         # Commands
@@ -280,3 +282,31 @@ class QuestionView(QWidget):
         key = self._ui.choice_template_box.currentText()
         del self._model.choice_templates[key]
         self.fill_choice_templates()
+
+    def fill_question_templates(self):
+        keys = self._model.get_question_template_keys()
+        self._ui.question_template_box.clear()
+        self._ui.question_template_box.addItems(keys)
+
+    def store_question_template(self):
+        key = self._ui.question_template_field.text()
+        if key == "":
+            return
+        self._controller.build_question_template(key, self._model.questions)
+        self._ui.question_template_field.setText("")
+        self.fill_question_templates()
+
+    def load_question_template(self):
+        key = self._ui.question_template_box.currentText()
+        self._controller.load_question_template(key)
+        self.populate()
+        questions = []
+        block = self._model.blocks[self._model.default_language]
+        for item in block.questions:
+            questions.append(item.info())
+        self._block_view.fill_question_list(questions)
+
+    def delete_question_template(self):
+        key = self._ui.question_template_box.currentText()
+        del self._model.question_templates[key]
+        self.fill_question_templates()

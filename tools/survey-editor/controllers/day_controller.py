@@ -61,9 +61,10 @@ class DayController(QObject):
             print(e)
             return -1
 
-        self._model.default_language = config["default-language"]
-        self._model.recent_projects = config["recent-projects"]
-        self._model.time_slots = config["time-slots"]
-        self._model.keyboard_templates = config["keyboard-templates"]
-        self._model.question_templates = config["question-templates"]
-        self._model.strict_time_slots = config["strict-time-slots"]
+        # todo
+        # self._model.default_language = config["default-language"]
+        # self._model.recent_projects = config["recent-projects"]
+        # self._model.time_slots = config["time-slots"]
+        # self._model.keyboard_templates = config["keyboard-templates"]
+        # self._model.question_templates = config["question-templates"]
+        # self._model.strict_time_slots = config["strict-time-slots"]
