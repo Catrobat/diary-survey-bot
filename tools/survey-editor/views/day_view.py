@@ -32,6 +32,9 @@ class DayView(QWidget):
         self._ui.edit_block_button.clicked.connect(self.edit_block)
         self._ui.meta_save_button.clicked.connect(self.save_meta)
         self._ui.day_set_button.clicked.connect(self.set_day)
+        self._ui.day_template_load_button.clicked.connect(self.load_day_template)
+        self._ui.day_template_del_button.clicked.connect(self.delete_day_template)
+        self._ui.day_template_store_button.clicked.connect(self.store_day_template)
 
     def enable_days(self):
         self._ui.shift_down_button.setEnabled(True)
@@ -217,3 +220,27 @@ class DayView(QWidget):
         self._ui.day_list.itemSelectionChanged.connect(self.day_list_event)
         self._ui.block_list.itemSelectionChanged.connect(self.block_list_event)
         self._ui.block_list.itemDoubleClicked.connect(self.edit_block)
+
+    def fill_day_templates(self):
+        keys = self._model.get_day_template_keys()
+        self._ui.day_template_box.clear()
+        self._ui.day_template_box.addItems(keys)
+
+    def store_day_template(self):
+        key = self._ui.day_template_field.text()
+        if key == "":
+            return
+        self._controller.build_day_template(key, self._model.days)
+        self._ui.day_template_field.setText("")
+        self.fill_day_templates()
+
+    def load_day_template(self):
+        key = self._ui.day_template_box.currentText()
+        self._controller.load_day_template(key)
+        self.update_info()
+        self._model.update_surveys()
+
+    def delete_day_template(self):
+        key = self._ui.day_template_box.currentText()
+        del self._model.day_templates[key]
+        self.fill_day_templates()

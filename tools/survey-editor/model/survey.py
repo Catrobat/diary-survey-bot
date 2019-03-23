@@ -334,9 +334,13 @@ class Model:
         self.strict_time_slots = True
 
         self.choice_templates = {}
-        self.question_templates = dict()
+        self.question_templates = {}
         self.block_templates = {}
         self.day_templates = {}
+        self.templates = {"choice": self.choice_templates,
+                          "question": self.question_templates,
+                          "block": self.block_templates,
+                          "day": self.day_templates}
 
         self.lang = ""
         self.surveys = {}
@@ -446,21 +450,16 @@ class Model:
         self.conditions[self.lang] = sorted(tree, key=lambda k: [k[0], k[1], k[2]])
 
     def add_day_template(self, key, days):
-        item = {}
-        for lang in self.languages:
-            item[lang] = copy.deepcopy(days[lang])
-        self.day_templates[key] = item
+        self.day_templates[key] = days
         self.update_templates()
 
     def add_block_template(self, key, blocks):
-        item = {}
-        for lang in self.languages:
-            item[lang] = copy.deepcopy(blocks[lang])
-        self.block_templates[key] = item
+        self.block_templates[key] = blocks
         self.update_templates()
 
     def add_question_template(self, key, questions):
         self.question_templates[key] = questions
+        self.update_templates()
 
     def add_choice_template(self, key, choice):
         self.choice_templates[key] = choice
@@ -493,7 +492,13 @@ class Model:
     def update_templates(self):
         file = self.dir + "/templates" + ".json"
         with open(file, 'w', encoding="utf-8") as outfile:
-            pass
-            #todo
-            #json.dump(self.surveys[lang].get_object(), outfile, indent=2)
-        pass
+            json.dump(self.templates, outfile, indent=2)
+
+    def load_templates(self):
+        file = self.dir + "/templates" + ".json"
+        with open(file, 'r', encoding="utf-8") as infile:
+            templates = json.load(infile)
+            self.choice_templates = templates["choice"]
+            self.question_templates = templates["question"]
+            self.block_templates = templates["block"]
+            self.day_templates = templates["day"]

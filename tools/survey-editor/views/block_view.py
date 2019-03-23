@@ -34,6 +34,9 @@ class BlockView(QWidget):
         self._ui.time_box.currentIndexChanged.connect(self.handle_time)
         self._ui.settings_add_button.clicked.connect(self.add_settings)
         self._ui.settings_delete_button.clicked.connect(self.delete_settings)
+        self._ui.block_template_load_button.clicked.connect(self.load_block_template)
+        self._ui.block_template_del_button.clicked.connect(self.delete_block_template)
+        self._ui.block_template_store_button.clicked.connect(self.store_block_template)
 
     def back_to_days(self):
         self.parent().setCurrentIndex(0)
@@ -141,3 +144,28 @@ class BlockView(QWidget):
         self._ui.time_field.setText(time)
         self._controller.set_time(time)
         self.day_view.update_info()
+
+    def fill_block_templates(self):
+        keys = self._model.get_block_template_keys()
+        self._ui.block_template_box.clear()
+        self._ui.block_template_box.addItems(keys)
+
+    def store_block_template(self):
+        key = self._ui.block_template_field.text()
+        if key == "":
+            return
+        self._controller.build_block_template(key, self._model.blocks)
+        self._ui.block_template_field.setText("")
+        self.fill_block_templates()
+
+    def load_block_template(self):
+        key = self._ui.block_template_box.currentText()
+        self._controller.load_block_template(key)
+        self.populate()
+        self.day_view.update_info()
+        self._model.update_surveys()
+
+    def delete_block_template(self):
+        key = self._ui.block_template_box.currentText()
+        del self._model.block_templates[key]
+        self.fill_block_templates()

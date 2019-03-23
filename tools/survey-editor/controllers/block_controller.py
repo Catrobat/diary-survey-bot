@@ -72,3 +72,29 @@ class BlockController(QObject):
         for lang in self._model.languages:
             self._model.blocks[lang].delete_settings([item])
         self._model.update_surveys()
+
+    def build_block_template(self, key, blocks):
+        template = {}
+        for lang in blocks:
+            template[lang] = blocks[lang].get_object()
+        self._model.add_block_template(key, template)
+
+    def load_block_template(self, key):
+        template = self._model.block_templates[key]
+        for lang in template:
+            self._model.blocks[lang].set_meta(template[lang]["meta"])
+            self._model.blocks[lang].set_settings(template[lang]["settings"])
+            self._model.blocks[lang].questions = []
+            for q in template[lang]["questions"]:
+                question = Question()
+                question.set_text(q["text"])
+                question.set_choice(q["choice"])
+                question.set_condition_required(q["condition_required"])
+                question.set_condition([])
+                question.set_commands(q["commands"])
+                question.set_meta(q["meta"])
+                question.set_variable(q["variable"])
+                question.set_block(self._model.blocks[lang])
+                question.set_day(self._model.days[lang])
+                question.set_survey(self._model.surveys[lang])
+                self._model.blocks[lang].add_question(question)
