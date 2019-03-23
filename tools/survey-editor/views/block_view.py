@@ -58,6 +58,7 @@ class BlockView(QWidget):
         for item in block.questions:
             questions.append(item.info())
         self.fill_question_list(questions)
+        self.fill_block_templates()
 
         q_controller = QuestionController(self._model)
         for i in range(len(self._model.languages)):

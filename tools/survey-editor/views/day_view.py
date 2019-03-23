@@ -153,6 +153,7 @@ class DayView(QWidget):
         for block in day.blocks:
             block_list.append(block.info())
         self.fill_block_list(block_list)
+        self.fill_day_templates()
 
     def block_list_event(self):
         if not self._ui.block_list.selectedItems():

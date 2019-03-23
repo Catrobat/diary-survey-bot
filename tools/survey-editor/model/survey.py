@@ -502,3 +502,7 @@ class Model:
             self.question_templates = templates["question"]
             self.block_templates = templates["block"]
             self.day_templates = templates["day"]
+            self.templates = {"choice": self.choice_templates,
+                              "question": self.question_templates,
+                              "block": self.block_templates,
+                              "day": self.day_templates}

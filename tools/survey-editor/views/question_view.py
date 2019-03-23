@@ -61,6 +61,8 @@ class QuestionView(QWidget):
         self.fill_condition_required()
         self.fill_choice_templates()
         self._ui.choice_template_field.setText("")
+        self.fill_question_templates()
+        self._ui.question_template_field.setText("")
 
         # Todo
         # Commands
