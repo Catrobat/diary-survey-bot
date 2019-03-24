@@ -47,7 +47,7 @@ class Ui_main_window(object):
 
     def retranslateUi(self, main_window):
         _translate = QtCore.QCoreApplication.translate
-        main_window.setWindowTitle(_translate("main_window", "MainWindow"))
+        main_window.setWindowTitle(_translate("main_window", "diary-survey-bot | survey-editor"))
         self.menuQuestion_Editor.setTitle(_translate("main_window", "File"))
 
 

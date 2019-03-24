@@ -1,4 +1,6 @@
 from PyQt5.QtWidgets import QWidget, QFileDialog
+
+from model.survey import Block
 from views.day_view_ui import Ui_Day
 
 
@@ -35,8 +37,13 @@ class DayView(QWidget):
         self._ui.day_template_load_button.clicked.connect(self.load_day_template)
         self._ui.day_template_del_button.clicked.connect(self.delete_day_template)
         self._ui.day_template_store_button.clicked.connect(self.store_day_template)
+        self._ui.new_block_button.clicked.connect(self.new_block)
+        self._ui.block_list.model().rowsMoved.connect(self.reorder_block)
+        self._ui.delete_block_button.clicked.connect(self.delete_block)
 
     def enable_days(self):
+        self._ui.move_down_button.setEnabled(True)
+        self._ui.move_up_button.setEnabled(True)
         self._ui.shift_down_button.setEnabled(True)
         self._ui.shift_up_button.setEnabled(True)
         self._ui.headline_days.setEnabled(True)
@@ -45,6 +52,8 @@ class DayView(QWidget):
         self._ui.delete_day_button.setEnabled(True)
 
     def disable_days(self):
+        self._ui.move_down_button.setDisabled(True)
+        self._ui.move_up_button.setDisabled(True)
         self._ui.shift_down_button.setDisabled(True)
         self._ui.shift_up_button.setDisabled(True)
         self._ui.headline_days.setDisabled(True)
@@ -245,3 +254,27 @@ class DayView(QWidget):
         key = self._ui.day_template_box.currentText()
         del self._model.day_templates[key]
         self.fill_day_templates()
+
+    def new_block(self):
+        for lang in self._model.languages:
+            block = Block()
+            block.set_day(self._model.days[lang])
+            block.set_survey(self._model.surveys[lang])
+            self._model.days[lang].add_block(block)
+        self._model.update_surveys()
+        self.update_info()
+
+    def delete_block(self):
+        if not self._ui.block_list.selectedItems():
+            return
+        index = self._ui.block_list.currentRow()
+        for lang in self._model.languages:
+            self._model.days[lang].blocks.pop(index)
+        self._model.update_surveys()
+        self.update_info()
+
+    def reorder_block(self, p, old, end, q, new):
+        for lang in self._model.languages:
+            self._model.days[lang].blocks.insert(new, self._model.days[lang].blocks.pop(old))
+        self._model.update_surveys()
+        self.update_info()
