@@ -1,3 +1,13 @@
+"""
+diary-survey-bot | survey-editor
+
+Software-Design: Philipp Feldner
+Documentation: https://github.com/Catrobat/diary-survey-bot
+
+Qt version: 5.12.1
+"""
+
+
 from PyQt5.QtCore import QObject, pyqtSlot
 
 # The controller class performs any logic and sets data in the model.

@@ -1,4 +1,12 @@
-import copy
+"""
+diary-survey-bot | survey-editor
+
+Software-Design: Philipp Feldner
+Documentation: https://github.com/Catrobat/diary-survey-bot
+
+Qt version: 5.12.1
+"""
+
 import json
 from collections import OrderedDict
 
@@ -139,6 +147,8 @@ class Question:
         return "#" + str(self.block.questions.index(self) + 1) + ": " + self.text
 
 
+# A block is an instance of some questions that shall be send to a participant at a certain time of the
+# day that said block is a part of.
 class Block:
     def __init__(self):
         self.time = ""
@@ -216,6 +226,7 @@ class Block:
 
 class Day:
     def __init__(self):
+        # the day variable is an offset to the launch day of the survey.
         self.day = -1
         self.meta = ""
         self.blocks = []
@@ -265,6 +276,9 @@ class Day:
                str(self.get_number_of_questions()) + " questions | " + self.meta
 
 
+# The survey class can load a survey from json and sets all the proper variables.
+# A survey is a construct of Days, every day has Blocks and further every Block
+# holds a number of Questions.
 class Survey:
     def __init__(self, survey, language):
         self.language = language
@@ -323,10 +337,13 @@ class Survey:
         return amount
 
 
+# The model class is literally the Model in the MVC structure that is
+# used within the whole project.
 class Model:
     def __init__(self):
         self.dir = ""
         self.languages = []
+        self.conditions = {}
 
         self.default_language = "de"
         self.recent_projects = ["/home/philipp/Development/Bachelorarbeit/diary-survey-bot/tools/survey-editor/survey"]
@@ -342,12 +359,14 @@ class Model:
                           "block": self.block_templates,
                           "day": self.day_templates}
 
+        # The variables below can be seen as states. They hold the
+        # current survey/language/day/block/questions that are
+        # being worked with.
         self.lang = ""
         self.surveys = {}
         self.days = {}
         self.blocks = {}
         self.questions = {}
-        self.conditions = {}
 
     def set_days(self, index):
         self.blocks = {}

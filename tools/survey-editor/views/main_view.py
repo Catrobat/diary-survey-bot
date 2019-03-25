@@ -1,3 +1,12 @@
+"""
+diary-survey-bot | survey-editor
+
+Software-Design: Philipp Feldner
+Documentation: https://github.com/Catrobat/diary-survey-bot
+
+Qt version: 5.12.1
+"""
+
 from PyQt5.QtWidgets import QMainWindow
 from controllers.block_controller import BlockController
 from controllers.day_controller import DayController

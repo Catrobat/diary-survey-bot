@@ -1,3 +1,13 @@
+"""
+diary-survey-bot | survey-editor
+
+Software-Design: Philipp Feldner
+Documentation: https://github.com/Catrobat/diary-survey-bot
+
+Qt version: 5.12.1
+"""
+
+
 from collections import OrderedDict
 
 iso_639_choices = OrderedDict([('ab', 'Abkhaz'),

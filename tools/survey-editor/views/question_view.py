@@ -1,4 +1,11 @@
-import json
+"""
+diary-survey-bot | survey-editor
+
+Software-Design: Philipp Feldner
+Documentation: https://github.com/Catrobat/diary-survey-bot
+
+Qt version: 5.12.1
+"""
 
 from PyQt5.QtWidgets import QWidget, QTableWidgetItem
 from views.question_view_ui import Ui_question

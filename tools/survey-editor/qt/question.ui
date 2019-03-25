@@ -1,0 +1,1215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>question</class>
+ <widget class="QWidget" name="question">
+  <property name="enabled">
+   <bool>false</bool>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1100</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="font">
+   <font>
+    <family>Roboto</family>
+    <weight>75</weight>
+    <bold>true</bold>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_2">
+   <item row="1" column="0">
+    <widget class="QFrame" name="data_frame">
+     <property name="font">
+      <font>
+       <family>Roboto Mono</family>
+      </font>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="2" column="2">
+       <widget class="QLineEdit" name="variable_field">
+        <property name="font">
+         <font>
+          <family>Roboto Mono</family>
+         </font>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="placeholderText">
+         <string>Pick a variable name. (not mandatory)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QPlainTextEdit" name="meta_field">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Roboto Mono</family>
+         </font>
+        </property>
+        <property name="placeholderText">
+         <string>Fill in any notes or meta information.</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0" colspan="2">
+       <widget class="QLabel" name="text_label">
+        <property name="font">
+         <font>
+          <family>Roboto Mono</family>
+         </font>
+        </property>
+        <property name="text">
+         <string>Question </string>
+        </property>
+        <property name="buddy">
+         <cstring>text_field</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="meta_label">
+        <property name="font">
+         <font>
+          <family>Roboto Mono</family>
+         </font>
+        </property>
+        <property name="text">
+         <string>Meta </string>
+        </property>
+        <property name="buddy">
+         <cstring>meta_field</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="2">
+       <widget class="QPushButton" name="save_button">
+        <property name="font">
+         <font>
+          <family>Roboto Mono</family>
+         </font>
+        </property>
+        <property name="text">
+         <string>save</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="variable_label">
+        <property name="font">
+         <font>
+          <family>Roboto Mono</family>
+         </font>
+        </property>
+        <property name="text">
+         <string>Variable</string>
+        </property>
+        <property name="buddy">
+         <cstring>variable_field</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QPlainTextEdit" name="text_field">
+        <property name="minimumSize">
+         <size>
+          <width>250</width>
+          <height>100</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Roboto Mono</family>
+         </font>
+        </property>
+        <property name="placeholderText">
+         <string>Fill in the question to be asked.</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="QFrame" name="title_frame">
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>200</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <family>Roboto Mono</family>
+      </font>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_5">
+      <item row="0" column="0">
+       <widget class="QLabel" name="headline">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>100</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Roboto Mono</family>
+          <pointsize>26</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Question X</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <layout class="QVBoxLayout" name="verticalLayout_10">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_9">
+          <item>
+           <widget class="Line" name="line_6">
+            <property name="font">
+             <font>
+              <family>Roboto Mono</family>
+             </font>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="lang_info">
+            <property name="font">
+             <font>
+              <family>Roboto Mono</family>
+             </font>
+            </property>
+            <property name="text">
+             <string>Language: X</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="Line" name="line_5">
+            <property name="font">
+             <font>
+              <family>Roboto Mono</family>
+             </font>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="day_info">
+            <property name="font">
+             <font>
+              <family>Roboto Mono</family>
+             </font>
+            </property>
+            <property name="text">
+             <string>Day: X</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="Line" name="line_7">
+            <property name="font">
+             <font>
+              <family>Roboto Mono</family>
+             </font>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="block_info">
+            <property name="font">
+             <font>
+              <family>Roboto Mono</family>
+             </font>
+            </property>
+            <property name="text">
+             <string>Block: X</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="Line" name="line_8">
+            <property name="font">
+             <font>
+              <family>Roboto Mono</family>
+             </font>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="Line" name="line_3">
+          <property name="font">
+           <font>
+            <family>Roboto Mono</family>
+           </font>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_10">
+          <item>
+           <widget class="QLineEdit" name="question_template_field">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>Roboto Mono</family>
+             </font>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="placeholderText">
+             <string>Pick a template name.</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="question_template_del_button">
+            <property name="maximumSize">
+             <size>
+              <width>50</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>del</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="question_template_store_button">
+            <property name="maximumSize">
+             <size>
+              <width>50</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>Roboto Mono</family>
+             </font>
+            </property>
+            <property name="text">
+             <string>store</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_11">
+          <item>
+           <widget class="QComboBox" name="question_template_box">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>Roboto Mono</family>
+             </font>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="question_template_load_button">
+            <property name="maximumSize">
+             <size>
+              <width>50</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>Roboto Mono</family>
+             </font>
+            </property>
+            <property name="text">
+             <string>load</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
+      <item row="1" column="0">
+       <widget class="Line" name="line_4">
+        <property name="font">
+         <font>
+          <family>Roboto Mono</family>
+         </font>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="0" column="2" rowspan="2">
+    <widget class="QFrame" name="Commands">
+     <property name="font">
+      <font>
+       <family>Roboto Mono</family>
+      </font>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_6">
+      <item row="3" column="0">
+       <widget class="Line" name="line_9">
+        <property name="font">
+         <font>
+          <family>Roboto Mono</family>
+         </font>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QLabel" name="headline_condition">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>18</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>18</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Roboto Mono</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Condition</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout">
+            <item>
+             <widget class="QLabel" name="headline_condition_key">
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>14</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <family>Roboto Mono</family>
+               </font>
+              </property>
+              <property name="text">
+               <string>Keyword</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="keyword_field">
+              <property name="font">
+               <font>
+                <family>Roboto Mono</family>
+               </font>
+              </property>
+              <property name="placeholderText">
+               <string>Pick a keyword for the condition.</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="headline_condition_choice">
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>14</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <family>Roboto Mono</family>
+               </font>
+              </property>
+              <property name="text">
+               <string>Choice</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QListWidget" name="condition_choice_list">
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>150</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <family>Roboto Mono</family>
+               </font>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="condition_add_button">
+              <property name="font">
+               <font>
+                <family>Roboto Mono</family>
+               </font>
+              </property>
+              <property name="text">
+               <string>add/edit</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_2">
+            <item>
+             <widget class="QLabel" name="headline_conditions">
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>14</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <family>Roboto Mono</family>
+               </font>
+              </property>
+              <property name="text">
+               <string>Conditions</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QTableWidget" name="condition_list">
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>200</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <family>Roboto Mono</family>
+               </font>
+              </property>
+              <property name="editTriggers">
+               <set>QAbstractItemView::NoEditTriggers</set>
+              </property>
+              <property name="alternatingRowColors">
+               <bool>true</bool>
+              </property>
+              <property name="selectionMode">
+               <enum>QAbstractItemView::ContiguousSelection</enum>
+              </property>
+              <property name="selectionBehavior">
+               <enum>QAbstractItemView::SelectRows</enum>
+              </property>
+              <column>
+               <property name="text">
+                <string>Choice</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Key</string>
+               </property>
+              </column>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="condition_delete_button">
+              <property name="font">
+               <font>
+                <family>Roboto Mono</family>
+               </font>
+              </property>
+              <property name="text">
+               <string>delete</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
+      <item row="4" column="0">
+       <layout class="QVBoxLayout" name="verticalLayout_7">
+        <item>
+         <widget class="QLabel" name="headline_condition_rq">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>18</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>18</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Roboto Mono</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Condition Required</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_5">
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_5">
+            <item>
+             <widget class="QLabel" name="headline_all_conditions">
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>14</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <family>Roboto Mono</family>
+               </font>
+              </property>
+              <property name="text">
+               <string>All Conditions</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QTableWidget" name="all_conditions_list">
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <family>Roboto Mono</family>
+               </font>
+              </property>
+              <property name="editTriggers">
+               <set>QAbstractItemView::NoEditTriggers</set>
+              </property>
+              <property name="alternatingRowColors">
+               <bool>true</bool>
+              </property>
+              <property name="selectionMode">
+               <enum>QAbstractItemView::ContiguousSelection</enum>
+              </property>
+              <property name="selectionBehavior">
+               <enum>QAbstractItemView::SelectRows</enum>
+              </property>
+              <column>
+               <property name="text">
+                <string>Choice</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Key</string>
+               </property>
+              </column>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="condition_rq_add_button">
+              <property name="font">
+               <font>
+                <family>Roboto Mono</family>
+               </font>
+              </property>
+              <property name="text">
+               <string>add</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_6">
+            <item>
+             <widget class="QLabel" name="headline_rq_conditions">
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>14</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <family>Roboto Mono</family>
+               </font>
+              </property>
+              <property name="text">
+               <string>Required Conditions</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QTableWidget" name="rq_conditions_list">
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <family>Roboto Mono</family>
+               </font>
+              </property>
+              <property name="editTriggers">
+               <set>QAbstractItemView::NoEditTriggers</set>
+              </property>
+              <property name="alternatingRowColors">
+               <bool>true</bool>
+              </property>
+              <property name="selectionMode">
+               <enum>QAbstractItemView::ContiguousSelection</enum>
+              </property>
+              <property name="selectionBehavior">
+               <enum>QAbstractItemView::SelectRows</enum>
+              </property>
+              <column>
+               <property name="text">
+                <string>Choice</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Key</string>
+               </property>
+              </column>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="condition_rq_delete_button">
+              <property name="font">
+               <font>
+                <family>Roboto Mono</family>
+               </font>
+              </property>
+              <property name="text">
+               <string>delete</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="0" column="1" rowspan="2">
+    <widget class="QFrame" name="config_frame">
+     <property name="font">
+      <font>
+       <family>Roboto Mono</family>
+      </font>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_3">
+      <item row="1" column="0">
+       <layout class="QVBoxLayout" name="verticalLayout_4">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_12">
+          <item>
+           <widget class="QLineEdit" name="choice_template_field">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="placeholderText">
+             <string>Pick a template name.</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="choice_template_del_button">
+            <property name="maximumSize">
+             <size>
+              <width>50</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>del</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="choice_template_store_button">
+            <property name="maximumSize">
+             <size>
+              <width>50</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>store</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QComboBox" name="choice_template_box">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>Roboto Mono</family>
+             </font>
+            </property>
+            <property name="currentText">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="choice_template_load_button">
+            <property name="maximumSize">
+             <size>
+              <width>50</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>load</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="QPlainTextEdit" name="choice_field">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>190</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>Roboto Mono</family>
+             </font>
+            </property>
+            <property name="placeholderText">
+             <string>Fill in a possible answer.</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QListWidget" name="choice_list">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>190</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>Roboto Mono</family>
+             </font>
+            </property>
+            <property name="acceptDrops">
+             <bool>false</bool>
+            </property>
+            <property name="dragEnabled">
+             <bool>true</bool>
+            </property>
+            <property name="dragDropMode">
+             <enum>QAbstractItemView::InternalMove</enum>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <widget class="QPushButton" name="choice_add_button">
+            <property name="font">
+             <font>
+              <family>Roboto Mono</family>
+             </font>
+            </property>
+            <property name="text">
+             <string>add/edit</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="choice_delete_button">
+            <property name="font">
+             <font>
+              <family>Roboto Mono</family>
+             </font>
+            </property>
+            <property name="text">
+             <string>delete</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="headline_choices">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>18</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>18</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Roboto Mono</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Choices</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout_7">
+        <item>
+         <widget class="QPushButton" name="commands_delete_button">
+          <property name="font">
+           <font>
+            <family>Roboto Mono</family>
+           </font>
+          </property>
+          <property name="text">
+           <string>delete</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="2" column="0">
+       <widget class="Line" name="line">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <layout class="QVBoxLayout" name="verticalLayout_8">
+        <item>
+         <widget class="QLabel" name="headline_commands">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>18</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>18</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Roboto Mono</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Commands</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_6">
+          <item>
+           <widget class="QLineEdit" name="commands_field">
+            <property name="font">
+             <font>
+              <family>Roboto Mono</family>
+             </font>
+            </property>
+            <property name="text">
+             <string>DATA</string>
+            </property>
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+            <property name="placeholderText">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="data_name_field">
+            <property name="placeholderText">
+             <string>DATA_NAME</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="data_box">
+            <item>
+             <property name="text">
+              <string>ADD</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>CLR</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="command_data_add_button">
+            <property name="maximumSize">
+             <size>
+              <width>55</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>add</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_8">
+          <item>
+           <widget class="QComboBox" name="commands_combobox">
+            <property name="font">
+             <font>
+              <family>Roboto Mono</family>
+             </font>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="command_add_button">
+            <property name="maximumSize">
+             <size>
+              <width>55</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>add</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QListWidget" name="commands_list">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Roboto Mono</family>
+           </font>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>question_template_field</tabstop>
+  <tabstop>question_template_store_button</tabstop>
+  <tabstop>question_template_box</tabstop>
+  <tabstop>question_template_load_button</tabstop>
+  <tabstop>text_field</tabstop>
+  <tabstop>meta_field</tabstop>
+  <tabstop>variable_field</tabstop>
+  <tabstop>save_button</tabstop>
+  <tabstop>choice_template_box</tabstop>
+  <tabstop>choice_field</tabstop>
+  <tabstop>choice_list</tabstop>
+  <tabstop>choice_add_button</tabstop>
+  <tabstop>choice_delete_button</tabstop>
+  <tabstop>keyword_field</tabstop>
+  <tabstop>condition_choice_list</tabstop>
+  <tabstop>condition_add_button</tabstop>
+  <tabstop>condition_list</tabstop>
+  <tabstop>condition_delete_button</tabstop>
+  <tabstop>all_conditions_list</tabstop>
+  <tabstop>condition_rq_add_button</tabstop>
+  <tabstop>rq_conditions_list</tabstop>
+  <tabstop>condition_rq_delete_button</tabstop>
+  <tabstop>commands_field</tabstop>
+  <tabstop>commands_list</tabstop>
+  <tabstop>commands_delete_button</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

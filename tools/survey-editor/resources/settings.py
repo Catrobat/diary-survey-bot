@@ -1,3 +1,13 @@
+"""
+diary-survey-bot | survey-editor
+
+Software-Design: Philipp Feldner
+Documentation: https://github.com/Catrobat/diary-survey-bot
+
+Qt version: 5.12.1
+"""
+
+
 block_settings = ["MANDATORY"]
 
 question_commands = [("Force Keyboard Reply", ["FORCE_KB_REPLY"]), ("Continue automatic queue", ["Q_ON"]),

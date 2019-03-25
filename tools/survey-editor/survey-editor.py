@@ -1,3 +1,12 @@
+"""
+diary-survey-bot | survey-editor
+
+Software-Design: Philipp Feldner
+Documentation: https://github.com/Catrobat/diary-survey-bot
+
+Qt version: 5.12.1
+"""
+
 import sys
 from PyQt5.QtWidgets import QApplication
 from model.survey import Model
@@ -13,7 +22,6 @@ class App(QApplication):
         self.main_view = MainView(self.model, self.main_controller)
         self.main_controller._view = self.main_view
         self.main_view.show()
-
 
 if __name__ == '__main__':
     app = App(sys.argv)
