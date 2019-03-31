@@ -31,7 +31,7 @@
 ## Introduction:
 
 This is a chat-bot for the messaging app [Telegram](https://telegram.org/).
-It is intended to conduct surveys/studies that strech over longer time periods.
+It is intended to conduct surveys/studies that stretch over longer time periods.
 Since there was no similar tool around to conduct those type of studies we
 developed one on our own. The messaging app Telegram seemed fitting, because of
 its decent API and popularity. The bot is written in python3 and uses this
@@ -63,7 +63,7 @@ days we have smaller chucks that represent question-blocks that shall be
 scheduled through out that day. Within those question-blocks are the questions
 with a bunch of meta information that is explained later.
 
-Currently there is support for englisch, german, french and spanish,
+Currently there is support for english, german, french and spanish,
 but with little python knowledge you will be able to add/remove other
 languages. For every language create a file with the name format
 **question_set_en.json** (en/de/es/fr) and place those files in the
@@ -134,7 +134,7 @@ List of current options:
 used to create a custom keyboard within Telegram. Dynamic keyboards can be
 created within the python file survey/keyboard_presets.py and have to be
 registered in the CUSTOM_KEYBOARD dictionary.
-- **condition:** Conditions can be used to give questions certain requirements.
+- **condition:** Conditions can be used to give questions about certain requirements.
 If a user does not fulfill given requirements the question will be skipped for him.
 Multiple conditions are possible.
 - **condition_required:** Previously defined conditions can be put here and
@@ -186,7 +186,7 @@ important that this timezone is a timezone defined in
 [pytz](https://pypi.python.org/pypi/pytz?).
 Otherwise the program might crash.
 - **SCHEDULE_INTERVALS:** A python dictionary that maps the Keywords from the
-time value (question-blocks) to a interval format like this: 
+time value (question-blocks) to an interval format like this: 
 KEYWORD: ["hh:mm","hh:mm"] with a minimum offset from 30min. 
 Further more simple fixed schedules can be
 defined as KEYWORD: "hh:mm".
@@ -220,7 +220,7 @@ own python functions.
   "ADD" or "CLR"(clear) to add the user response to the datastructure or
   delete the datastructure entirely.
 - **Step 2:** Defining your own functions: Custom functions shall be
-  defined within admin/survey_specific.py. Every functions needs to
+  defined within admin/survey_specific.py. Every function needs to
   have a *unique* string as identifier to invoke them within the json
   file. An example of how a function shall be registered:
   ```
