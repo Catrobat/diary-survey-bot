@@ -9,7 +9,7 @@ Qt version: 5.12.1
 
 from PyQt5.QtWidgets import QWidget, QFileDialog
 
-from model.survey import Block
+from model.survey import Block, Day
 from views.day_view_ui import Ui_Day
 
 
@@ -49,6 +49,12 @@ class DayView(QWidget):
         self._ui.new_block_button.clicked.connect(self.new_block)
         self._ui.block_list.model().rowsMoved.connect(self.reorder_block)
         self._ui.delete_block_button.clicked.connect(self.delete_block)
+        self._ui.move_up_button.clicked.connect(self.move_up_day)
+        self._ui.shift_up_button.clicked.connect(self.shift_up_day)
+        self._ui.move_down_button.clicked.connect(self.move_down_day)
+        self._ui.shift_down_button.clicked.connect(self.shift_down_day)
+        self._ui.new_day_button.clicked.connect(self.new_day)
+        self._ui.delete_day_button.clicked.connect(self.delete_day)
 
     def enable_days(self):
         self._ui.move_down_button.setEnabled(True)
@@ -214,7 +220,10 @@ class DayView(QWidget):
         self.update_info()
 
     def set_day(self):
-        pass  # todo
+        day = self._ui.day_field.value()
+        if self._controller.set_day(day):
+            self.update_info()
+        self._model.update_surveys()
 
     def update_info(self):
         block_index = self._ui.block_list.currentRow()
@@ -225,17 +234,19 @@ class DayView(QWidget):
         for day in self._model.surveys[lang].days:
             days.append(day.info())
 
-        for block in self._model.days[lang].blocks:
-            blocks.append(block.info())
+        if self._model.days:
+            for block in self._model.days[lang].blocks:
+                blocks.append(block.info())
 
         self._ui.block_list.disconnect()
         self._ui.day_list.disconnect()
         self.fill_day_list(days)
         self.fill_block_list(blocks)
         day = self._ui.day_list.item(day_index)
-        block = self._ui.block_list.item(block_index)
+        if self._model.days:
+            block = self._ui.block_list.item(block_index)
+            self._ui.block_list.setCurrentItem(block)
         self._ui.day_list.setCurrentItem(day)
-        self._ui.block_list.setCurrentItem(block)
         self._ui.day_list.itemSelectionChanged.connect(self.day_list_event)
         self._ui.block_list.itemSelectionChanged.connect(self.block_list_event)
         self._ui.block_list.itemDoubleClicked.connect(self.edit_block)
@@ -287,3 +298,73 @@ class DayView(QWidget):
             self._model.days[lang].blocks.insert(new, self._model.days[lang].blocks.pop(old))
         self._model.update_surveys()
         self.update_info()
+
+    def move_up_day(self):
+        if not self._ui.day_list.selectedItems():
+            return
+        index = self._ui.day_list.currentRow()
+        direction = -1
+        if self._controller.move_day(index, direction):
+            days = []
+            for day in self._model.surveys[self._model.default_language].days:
+                days.append(day.info())
+            self.fill_day_list(days)
+            day = self._ui.day_list.item(index + direction)
+            self._ui.day_list.setCurrentItem(day)
+
+    def shift_up_day(self):
+        if not self._ui.day_list.selectedItems():
+            return
+        index = self._ui.day_list.currentRow()
+        direction = -1
+        self._controller.shift_day(index, direction)
+        self.update_info()
+
+    def move_down_day(self):
+        if not self._ui.day_list.selectedItems():
+            return
+        index = self._ui.day_list.currentRow()
+        direction = 1
+        if self._controller.move_day(index, direction):
+            days = []
+            for day in self._model.surveys[self._model.default_language].days:
+                days.append(day.info())
+            self.fill_day_list(days)
+            day = self._ui.day_list.item(index + direction)
+            self._ui.day_list.setCurrentItem(day)
+
+    def shift_down_day(self):
+        if not self._ui.day_list.selectedItems():
+            return
+        index = self._ui.day_list.currentRow()
+        direction = 1
+        self._controller.shift_day(index, direction)
+        self.update_info()
+
+    def new_day(self):
+        index = 1
+        if not self._model.surveys[self._model.default_language].days == []:
+            index = self._model.surveys[self._model.default_language].days[-1].day + 1
+        for lang in self._model.languages:
+            day = Day()
+            day.set_day(index)
+            self._model.surveys[lang].add_day(day)
+        self._model.update_surveys()
+        self.update_info()
+
+        max_index = 0
+        if self._model.surveys[self._model.default_language].days:
+            max_index = len(self._model.surveys[self._model.default_language].days) - 1
+            item = self._ui.day_list.item(max_index)
+            self._ui.day_list.setCurrentItem(item)
+
+    def delete_day(self):
+        if not self._ui.day_list.selectedItems():
+            return
+        index = self._ui.day_list.currentRow()
+        for lang in self._model.languages:
+            del self._model.surveys[lang].days[index]
+        self.update_info()
+        self._model.update_surveys()
+        item = self._ui.day_list.item(index - 1)
+        self._ui.day_list.setCurrentItem(item)

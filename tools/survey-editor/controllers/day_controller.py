@@ -7,8 +7,6 @@ Documentation: https://github.com/Catrobat/diary-survey-bot
 Qt version: 5.12.1
 """
 
-
-
 import json
 import os
 import re
@@ -114,3 +112,37 @@ class DayController(QObject):
                     question.set_survey(self._model.surveys[lang])
                     block.add_question(question)
                 self._model.days[lang].add_block(block)
+
+    def set_day(self, day):
+        if any(x.day == day for x in self._model.surveys[self._model.default_language].days):
+            return False  # todo error handling
+        for lang in self._model.languages:
+            self._model.days[lang].day = day
+        return True
+
+    def move_day(self, index, direction):
+        max_index = len(self._model.surveys[self._model.default_language].days) - 1
+        if index + direction < 0 or index + direction > max_index:
+            return False
+        for lang in self._model.languages:
+            self._model.surveys[lang].days[index + direction].day, self._model.surveys[lang].days[index].day = \
+                self._model.surveys[lang].days[index].day, self._model.surveys[lang].days[index + direction].day
+
+            self._model.surveys[lang].days[index + direction], self._model.surveys[lang].days[index] = \
+                self._model.surveys[lang].days[index], self._model.surveys[lang].days[index + direction]
+        return True
+
+    def shift_day(self, index, direction):
+        end = len(self._model.surveys[self._model.default_language].days)
+        start = index
+        if index == 0:
+            minimum = 1
+        else:
+            minimum = self._model.surveys[self._model.default_language].days[index - 1].day + 1
+
+        if minimum == self._model.surveys[self._model.default_language].days[index].day and direction == -1:
+            return False
+
+        for lang in self._model.languages:
+            for i in range(start, end):
+                self._model.surveys[lang].days[i].day += direction

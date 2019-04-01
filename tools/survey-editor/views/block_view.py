@@ -108,16 +108,6 @@ class BlockView(QWidget):
         self._model.save_block_meta(meta)
         self.day_view.update_info()
 
-    def previous_block(self):
-        self.change_block(-1)
-
-    def next_block(self):
-        self.change_block(1)
-
-    def change_block(self, offset):
-        # todo
-        return
-
     def new_question(self):
         questions = self._controller.add_question()
         self.fill_question_list(questions)
