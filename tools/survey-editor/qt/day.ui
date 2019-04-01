@@ -84,86 +84,6 @@
       <enum>QFrame::Raised</enum>
      </property>
      <layout class="QGridLayout" name="gridLayout_3">
-      <item row="7" column="0">
-       <widget class="QPushButton" name="settings_button">
-        <property name="font">
-         <font>
-          <family>Roboto Mono</family>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>Settings</string>
-        </property>
-       </widget>
-      </item>
-      <item row="12" column="0">
-       <widget class="QListWidget" name="lang_list">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="font">
-         <font>
-          <family>Roboto Mono</family>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0">
-       <widget class="QLabel" name="recent_projects_headline">
-        <property name="font">
-         <font>
-          <family>Roboto Mono</family>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>Recent Projects</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="Line" name="line_3">
-        <property name="font">
-         <font>
-          <family>Roboto Mono</family>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="10" column="0">
-       <widget class="QLabel" name="headline_languages">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="font">
-         <font>
-          <family>Roboto Mono</family>
-          <pointsize>12</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>Languages</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
       <item row="13" column="0">
        <layout class="QHBoxLayout" name="horizontalLayout_7">
         <item>
@@ -257,20 +177,6 @@
         </item>
        </layout>
       </item>
-      <item row="8" column="0">
-       <widget class="QPushButton" name="templates_button">
-        <property name="font">
-         <font>
-          <family>Roboto Mono</family>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>Templates</string>
-        </property>
-       </widget>
-      </item>
       <item row="0" column="0">
        <widget class="QLabel" name="healdline_project">
         <property name="font">
@@ -289,6 +195,20 @@
         </property>
        </widget>
       </item>
+      <item row="12" column="0">
+       <widget class="QListWidget" name="lang_list">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="font">
+         <font>
+          <family>Roboto Mono</family>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+       </widget>
+      </item>
       <item row="11" column="0">
        <widget class="Line" name="line_4">
         <property name="font">
@@ -303,8 +223,8 @@
         </property>
        </widget>
       </item>
-      <item row="6" column="0">
-       <widget class="Line" name="line_5">
+      <item row="3" column="0">
+       <widget class="QLabel" name="recent_projects_headline">
         <property name="font">
          <font>
           <family>Roboto Mono</family>
@@ -312,8 +232,49 @@
           <bold>true</bold>
          </font>
         </property>
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+        <property name="text">
+         <string>Recent Projects</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0">
+       <widget class="QListWidget" name="project_list">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>80</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Roboto Mono</family>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+       </widget>
+      </item>
+      <item row="10" column="0">
+       <widget class="QLabel" name="headline_languages">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="font">
+         <font>
+          <family>Roboto Mono</family>
+          <pointsize>12</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Languages</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
         </property>
        </widget>
       </item>
@@ -390,8 +351,22 @@
         </item>
        </layout>
       </item>
-      <item row="9" column="0">
-       <widget class="Line" name="line_6">
+      <item row="6" column="0">
+       <widget class="QPushButton" name="settings_button">
+        <property name="font">
+         <font>
+          <family>Roboto Mono</family>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Settings</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="Line" name="line_3">
         <property name="font">
          <font>
           <family>Roboto Mono</family>
@@ -404,20 +379,17 @@
         </property>
        </widget>
       </item>
-      <item row="4" column="0">
-       <widget class="QListWidget" name="project_list">
-        <property name="maximumSize">
-         <size>
-          <width>16777215</width>
-          <height>80</height>
-         </size>
-        </property>
+      <item row="9" column="0">
+       <widget class="Line" name="line_6">
         <property name="font">
          <font>
           <family>Roboto Mono</family>
           <weight>75</weight>
           <bold>true</bold>
          </font>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
         </property>
        </widget>
       </item>
@@ -538,12 +510,12 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="move_up_button">
+         <widget class="QPushButton" name="shift_down_button">
           <property name="enabled">
            <bool>false</bool>
           </property>
           <property name="text">
-           <string>move up</string>
+           <string>shift down</string>
           </property>
          </widget>
         </item>
@@ -555,12 +527,12 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="shift_down_button">
+         <widget class="QPushButton" name="move_up_button">
           <property name="enabled">
            <bool>false</bool>
           </property>
           <property name="text">
-           <string>shift down</string>
+           <string>move up</string>
           </property>
          </widget>
         </item>
