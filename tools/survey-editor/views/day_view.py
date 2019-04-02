@@ -10,6 +10,7 @@ Qt version: 5.12.1
 from PyQt5.QtWidgets import QWidget, QFileDialog
 
 from model.survey import Block, Day
+from resources.languages import iso_639_choices
 from views.day_view_ui import Ui_Day
 
 
@@ -55,6 +56,8 @@ class DayView(QWidget):
         self._ui.shift_down_button.clicked.connect(self.shift_down_day)
         self._ui.new_day_button.clicked.connect(self.new_day)
         self._ui.delete_day_button.clicked.connect(self.delete_day)
+        self._ui.lang_add_button.clicked.connect(self.add_lang)
+        self._ui.lang_delete_button.clicked.connect(self.delete_lang)
 
     def enable_days(self):
         self._ui.move_down_button.setEnabled(True)
@@ -355,8 +358,8 @@ class DayView(QWidget):
         max_index = 0
         if self._model.surveys[self._model.default_language].days:
             max_index = len(self._model.surveys[self._model.default_language].days) - 1
-            item = self._ui.day_list.item(max_index)
-            self._ui.day_list.setCurrentItem(item)
+        item = self._ui.day_list.item(max_index)
+        self._ui.day_list.setCurrentItem(item)
 
     def delete_day(self):
         if not self._ui.day_list.selectedItems():
@@ -368,3 +371,22 @@ class DayView(QWidget):
         self._model.update_surveys()
         item = self._ui.day_list.item(index - 1)
         self._ui.day_list.setCurrentItem(item)
+
+    def add_lang(self):
+        lang = self._ui.lang_field.text()
+        if lang not in iso_639_choices or lang in self._model.languages:
+            # todo error handling
+            return
+        self._controller.add_lang(lang)
+        self._ui.lang_list.addItem(lang + " -> " + iso_639_choices[lang])
+        # 3 fix templates
+
+    def delete_lang(self):
+        if not self._ui.lang_list.selectedItems():
+            return
+        index = self._ui.lang_list.currentRow()
+        lang = self._ui.lang_list.item(index).text()[:2]
+        self._controller.delete_language(lang)
+        # todo
+
+

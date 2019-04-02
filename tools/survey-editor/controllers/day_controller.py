@@ -13,7 +13,7 @@ import re
 from PyQt5.QtCore import QObject, pyqtSlot
 
 # The controller class performs any logic and sets data in the model.
-from model.survey import Block, Question
+from model.survey import Block, Question, Survey
 from resources.languages import iso_639_choices
 
 
@@ -146,3 +146,24 @@ class DayController(QObject):
         for lang in self._model.languages:
             for i in range(start, end):
                 self._model.surveys[lang].days[i].day += direction
+
+    def add_lang(self, lang):
+        self._model.languages.append(lang)
+        self._model.conditions[lang] = []
+        if not self._model.languages:
+            survey = Survey(None, lang)
+            self._model.surveys[lang] = survey
+            self._model.update_surveys()
+            return
+        default = self._model.surveys[self._model.default_language]
+        survey = Survey(default.get_object(), lang)
+        for day in survey.days:
+            for block in day.blocks:
+                for question in block.questions:
+                    question.set_text("--TRANSLATE--")
+                    question.set_choice([])
+                    question.set_condition_required([])
+                    question.set_condition([])
+        self._model.surveys[lang] = survey
+        self._model.update_surveys()
+

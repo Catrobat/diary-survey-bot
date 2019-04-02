@@ -7,7 +7,6 @@ Documentation: https://github.com/Catrobat/diary-survey-bot
 Qt version: 5.12.1
 """
 
-
 from PyQt5.QtCore import QObject, pyqtSlot
 
 
