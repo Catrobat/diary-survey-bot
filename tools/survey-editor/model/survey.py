@@ -426,21 +426,14 @@ class Model:
             self.blocks[lang].set_meta(meta)
         self.update_surveys()
 
-    def set_nr_of_day(self, day, nr, mode):
-        # Todo
-        duplicate = False
-        for day in self.days[self.default_language]:
-            if day.day == nr:
-                duplicate = True
-
     def get_current_coordinates(self):
-        day = self.days[self.lang]
-        block = self.blocks[self.lang]
-        question = self.questions[self.lang]
+        day = self.days[self.default_language]
+        block = self.blocks[self.default_language]
+        question = self.questions[self.default_language]
 
-        nr_of_day = self.surveys[self.lang].days.index(day)
-        nr_of_block = self.days[self.lang].blocks.index(block)
-        nr_of_question = self.blocks[self.lang].questions.index(question)
+        nr_of_day = self.surveys[self.default_language].days.index(day)
+        nr_of_block = self.days[self.default_language].blocks.index(block)
+        nr_of_question = self.blocks[self.default_language].questions.index(question)
         return [nr_of_day, nr_of_block, nr_of_question]
 
     def init_condition_coordinates(self):

@@ -183,6 +183,8 @@ class QuestionView(QWidget):
         self.fill_commands()
 
     def delete_command(self):
+        if not self._ui.commands_list.selectedItems():
+            return
         index = self._ui.commands_list.currentRow()
         text = self._ui.commands_list.item(index).text()
         command = text.replace("'", "").replace("[", "").replace("]", "").split(", ")

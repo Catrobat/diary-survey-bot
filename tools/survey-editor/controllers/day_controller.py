@@ -6,7 +6,7 @@ Documentation: https://github.com/Catrobat/diary-survey-bot
 
 Qt version: 5.12.1
 """
-
+import copy
 import json
 import os
 import re
@@ -155,7 +155,7 @@ class DayController(QObject):
             self._model.surveys[lang] = survey
             self._model.update_surveys()
             return
-        default = self._model.surveys[self._model.default_language]
+        default = copy.deepcopy(self._model.surveys[self._model.default_language])
         survey = Survey(default.get_object(), lang)
         for day in survey.days:
             for block in day.blocks:
@@ -164,6 +164,18 @@ class DayController(QObject):
                     question.set_choice([])
                     question.set_condition_required([])
                     question.set_condition([])
+
         self._model.surveys[lang] = survey
         self._model.update_surveys()
+
+    def delete_language(self, lang):
+        self._model.languages.remove(lang)
+        self._model.surveys.pop(lang, None)
+        self._model.days.pop(lang, None)
+        self._model.blocks.pop(lang, None)
+        self._model.questions.pop(lang, None)
+        self._model.conditions.pop(lang, None)
+        file = self._model.dir + "/question_set_" + lang + ".json"
+        os.remove(file)
+
 

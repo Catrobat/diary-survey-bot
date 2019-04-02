@@ -95,6 +95,8 @@ class DayView(QWidget):
         self._ui.label_blocks.setEnabled(True)
         self._ui.block_list.setEnabled(True)
         self._ui.new_block_button.setEnabled(True)
+        self._ui.edit_block_button.setEnabled(True)
+        self._ui.delete_block_button.setEnabled(True)
         self.day_frame_active = True
 
     def disable_day(self):
@@ -111,7 +113,7 @@ class DayView(QWidget):
         self._ui.label_meta.setDisabled(True)
         self._ui.meta_field.setDisabled(True)
         self._ui.label_blocks.setDisabled(True)
-        self._ui.block_list.setEnabled(True)
+        self._ui.block_list.setDisabled(True)
         self._ui.new_block_button.setDisabled(True)
         self._ui.edit_block_button.setDisabled(True)
         self._ui.delete_block_button.setDisabled(True)
@@ -161,6 +163,8 @@ class DayView(QWidget):
         self.enable_lang()
 
     def day_list_event(self):
+        if not self._ui.day_list.selectedItems():
+            return
         self._ui.delete_block_button.setDisabled(True)
         self._ui.edit_block_button.setDisabled(True)
 
@@ -381,12 +385,18 @@ class DayView(QWidget):
         self._ui.lang_list.addItem(lang + " -> " + iso_639_choices[lang])
         # 3 fix templates
 
+        self._ui.day_list.clearSelection()
+        self.disable_day()
+
     def delete_lang(self):
         if not self._ui.lang_list.selectedItems():
             return
         index = self._ui.lang_list.currentRow()
         lang = self._ui.lang_list.item(index).text()[:2]
         self._controller.delete_language(lang)
-        # todo
+        self._ui.lang_list.takeItem(index)
+        self.block_view.remove_tab(lang)
+        self._ui.day_list.clearSelection()
+        self.disable_day()
 
 

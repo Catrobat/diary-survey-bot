@@ -169,3 +169,8 @@ class BlockView(QWidget):
         key = self._ui.block_template_box.currentText()
         del self._model.block_templates[key]
         self.fill_block_templates()
+
+    def remove_tab(self, lang):
+        for i in range(self._ui.tabWidget.count()):
+            if self._ui.tabWidget.tabText(i) == lang:
+                self._ui.tabWidget.removeTab(i)
