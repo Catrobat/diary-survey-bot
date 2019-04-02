@@ -28,19 +28,9 @@ class Ui_main_window(object):
         self.stackedWidget.setObjectName("stackedWidget")
         self.gridLayout_5.addWidget(self.stackedWidget, 0, 0, 1, 1)
         main_window.setCentralWidget(self.centralWidget)
-        self.menuBar = QtWidgets.QMenuBar(main_window)
-        self.menuBar.setGeometry(QtCore.QRect(0, 0, 1366, 21))
-        self.menuBar.setObjectName("menuBar")
-        self.menuQuestion_Editor = QtWidgets.QMenu(self.menuBar)
-        self.menuQuestion_Editor.setObjectName("menuQuestion_Editor")
-        main_window.setMenuBar(self.menuBar)
-        self.mainToolBar = QtWidgets.QToolBar(main_window)
-        self.mainToolBar.setObjectName("mainToolBar")
-        main_window.addToolBar(QtCore.Qt.TopToolBarArea, self.mainToolBar)
         self.statusBar = QtWidgets.QStatusBar(main_window)
         self.statusBar.setObjectName("statusBar")
         main_window.setStatusBar(self.statusBar)
-        self.menuBar.addAction(self.menuQuestion_Editor.menuAction())
 
         self.retranslateUi(main_window)
         QtCore.QMetaObject.connectSlotsByName(main_window)
@@ -48,6 +38,5 @@ class Ui_main_window(object):
     def retranslateUi(self, main_window):
         _translate = QtCore.QCoreApplication.translate
         main_window.setWindowTitle(_translate("main_window", "diary-survey-bot | survey-editor"))
-        self.menuQuestion_Editor.setTitle(_translate("main_window", "File"))
 
 

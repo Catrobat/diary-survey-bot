@@ -27,30 +27,6 @@
     </item>
    </layout>
   </widget>
-  <widget class="QMenuBar" name="menuBar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>1366</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <widget class="QMenu" name="menuQuestion_Editor">
-    <property name="title">
-     <string>File</string>
-    </property>
-   </widget>
-   <addaction name="menuQuestion_Editor"/>
-  </widget>
-  <widget class="QToolBar" name="mainToolBar">
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
-  </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
