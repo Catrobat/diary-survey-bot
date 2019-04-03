@@ -29,18 +29,11 @@ class DayView(QWidget):
         self.day_frame_active = False
         self.block_view = None
 
-        # remove later
-        self._ui.project_list.addItem(
-            "/home/philipp/Development/Bachelorarbeit/diary-survey-bot/tools/survey-editor/survey")
-
         # Register connections here
         self._ui.directory_tool.clicked.connect(self.change_root_dir)
         self._ui.day_list.itemSelectionChanged.connect(self.day_list_event)
         self._ui.block_list.itemSelectionChanged.connect(self.block_list_event)
         self._ui.block_list.itemDoubleClicked.connect(self.edit_block)
-        self._ui.project_list.itemSelectionChanged.connect(self.activate_project_options)
-        self._ui.load_project_button.clicked.connect(self.load_project)
-        self._ui.delete_project_button.clicked.connect(self.delete_project)
         self._ui.edit_block_button.clicked.connect(self.edit_block)
         self._ui.meta_save_button.clicked.connect(self.save_meta)
         self._ui.day_set_button.clicked.connect(self.set_day)
@@ -200,26 +193,6 @@ class DayView(QWidget):
         self._model.lang = self._model.default_language
         self._model.set_blocks(self._ui.block_list.currentRow())
         self.parent().setCurrentIndex(1)
-
-    def activate_project_options(self):
-        self._ui.load_project_button.setEnabled(True)
-        self._ui.delete_project_button.setEnabled(True)
-
-    def deactivate_project_options(self):
-        self._ui.load_project_button.setDisabled(True)
-        self._ui.delete_project_button.setDisabled(True)
-
-    def load_project(self):
-        index = self._ui.project_list.currentRow()
-        self._model.dir = self._model.recent_projects[index]
-        self._controller.init_project()
-
-    def delete_project(self):
-        index = self._ui.project_list.currentRow()
-        self._ui.project_list.takeItem(index)
-        del self._model.recent_projects[index]
-        if len(self._model.recent_projects) == 0:
-            self.deactivate_project_options()
 
     def save_meta(self):
         meta = self._ui.meta_field.toPlainText()
@@ -401,5 +374,3 @@ class DayView(QWidget):
         self.block_view.remove_tab(lang)
         self._ui.day_list.clearSelection()
         self.disable_day()
-
-

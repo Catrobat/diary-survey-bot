@@ -10,9 +10,11 @@ import copy
 import json
 import os
 import re
-from PyQt5.QtCore import QObject, pyqtSlot
+
+from PyQt5.QtCore import QObject
 
 # The controller class performs any logic and sets data in the model.
+
 from model.survey import Block, Question, Survey
 from resources.languages import iso_639_choices
 
@@ -25,7 +27,6 @@ class DayController(QObject):
 
     def init_project(self):
         self._view.disable_lang()
-        self.init_config()
         regex = re.compile('(question_set_..\.json)')
         root_dir = self._model.dir
         self._model.recent_projects.append(root_dir)
@@ -46,6 +47,11 @@ class DayController(QObject):
                         print(e)
                         return -1
 
+        if not lang_list:
+            print("e")
+            pass  # there are no files - new project! #todo
+
+        self.init_config()
         self._model.init_condition_coordinates()
         self._model.load_templates()
 
