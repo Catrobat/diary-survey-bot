@@ -384,6 +384,7 @@ class DayView(QWidget):
         self._controller.add_lang(lang)
         self._ui.lang_list.addItem(lang + " -> " + iso_639_choices[lang])
         # 3 fix templates
+        self._controller.add_lang_to_templates(lang)
 
         self._ui.day_list.clearSelection()
         self.disable_day()
@@ -394,6 +395,8 @@ class DayView(QWidget):
         index = self._ui.lang_list.currentRow()
         lang = self._ui.lang_list.item(index).text()[:2]
         self._controller.delete_language(lang)
+        self._controller.delete_lang_from_templates(lang)
+        self.block_view.set_tab(0)
         self._ui.lang_list.takeItem(index)
         self.block_view.remove_tab(lang)
         self._ui.day_list.clearSelection()

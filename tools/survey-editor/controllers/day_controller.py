@@ -168,6 +168,39 @@ class DayController(QObject):
         self._model.surveys[lang] = survey
         self._model.update_surveys()
 
+    def add_lang_to_templates(self, lang):
+        if self._model.day_templates != {}:
+            for key in self._model.day_templates:
+                template = self._model.day_templates[key]
+                template[lang] = copy.deepcopy(template[self._model.default_language])
+                for block in template[lang]["blocks"]:
+                    for question in block["questions"]:
+                        question["text"] = "--TRANSLATE--"
+                        question["condition"] = []
+                        question["condition_required"] = []
+                        question["choice"] = []
+
+        if self._model.block_templates != {}:
+            for key in self._model.block_templates:
+                template = self._model.block_templates[key]
+                template[lang] = copy.deepcopy(template[self._model.default_language])
+                for question in template[lang]["questions"]:
+                    question["text"] = "--TRANSLATE--"
+                    question["condition"] = []
+                    question["condition_required"] = []
+                    question["choice"] = []
+
+        if self._model.question_templates != {}:
+            for key in self._model.question_templates:
+                question = self._model.question_templates[key]
+                question[lang] = copy.deepcopy(question[self._model.default_language])
+                question[lang]["text"] = "--TRANSLATE--"
+                question[lang]["condition"] = []
+                question[lang]["condition_required"] = []
+                question[lang]["choice"] = []
+
+        self._model.update_templates()
+
     def delete_language(self, lang):
         self._model.languages.remove(lang)
         self._model.surveys.pop(lang, None)
@@ -178,4 +211,11 @@ class DayController(QObject):
         file = self._model.dir + "/question_set_" + lang + ".json"
         os.remove(file)
 
-
+    def delete_lang_from_templates(self, lang):
+        for key in self._model.day_templates:
+            del self._model.day_templates[key][lang]
+        for key in self._model.block_templates:
+            del self._model.block_templates[key][lang]
+        for key in self._model.question_templates:
+            del self._model.question_templates[key][lang]
+        self._model.update_templates()

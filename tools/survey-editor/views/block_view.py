@@ -174,3 +174,6 @@ class BlockView(QWidget):
         for i in range(self._ui.tabWidget.count()):
             if self._ui.tabWidget.tabText(i) == lang:
                 self._ui.tabWidget.removeTab(i)
+
+    def set_tab(self, index):
+        self._ui.tabWidget.setCurrentIndex(index)

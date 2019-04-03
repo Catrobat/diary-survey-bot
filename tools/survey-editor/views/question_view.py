@@ -71,12 +71,6 @@ class QuestionView(QWidget):
         self.fill_question_templates()
         self._ui.question_template_field.setText("")
 
-        # Todo
-        # Commands
-        # Conditions
-        # Conditions required
-        # ...
-
     def set_question_number(self, nr):
         self._ui.headline.setText("Question #" + str(nr))
 
