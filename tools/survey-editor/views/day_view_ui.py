@@ -505,7 +505,7 @@ class Ui_Day(object):
         self.directory_tool.setText(_translate("Day", "..."))
         self.headline_languages.setText(_translate("Day", "Languages"))
         self.healdline_project.setText(_translate("Day", "Project"))
-        self.iso_label.setText(_translate("Day", "ISO-639-1"))
+        self.iso_label.setText(_translate("Day", "ISO-639"))
         self.lang_field.setPlaceholderText(_translate("Day", "language"))
         self.lang_add_button.setText(_translate("Day", "add"))
         self.lang_delete_button.setText(_translate("Day", "delete"))

@@ -84,15 +84,22 @@ class BlockView(QWidget):
             self._ui.question_list.addItem(question)
 
     def question_list_event(self):
-        self._ui.tabWidget.setEnabled(True)
-        self._ui.tabWidget.currentWidget().setEnabled(True)
+        self._ui.tabWidget.setDisabled(True)
+        if not self._ui.question_list.selectedItems():
+            return
 
         index = self._ui.question_list.currentRow()
+        self._ui.tabWidget.setEnabled(True)
+        self._ui.tabWidget.currentWidget().setEnabled(True)
         if index == len(self._model.blocks[self._model.default_language].questions):
             index = index - 1
 
         self._model.set_questions(index)
 
+        for i in range(self._ui.tabWidget.count()):
+            lang = self._ui.tabWidget.tabText(i)
+            if lang == self._model.lang:
+                self._ui.tabWidget.setCurrentIndex(i)
         self.question_widgets[self._model.lang].populate()
 
     def tab_event(self):

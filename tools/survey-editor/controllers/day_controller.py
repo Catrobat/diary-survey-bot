@@ -14,6 +14,7 @@ import re
 from PyQt5.QtCore import QObject
 
 # The controller class performs any logic and sets data in the model.
+from PyQt5.QtWidgets import QInputDialog, QLineEdit
 
 from model.survey import Block, Question, Survey
 from resources.languages import iso_639_choices
@@ -29,7 +30,6 @@ class DayController(QObject):
         self._view.disable_lang()
         regex = re.compile('(question_set_..\.json)')
         root_dir = self._model.dir
-        self._model.recent_projects.append(root_dir)
         lang_list = []
 
         for root, dirs, files in os.walk(root_dir):
@@ -48,10 +48,21 @@ class DayController(QObject):
                         return -1
 
         if not lang_list:
-            print("e")
-            pass  # there are no files - new project! #todo
+            dialog = QInputDialog()
+            lang, ok = QInputDialog.getText(dialog, "Default language", "Default language for your project (ISO-639):",
+                                            QLineEdit.Normal, "")
+            if ok and lang != '':
+                print(lang)
+                file = root_dir + "/question_set_" + lang + ".json"
+                survey = Survey(None, lang)
+                with open(file, 'w', encoding="utf-8") as outfile:
+                    json.dump(survey.get_object(), outfile, indent=2)
+                self.init_project()
+                return
+            else:
+                return
 
-        self.init_config()
+        #self.init_config()
         self._model.init_condition_coordinates()
         self._model.load_templates()
 
@@ -66,7 +77,6 @@ class DayController(QObject):
         for item in lang_list:
             lang_info.append(item + " -> " + iso_639_choices[item])
         self._view.fill_lang_list(lang_info)
-        self._view.fill_project_list(self._model.recent_projects)
         self._view.enable_days()
 
     def init_config(self):

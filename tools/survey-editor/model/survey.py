@@ -346,7 +346,6 @@ class Model:
         self.conditions = {}
 
         self.default_language = "de"
-        self.recent_projects = ["/home/philipp/Development/Bachelorarbeit/diary-survey-bot/tools/survey-editor/survey"]
         self.time_slots = []
         self.strict_time_slots = True
 
@@ -400,7 +399,7 @@ class Model:
         try:
             with open(self.dir + "/config.json", "w", encoding="utf-8") as fp:
                 json.dump(config, fp)
-        except FileExistsError as e:
+        except FileNotFoundError as e:
             # Todo: Error handling
             print(e)
             return -1
@@ -508,13 +507,17 @@ class Model:
 
     def load_templates(self):
         file = self.dir + "/templates" + ".json"
-        with open(file, 'r', encoding="utf-8") as infile:
-            templates = json.load(infile)
-            self.choice_templates = templates["choice"]
-            self.question_templates = templates["question"]
-            self.block_templates = templates["block"]
-            self.day_templates = templates["day"]
-            self.templates = {"choice": self.choice_templates,
-                              "question": self.question_templates,
-                              "block": self.block_templates,
-                              "day": self.day_templates}
+        try:
+            with open(file, 'r', encoding="utf-8") as template_file:
+                templates = json.load(template_file)
+                self.choice_templates = templates["choice"]
+                self.question_templates = templates["question"]
+                self.block_templates = templates["block"]
+                self.day_templates = templates["day"]
+                self.templates = {"choice": self.choice_templates,
+                                  "question": self.question_templates,
+                                  "block": self.block_templates,
+                                  "day": self.day_templates}
+
+        except FileNotFoundError:
+            open(file, 'a', encoding="utf-8").close()

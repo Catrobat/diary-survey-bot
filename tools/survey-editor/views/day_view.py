@@ -129,14 +129,12 @@ class DayView(QWidget):
         self._ui.lang_list.setDisabled(True)
 
     def change_root_dir(self):
-        self._model.dir = str(QFileDialog.getExistingDirectory(self._ui.directory_tool, "Select Directory"))
+        directory = str(QFileDialog.getExistingDirectory(self._ui.directory_tool, "Select Directory"))
+        if directory == "":
+            return
+        self._model.dir = directory
         self._controller.init_project()
         self._ui.directory_display.setText(self._model.dir)
-
-    def fill_project_list(self, project_list):
-        self._ui.project_list.clear()
-        for project in project_list:
-            self._ui.project_list.addItem(project)
 
     def fill_day_list(self, day_list):
         self._ui.day_list.clear()
@@ -190,6 +188,8 @@ class DayView(QWidget):
         self._ui.delete_block_button.setEnabled(True)
 
     def edit_block(self):
+        if not self._ui.block_list.selectedItems():
+            return
         self._model.lang = self._model.default_language
         self._model.set_blocks(self._ui.block_list.currentRow())
         self.parent().setCurrentIndex(1)
@@ -352,11 +352,10 @@ class DayView(QWidget):
     def add_lang(self):
         lang = self._ui.lang_field.text()
         if lang not in iso_639_choices or lang in self._model.languages:
-            # todo error handling
+            # todo error message
             return
         self._controller.add_lang(lang)
         self._ui.lang_list.addItem(lang + " -> " + iso_639_choices[lang])
-        # 3 fix templates
         self._controller.add_lang_to_templates(lang)
 
         self._ui.day_list.clearSelection()
@@ -367,6 +366,9 @@ class DayView(QWidget):
             return
         index = self._ui.lang_list.currentRow()
         lang = self._ui.lang_list.item(index).text()[:2]
+        if lang == self._model.default_language:
+            # todo error message
+            return
         self._controller.delete_language(lang)
         self._controller.delete_lang_from_templates(lang)
         self.block_view.set_tab(0)
