@@ -84,7 +84,6 @@ class BlockView(QWidget):
             self._ui.question_list.addItem(question)
 
     def question_list_event(self):
-        self._ui.tabWidget.setDisabled(True)
         if not self._ui.question_list.selectedItems():
             return
 

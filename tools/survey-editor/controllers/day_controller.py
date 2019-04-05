@@ -104,9 +104,10 @@ class DayController(QObject):
 
     def load_day_template(self, key):
         template = self._model.day_templates[key]
+        nr_of_day = self._model.days[self._model.default_language].day
         for lang in template:
             self._model.days[lang].set_meta(template[lang]["meta"])
-            self._model.days[lang].set_day(0)  # todo
+            self._model.days[lang].set_day(nr_of_day)
             self._model.days[lang].blocks = []
             for b in template[lang]["blocks"]:
                 block = Block()
@@ -132,8 +133,11 @@ class DayController(QObject):
     def set_day(self, day):
         if any(x.day == day for x in self._model.surveys[self._model.default_language].days):
             return False  # todo error handling
+        if not day > 0:
+            return False
         for lang in self._model.languages:
             self._model.days[lang].day = day
+        self._model.sort_days()
         return True
 
     def move_day(self, index, direction):

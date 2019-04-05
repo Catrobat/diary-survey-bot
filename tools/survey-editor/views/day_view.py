@@ -203,6 +203,9 @@ class DayView(QWidget):
         day = self._ui.day_field.value()
         if self._controller.set_day(day):
             self.update_info()
+            index = [x.day for x in self._model.surveys[self._model.default_language].days].index(day)
+            item = self._ui.day_list.item(index)
+            self._ui.day_list.setCurrentItem(item)
         self._model.update_surveys()
 
     def update_info(self):

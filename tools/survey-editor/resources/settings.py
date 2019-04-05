@@ -14,7 +14,8 @@ question_commands = [("Force Keyboard Reply", ["FORCE_KB_REPLY"]), ("Continue au
                      ("Store country information", ["COUNTRY"]), ("Store gender information", ["GENDER"]),
                      ("Store timezone information", ["TIMEZONE"]), ("Store age information", ["AGE"])]
 
-scheduling = ["05:00", "05:30", "06:00", "06:30",
+scheduling = ["START",
+              "05:00", "05:30", "06:00", "06:30",
               "07:00", "07:30", "08:00", "08:30",
               "09:00", "09:30", "10:00", "10:30",
               "11:00", "11:30", "12:00", "12:30",

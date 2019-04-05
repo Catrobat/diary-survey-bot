@@ -53,10 +53,10 @@ class QuestionView(QWidget):
     def populate(self):
         question = self._model.questions[self._lang]
         index = question.block.questions.index(question)
-        self._ui.keyword_field.setText("")
         self._ui.lang_info.setText(self._lang)
         self._ui.day_info.setText("Day: #" + str(question.day.day))
         self._ui.block_info.setText("Block: #" + str(question.day.blocks.index(question.block) + 1))
+
         self.fill_choices(question.choice)
         self.set_question_number(index + 1)
         self.fill_text(question.text)
@@ -67,9 +67,14 @@ class QuestionView(QWidget):
         self.fill_all_conditions_list()
         self.fill_condition_required()
         self.fill_choice_templates()
-        self._ui.choice_template_field.setText("")
         self.fill_question_templates()
+
+        self._ui.keyword_field.setText("")
+        self._ui.choice_template_field.setText("")
         self._ui.question_template_field.setText("")
+        self._ui.choice_field.setPlainText("")
+        self._ui.question_template_field.setText("")
+        self._ui.data_name_field.setText("")
 
     def set_question_number(self, nr):
         self._ui.headline.setText("Question #" + str(nr))

@@ -521,3 +521,7 @@ class Model:
 
         except FileNotFoundError:
             open(file, 'a', encoding="utf-8").close()
+
+    def sort_days(self):
+        for lang in self.languages:
+            self.surveys[lang].days.sort(key=lambda x: x.day)
