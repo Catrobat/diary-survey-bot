@@ -375,4 +375,5 @@ class DayView(QWidget):
         self._ui.lang_list.takeItem(index)
         self.block_view.remove_tab(lang)
         self._ui.day_list.clearSelection()
+        self._ui.lang_field.setText("")
         self.disable_day()
