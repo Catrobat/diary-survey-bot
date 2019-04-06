@@ -9,6 +9,7 @@ Qt version: 5.12.1
 
 import json
 from collections import OrderedDict
+from json import JSONDecodeError
 
 
 class Question:
@@ -367,6 +368,11 @@ class Model:
         self.blocks = {}
         self.questions = {}
 
+        # Project settings variables
+        self.project_name = ""
+        self.custom_keyboards = []
+        self.editor_mode = ""
+
     def set_days(self, index):
         self.blocks = {}
         self.questions = {}
@@ -389,20 +395,19 @@ class Model:
 
     def update_config_file(self):
         config = OrderedDict([("default-language", self.default_language),
-                              ("recent-projects", self.recent_projects),
-                              ("time-slots", self.time_slots),
-                              ("custom-keyboard", self.custom_keyboards),
-                              ("keyboard-templates", self.keyboard_templates),
-                              ("question-templates", self.question_templates),
-                              ("strict-time-slots", self.strict_time_slots)])
+                              ("project-name", self.project_name),
+                              ("custom-keyboards", self.custom_keyboards),
+                              ("editor-mode", self.editor_mode)])
+        with open(self.dir + "/config.json", "w", encoding="utf-8") as fp:
+            json.dump(config, fp, indent=2)
 
-        try:
-            with open(self.dir + "/config.json", "w", encoding="utf-8") as fp:
-                json.dump(config, fp)
-        except FileNotFoundError as e:
-            # Todo: Error handling
-            print(e)
-            return -1
+    def generate_config_file(self):
+        config = OrderedDict([("default-language", self.default_language),
+                              ("project-name", ""),
+                              ("custom-keyboards", []),
+                              ("editor-mode", "")])
+        with open(self.dir + "/config.json", "w", encoding="utf-8") as fp:
+            json.dump(config, fp, indent=2)
 
     def update_surveys(self):
         for lang in self.languages:
@@ -520,7 +525,9 @@ class Model:
                                   "day": self.day_templates}
 
         except FileNotFoundError:
-            open(file, 'a', encoding="utf-8").close()
+            file = self.dir + "/templates" + ".json"
+            with open(file, 'w', encoding="utf-8") as outfile:
+                json.dump(self.templates, outfile, indent=2)
 
     def sort_days(self):
         for lang in self.languages:

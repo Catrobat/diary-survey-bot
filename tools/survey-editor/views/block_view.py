@@ -17,6 +17,7 @@ from views.question_view import QuestionView
 
 # The view class should mainly contain code to handle events and trigger
 # events in/from the user interface.
+# related .ui file in ../qt/block.ui
 class BlockView(QWidget):
     def __init__(self, model, block_controller):
         super().__init__()

@@ -16,6 +16,7 @@ from views.day_view_ui import Ui_Day
 
 # The view class should mainly contain code to handle events and trigger
 # events in/from the user interface.
+# related .ui file in ../qt/day.ui
 class DayView(QWidget):
     def __init__(self, model, day_controller):
         super().__init__()

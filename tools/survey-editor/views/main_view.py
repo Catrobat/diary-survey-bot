@@ -17,6 +17,7 @@ from views.main_view_ui import Ui_main_window
 
 # The view class should mainly contain code to handle events and trigger
 # events in/from the user interface.
+# related .ui file in ../qt/mainwindow.ui
 class MainView(QMainWindow):
     def __init__(self, model, main_controller):
         super().__init__()

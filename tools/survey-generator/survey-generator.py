@@ -285,7 +285,7 @@ class Survey:
 
 
 def generate_sample_survey(nr_of_days, nr_of_blocks, nr_of_questions, sample_data):
-    t_map = {0: "0800", 1: "1200", 2: "1600", 3: "2000"}
+    t_map = {0: "08:00", 1: "12:00", 2: "16:00", 3: "20:00"}
     survey_en = Survey()
     survey_de = Survey()
     survey_it = Survey()
@@ -300,9 +300,9 @@ def generate_sample_survey(nr_of_days, nr_of_blocks, nr_of_questions, sample_dat
             block_en = Block()
             block_de = Block()
             block_it = Block()
-            block_en.set_time(t_map.setdefault(j, "1200"))
-            block_de.set_time(t_map.setdefault(j, "1200"))
-            block_it.set_time(t_map.setdefault(j, "1200"))
+            block_en.set_time(t_map.setdefault(j, "12:00"))
+            block_de.set_time(t_map.setdefault(j, "12:00"))
+            block_it.set_time(t_map.setdefault(j, "12:00"))
             for k in range(nr_of_questions):
                 index = random.randint(0, len(SAMPLE_DATA_DE) - 1)
                 pick_en = SAMPLE_DATA_EN[index]
@@ -341,6 +341,9 @@ def generate_sample_survey(nr_of_days, nr_of_blocks, nr_of_questions, sample_dat
     return [("en", survey_en), ("de", survey_de), ("it", survey_it)]
 
 
+# Simple survey generator that creates sample surveys in en/de/it
+# You can add your own sample questions to the SAMPLE_DATA dictionaries.
+# Usage: python survey-generator <number of days> <number of blocks per survey> <number of questions per block>
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("days", help="Enter the amount of days for your survey.", type=int)

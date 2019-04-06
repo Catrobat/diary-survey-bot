@@ -14,6 +14,7 @@ from resources.settings import question_commands
 
 # The view class should mainly contain code to handle events and trigger
 # events in/from the user interface.
+# related .ui file in ../qt/question.ui
 class QuestionView(QWidget):
     def __init__(self, model, question_controller, language):
         super().__init__()
