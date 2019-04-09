@@ -7,7 +7,7 @@ Documentation: https://github.com/Catrobat/diary-survey-bot
 Qt version: 5.12.1
 """
 
-from PyQt5.QtWidgets import QWidget, QFileDialog
+from PyQt5.QtWidgets import QWidget, QFileDialog, QMessageBox
 
 from model.survey import Block, Day
 from resources.languages import iso_639_choices
@@ -207,6 +207,13 @@ class DayView(QWidget):
             index = [x.day for x in self._model.surveys[self._model.default_language].days].index(day)
             item = self._ui.day_list.item(index)
             self._ui.day_list.setCurrentItem(item)
+        else:
+            message = "This day slot is taken, change the existing one before you" \
+                      " can set it to this value."
+            box = QMessageBox()
+            reply = QMessageBox.question(box, 'Error', message, QMessageBox.Ok)
+            if reply == QMessageBox.Ok:
+                return
         self._model.update_surveys()
 
     def update_info(self):
@@ -356,8 +363,12 @@ class DayView(QWidget):
     def add_lang(self):
         lang = self._ui.lang_field.text()
         if lang not in iso_639_choices or lang in self._model.languages:
-            # todo error message
-            return
+            message = "This is not a valid language code!"
+            box = QMessageBox()
+            reply = QMessageBox.question(box, 'Error', message, QMessageBox.Ok)
+            if reply == QMessageBox.Ok:
+                return
+
         self._controller.add_lang(lang)
         self._ui.lang_list.addItem(lang + " -> " + iso_639_choices[lang])
         self._controller.add_lang_to_templates(lang)
@@ -371,8 +382,13 @@ class DayView(QWidget):
         index = self._ui.lang_list.currentRow()
         lang = self._ui.lang_list.item(index).text()[:2]
         if lang == self._model.default_language:
-            # todo error message
-            return
+            message = "This is the default language, change the default language in the" \
+                      " settings before you delete it."
+            box = QMessageBox()
+            reply = QMessageBox.question(box, 'Error', message, QMessageBox.Ok)
+            if reply == QMessageBox.Ok:
+                return
+
         self._controller.delete_language(lang)
         self._controller.delete_lang_from_templates(lang)
         self.block_view.set_tab(0)
