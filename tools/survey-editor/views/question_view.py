@@ -321,7 +321,8 @@ class QuestionView(QWidget):
 
     def load_question_template(self):
         key = self._ui.question_template_box.currentText()
-        self._controller.load_question_template(key)
+        if not self._controller.load_question_template(key):
+            return
         self.populate()
         questions = []
         block = self._model.blocks[self._model.default_language]

@@ -173,7 +173,8 @@ class BlockView(QWidget):
 
     def load_block_template(self):
         key = self._ui.block_template_box.currentText()
-        self._controller.load_block_template(key)
+        if not self._controller.load_block_template(key):
+            return
         self.populate()
         self.day_view.update_info()
         self._model.update_surveys()

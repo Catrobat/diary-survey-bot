@@ -7,12 +7,11 @@ Documentation: https://github.com/Catrobat/diary-survey-bot
 Qt version: 5.12.1
 """
 
-from PyQt5.QtCore import QObject, pyqtSlot
+from PyQt5.QtCore import QObject
+from PyQt5.QtWidgets import QMessageBox
 
 
 # The controller class performs any logic and sets data in the model.
-
-
 class QuestionController(QObject):
     def __init__(self, model):
         super().__init__()
@@ -68,11 +67,18 @@ class QuestionController(QObject):
 
     def load_question_template(self, key):
         template = self._model.question_templates[key]
-        for lang in template:
-            self._model.questions[lang].set_text(template[lang]["text"])
-            self._model.questions[lang].set_choice(template[lang]["choice"])
-            self._model.questions[lang].set_condition_required(template[lang]["condition_required"])
-            self._model.questions[lang].set_condition([])
-            self._model.questions[lang].set_commands(template[lang]["commands"])
-            self._model.questions[lang].set_meta(template[lang]["meta"])
-            self._model.questions[lang].set_variable(template[lang]["variable"])
+        try:
+            for lang in template:
+                self._model.questions[lang].set_text(template[lang]["text"])
+                self._model.questions[lang].set_choice(template[lang]["choice"])
+                self._model.questions[lang].set_condition_required(template[lang]["condition_required"])
+                self._model.questions[lang].set_condition([])
+                self._model.questions[lang].set_commands(template[lang]["commands"])
+                self._model.questions[lang].set_meta(template[lang]["meta"])
+                self._model.questions[lang].set_variable(template[lang]["variable"])
+        except KeyError:
+            message = "This template is corrupted!"
+            box = QMessageBox()
+            QMessageBox.question(box, 'Error', message, QMessageBox.Ok)
+            return False
+        return True

@@ -9,7 +9,6 @@ Qt version: 5.12.1
 
 import json
 from collections import OrderedDict
-from json import JSONDecodeError
 
 
 class Question:

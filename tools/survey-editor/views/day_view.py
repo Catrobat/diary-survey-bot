@@ -264,7 +264,8 @@ class DayView(QWidget):
 
     def load_day_template(self):
         key = self._ui.day_template_box.currentText()
-        self._controller.load_day_template(key)
+        if not self._controller.load_day_template(key):
+            return
         self.update_info()
         self._model.update_surveys()
 

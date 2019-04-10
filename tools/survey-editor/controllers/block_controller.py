@@ -7,13 +7,12 @@ Documentation: https://github.com/Catrobat/diary-survey-bot
 Qt version: 5.12.1
 """
 
-
-from PyQt5.QtCore import QObject, pyqtSlot
-
-# The controller class performs any logic and sets data in the model.
+from PyQt5.QtCore import QObject
+from PyQt5.QtWidgets import QMessageBox
 from model.survey import Question
 
 
+# The controller class performs any logic and sets data in the model.
 class BlockController(QObject):
     def __init__(self, model):
         super().__init__()
@@ -74,6 +73,11 @@ class BlockController(QObject):
         self._view.fill_question_list(info)
 
     def add_settings(self, item):
+        if item == "MANDATORY":
+            message = "Do not forget to add the command \"Continue automatic survey\" to the last mandatory " \
+                      "question of this block. Otherwise the survey will not continue!"
+            box = QMessageBox()
+            QMessageBox.question(box, 'Warning!', message, QMessageBox.Ok)
         for lang in self._model.languages:
             self._model.blocks[lang].add_settings([item])
         self._model.update_surveys()
@@ -91,20 +95,27 @@ class BlockController(QObject):
 
     def load_block_template(self, key):
         template = self._model.block_templates[key]
-        for lang in template:
-            self._model.blocks[lang].set_meta(template[lang]["meta"])
-            self._model.blocks[lang].set_settings(template[lang]["settings"])
-            self._model.blocks[lang].questions = []
-            for q in template[lang]["questions"]:
-                question = Question()
-                question.set_text(q["text"])
-                question.set_choice(q["choice"])
-                question.set_condition_required(q["condition_required"])
-                question.set_condition([])
-                question.set_commands(q["commands"])
-                question.set_meta(q["meta"])
-                question.set_variable(q["variable"])
-                question.set_block(self._model.blocks[lang])
-                question.set_day(self._model.days[lang])
-                question.set_survey(self._model.surveys[lang])
-                self._model.blocks[lang].add_question(question)
+        try:
+            for lang in template:
+                self._model.blocks[lang].set_meta(template[lang]["meta"])
+                self._model.blocks[lang].set_settings(template[lang]["settings"])
+                self._model.blocks[lang].questions = []
+                for q in template[lang]["questions"]:
+                    question = Question()
+                    question.set_text(q["text"])
+                    question.set_choice(q["choice"])
+                    question.set_condition_required(q["condition_required"])
+                    question.set_condition([])
+                    question.set_commands(q["commands"])
+                    question.set_meta(q["meta"])
+                    question.set_variable(q["variable"])
+                    question.set_block(self._model.blocks[lang])
+                    question.set_day(self._model.days[lang])
+                    question.set_survey(self._model.surveys[lang])
+                    self._model.blocks[lang].add_question(question)
+        except KeyError:
+            message = "This template is corrupted!"
+            box = QMessageBox()
+            QMessageBox.question(box, 'Error', message, QMessageBox.Ok)
+            return False
+        return True
