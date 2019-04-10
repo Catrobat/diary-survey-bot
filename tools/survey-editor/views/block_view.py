@@ -7,7 +7,7 @@ Documentation: https://github.com/Catrobat/diary-survey-bot
 Qt version: 5.12.1
 """
 
-from PyQt5.QtWidgets import QWidget
+from PyQt5.QtWidgets import QWidget, QMessageBox
 
 from controllers.question_controller import QuestionController
 from resources.settings import scheduling, block_settings
@@ -161,6 +161,12 @@ class BlockView(QWidget):
         key = self._ui.block_template_field.text()
         if key == "":
             return
+        if key in self._model.block_templates:
+            message = "This key is already in use. Do you want to overwrite it?"
+            box = QMessageBox()
+            reply = QMessageBox.question(box, 'Error', message, QMessageBox.Yes | QMessageBox.Cancel)
+            if reply == QMessageBox.Cancel:
+                return
         self._controller.build_block_template(key, self._model.blocks)
         self._ui.block_template_field.setText("")
         self.fill_block_templates()

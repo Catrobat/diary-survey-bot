@@ -7,7 +7,7 @@ Documentation: https://github.com/Catrobat/diary-survey-bot
 Qt version: 5.12.1
 """
 
-from PyQt5.QtWidgets import QWidget, QTableWidgetItem
+from PyQt5.QtWidgets import QWidget, QTableWidgetItem, QMessageBox
 from views.question_view_ui import Ui_question
 from resources.settings import question_commands
 
@@ -278,6 +278,12 @@ class QuestionView(QWidget):
         key = self._ui.choice_template_field.text()
         if key == "":
             return
+        if key in self._model.choice_templates:
+            message = "This key is already in use. Do you want to overwrite it?"
+            box = QMessageBox()
+            reply = QMessageBox.question(box, 'Error', message, QMessageBox.Yes | QMessageBox.Cancel)
+            if reply == QMessageBox.Cancel:
+                return
         self._model.add_choice_template(key, self._model.questions[self._model.lang].choice)
         self._ui.choice_template_field.setText("")
         self.fill_choice_templates()
@@ -303,6 +309,12 @@ class QuestionView(QWidget):
         key = self._ui.question_template_field.text()
         if key == "":
             return
+        if key in self._model.question_templates:
+            message = "This key is already in use. Do you want to overwrite it?"
+            box = QMessageBox()
+            reply = QMessageBox.question(box, 'Error', message, QMessageBox.Yes | QMessageBox.Cancel)
+            if reply == QMessageBox.Cancel:
+                return
         self._controller.build_question_template(key, self._model.questions)
         self._ui.question_template_field.setText("")
         self.fill_question_templates()

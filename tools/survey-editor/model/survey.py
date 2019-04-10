@@ -284,6 +284,7 @@ class Survey:
     def __init__(self, survey, language):
         self.language = language
         self.days = []
+        self.valid = True
         if survey is not None:
             try:
                 for day in survey:
@@ -314,10 +315,8 @@ class Survey:
                         d.add_block(b)
                     self.add_day(d)
             except KeyError as e:
-                print(e)
-
-    def info(self):
-        pass
+                self.valid = False
+                self.error = "Corrupted Survey. Missing or misspelled key " + str(e) + " in Survey: " + self.language
 
     def add_day(self, day):
         if isinstance(day, Day):
@@ -391,7 +390,10 @@ class Model:
     def add_survey(self, json_survey, lang):
         self.languages.append(lang)
         survey = Survey(json_survey, lang)
+        if not survey.valid:
+            return survey.error
         self.surveys[lang] = survey
+        return None
 
     def update_config_file(self):
         config = OrderedDict([("default-language", self.default_language),

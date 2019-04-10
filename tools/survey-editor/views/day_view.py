@@ -251,6 +251,13 @@ class DayView(QWidget):
         key = self._ui.day_template_field.text()
         if key == "":
             return
+        if key in self._model.day_templates:
+            message = "This key is already in use. Do you want to overwrite it?"
+            box = QMessageBox()
+            reply = QMessageBox.question(box, 'Error', message, QMessageBox.Yes | QMessageBox.Cancel)
+            if reply == QMessageBox.Cancel:
+                return
+
         self._controller.build_day_template(key, self._model.days)
         self._ui.day_template_field.setText("")
         self.fill_day_templates()
@@ -388,6 +395,12 @@ class DayView(QWidget):
             reply = QMessageBox.question(box, 'Error', message, QMessageBox.Ok)
             if reply == QMessageBox.Ok:
                 return
+
+        box = QMessageBox()
+        message = "Are you sure you want to delete this language? This cannot be undone."
+        reply = QMessageBox.question(box, 'Warning!', message, QMessageBox.Yes | QMessageBox.Cancel)
+        if reply == QMessageBox.Cancel:
+            return
 
         self._controller.delete_language(lang)
         self._controller.delete_lang_from_templates(lang)
