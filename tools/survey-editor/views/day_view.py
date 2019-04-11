@@ -52,6 +52,7 @@ class DayView(QWidget):
         self._ui.delete_day_button.clicked.connect(self.delete_day)
         self._ui.lang_add_button.clicked.connect(self.add_lang)
         self._ui.lang_delete_button.clicked.connect(self.delete_lang)
+        self._ui.settings_button.clicked.connect(self.settings)
 
     def enable_days(self):
         self._ui.move_down_button.setEnabled(True)
@@ -128,6 +129,9 @@ class DayView(QWidget):
         self._ui.iso_label.setDisabled(True)
         self._ui.lang_field.setDisabled(True)
         self._ui.lang_list.setDisabled(True)
+
+    def settings(self):
+        self.parent().setCurrentIndex(2)
 
     def change_root_dir(self):
         directory = str(QFileDialog.getExistingDirectory(self._ui.directory_tool, "Select Directory"))
