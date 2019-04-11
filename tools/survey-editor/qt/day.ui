@@ -86,6 +86,9 @@
      <layout class="QGridLayout" name="gridLayout_3">
       <item row="4" column="0">
        <widget class="QPushButton" name="settings_button">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="font">
          <font>
           <family>Roboto Mono</family>

@@ -26,4 +26,18 @@ class SettingsView(QWidget):
         self._ui.setupUi(self)
 
     def populate(self):
-        pass  # todo
+        self._ui.language_field.setText(self._model.default_language)
+        self._ui.name_field.setText(self._model.project_name)
+        self._ui.language_box.addItems(self._model.languages)
+        self._ui.editor_field.setText(self._model.editor_mode)
+        self.fill_custom_keyboards()
+
+    def fill_custom_keyboards(self):
+        pass  # Todo
+
+    def add_custom_keyboard(self):
+        pass  # Todo
+
+    def delete_custom_keyboard(self):
+        pass  # Todo
+

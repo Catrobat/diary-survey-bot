@@ -369,7 +369,7 @@ class Model:
         # Project settings variables
         self.project_name = ""
         self.custom_keyboards = []
-        self.editor_mode = ""
+        self.editor_mode = "Admin"
 
     def set_days(self, index):
         self.blocks = {}

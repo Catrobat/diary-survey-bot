@@ -77,7 +77,7 @@
     </widget>
    </item>
    <item row="2" column="0">
-    <widget class="QFrame" name="name_field">
+    <widget class="QFrame" name="frame_2">
      <property name="minimumSize">
       <size>
        <width>320</width>
@@ -132,7 +132,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="time_field_3">
+           <widget class="QLineEdit" name="name_field">
             <property name="font">
              <font>
               <family>Roboto Mono</family>
@@ -144,7 +144,7 @@
              <string/>
             </property>
             <property name="readOnly">
-             <bool>true</bool>
+             <bool>false</bool>
             </property>
             <property name="placeholderText">
              <string/>
@@ -275,8 +275,18 @@
                </font>
               </property>
               <property name="currentText">
-               <string/>
+               <string>Admin</string>
               </property>
+              <item>
+               <property name="text">
+                <string>Admin</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Translator</string>
+               </property>
+              </item>
              </widget>
             </item>
            </layout>
@@ -317,7 +327,7 @@
                <string/>
               </property>
               <property name="readOnly">
-               <bool>true</bool>
+               <bool>false</bool>
               </property>
               <property name="placeholderText">
                <string/>

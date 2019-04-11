@@ -138,8 +138,9 @@ class DayView(QWidget):
         if directory == "":
             return
         self._model.dir = directory
-        self._controller.init_project()
-        self._ui.directory_display.setText(self._model.dir)
+        if self._controller.init_project():
+            self._ui.directory_display.setText(self._model.dir)
+            self._ui.settings_button.setEnabled(True)
 
     def fill_day_list(self, day_list):
         self._ui.day_list.clear()
