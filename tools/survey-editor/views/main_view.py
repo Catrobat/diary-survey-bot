@@ -58,4 +58,3 @@ class MainView(QMainWindow):
             self.block_view.populate()
         if index == 2:
             self.settings_view.populate()
-        # todo add a way to switch between settings/block/day

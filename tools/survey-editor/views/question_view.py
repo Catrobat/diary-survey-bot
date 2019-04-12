@@ -50,6 +50,7 @@ class QuestionView(QWidget):
         self._ui.question_template_load_button.clicked.connect(self.load_question_template)
         self._ui.question_template_del_button.clicked.connect(self.delete_question_template)
         self._ui.question_template_store_button.clicked.connect(self.store_question_template)
+        # todo deactivate condition if choice is a custom keyboard!
 
     def populate(self):
         question = self._model.questions[self._lang]
@@ -271,6 +272,7 @@ class QuestionView(QWidget):
 
     def fill_choice_templates(self):
         keys = self._model.get_choice_template_keys()
+        keys += self._model.custom_keyboards
         self._ui.choice_template_box.clear()
         self._ui.choice_template_box.addItems(keys)
 
@@ -284,19 +286,34 @@ class QuestionView(QWidget):
             reply = QMessageBox.question(box, 'Error', message, QMessageBox.Yes | QMessageBox.Cancel)
             if reply == QMessageBox.Cancel:
                 return
+        if key in self._model.custom_keyboards:
+            message = "This key is responds to a custom keyboard!"
+            box = QMessageBox()
+            QMessageBox.question(box, 'Error', message, QMessageBox.Ok)
+            return
+
         self._model.add_choice_template(key, self._model.questions[self._model.lang].choice)
         self._ui.choice_template_field.setText("")
         self.fill_choice_templates()
 
     def load_choice_template(self):
         key = self._ui.choice_template_box.currentText()
-        choice = self._model.choice_templates[key]
+        if key in self._model.custom_keyboards:
+            choice = [[key]]
+        else:
+            choice = self._model.choice_templates[key]
         self._model.questions[self._model.lang].choice = choice
         self._model.update_surveys()
         self.fill_choices(choice)
 
     def delete_choice_template(self):
         key = self._ui.choice_template_box.currentText()
+        if key in self._model.custom_keyboards:
+            message = "This key responds to a custom keyboard. You can remove custom keyboards in the settings menu."
+            box = QMessageBox()
+            QMessageBox.question(box, 'Error', message, QMessageBox.Ok)
+            return
+
         del self._model.choice_templates[key]
         self.fill_choice_templates()
 

@@ -121,6 +121,7 @@ class DayView(QWidget):
         self._ui.iso_label.setEnabled(True)
         self._ui.lang_field.setEnabled(True)
         self._ui.lang_list.setEnabled(True)
+        self._ui.settings_button.setEnabled(True)
 
     def disable_lang(self):
         self._ui.headline_languages.setDisabled(True)
@@ -129,6 +130,7 @@ class DayView(QWidget):
         self._ui.iso_label.setDisabled(True)
         self._ui.lang_field.setDisabled(True)
         self._ui.lang_list.setDisabled(True)
+        self._ui.settings_button.setDisabled(True)
 
     def settings(self):
         self.parent().setCurrentIndex(2)
@@ -141,6 +143,10 @@ class DayView(QWidget):
         if self._controller.init_project():
             self._ui.directory_display.setText(self._model.dir)
             self._ui.settings_button.setEnabled(True)
+        else:
+            self.disable_day()
+            self.disable_days()
+            self.disable_lang()
 
     def fill_day_list(self, day_list):
         self._ui.day_list.clear()
