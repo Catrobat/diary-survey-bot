@@ -21,6 +21,7 @@ class Question:
         self.meta = ""
         self.status = ""
         self.variable = ""
+        self.errors = []
 
         self.survey = None
         self.day = None
@@ -155,6 +156,7 @@ class Block:
         self.settings = []
         self.meta = ""
         self.questions = []
+        self.errors = []
 
         self.survey = None
         self.day = None
@@ -230,6 +232,7 @@ class Day:
         self.day = -1
         self.meta = ""
         self.blocks = []
+        self.errors = []
 
         self.survey = None
 
@@ -282,6 +285,7 @@ class Day:
 class Survey:
     def __init__(self, survey, language):
         self.language = language
+        self.errors = []
         self.days = []
         self.valid = True
         if survey is not None:
@@ -411,6 +415,7 @@ class Model:
             json.dump(config, fp, indent=2)
 
     def update_surveys(self):
+        self.analyze_survey()
         for lang in self.languages:
             file = self.dir + "/question_set_" + lang + ".json"
             with open(file, 'w', encoding="utf-8") as outfile:
@@ -533,3 +538,44 @@ class Model:
     def sort_days(self):
         for lang in self.languages:
             self.surveys[lang].days.sort(key=lambda x: x.day)
+
+    def analyze_survey(self):
+        for lang in self.languages:
+                self.surveys[lang].errors.clear()
+                for day in self.surveys[lang].days:
+                    day.errors.clear()
+                    for block in day.blocks:
+                        block.errors.clear()
+                        for question in block.questions:
+                            question.errors.clear()
+
+        for lang in self.languages:
+            for day in self.surveys[lang].days:
+                for block in day.blocks:
+                    if "MANDATORY" in block.settings and not any(["Q_ON"] in item.commands for item in block.questions):
+                        warning = "MANDATORY block without a continuation command in questions!"
+                        self.surveys[lang].errors.append((block, warning))
+                        day.errors.append((block, warning))
+                        block.errors.append((block, warning))
+
+                    for question in block.questions:
+                        if question.text == "":
+                            warning = "Empty questions!"
+                            self.surveys[lang].errors.append((block, warning))
+                            day.errors.append((question, warning))
+                            block.errors.append((question, warning))
+                            question.errors.append((question, warning))
+
+                        if "--TRANSLATE--" in question.text or any("--TRANSLATE--" in s[0] for s in question.choice):
+                            warning = "Translation incomplete!"
+                            self.surveys[lang].errors.append((block, warning))
+                            day.errors.append((question, warning))
+                            block.errors.append((question, warning))
+                            question.errors.append((question, warning))
+
+                        if any(item[0] == "" for item in question.choice):
+                            warning = "Empty choice object!"
+                            self.surveys[lang].errors.append((block, warning))
+                            day.errors.append((question, warning))
+                            block.errors.append((question, warning))
+                            question.errors.append((question, warning))

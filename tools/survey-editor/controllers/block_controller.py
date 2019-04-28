@@ -48,6 +48,7 @@ class BlockController(QObject):
         questions = []
         for item in block.questions:
             questions.append(item.info())
+
         return questions
 
     def set_time(self, time):

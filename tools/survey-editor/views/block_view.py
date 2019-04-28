@@ -119,6 +119,7 @@ class BlockView(QWidget):
         questions = self._controller.add_question()
         self.fill_question_list(questions)
         self.day_view.update_info()
+        self._model.update_surveys()
 
     def delete_question(self):
         if not self._ui.question_list.selectedItems():
@@ -127,6 +128,7 @@ class BlockView(QWidget):
         questions = self._controller.delete_question(index)
         self.fill_question_list(questions)
         self.day_view.update_info()
+        self._model.update_surveys()
 
     def add_settings(self):
         settings = []

@@ -34,6 +34,7 @@ class SettingsView(QWidget):
     def populate(self):
         index = self._model.languages.index(self._model.default_language)
         self._ui.language_field.setText(self._model.default_language)
+        self._ui.language_box.clear()
         self._ui.language_box.addItems(self._model.languages)
         self._ui.language_box.setCurrentIndex(index)
         self._ui.name_field.setText(self._model.project_name)

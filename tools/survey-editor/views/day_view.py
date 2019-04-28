@@ -6,7 +6,7 @@ Documentation: https://github.com/Catrobat/diary-survey-bot
 
 Qt version: 5.12.1
 """
-
+from PyQt5.QtGui import QColor
 from PyQt5.QtWidgets import QWidget, QFileDialog, QMessageBox
 
 from model.survey import Block, Day
@@ -153,10 +153,40 @@ class DayView(QWidget):
         for info in day_list:
             self._ui.day_list.addItem(info)
 
+        self.set_day_warnings()
+
+    def set_day_warnings(self):
+        for i in range(self._ui.day_list.count()):
+            self._ui.day_list.item(i).setBackground(QColor("#000000"))
+
+        for lang in self._model.languages:
+            for day, i in zip(self._model.surveys[lang].days, range(0, self._ui.day_list.count())):
+                if day.errors:
+                    errors = str(day.errors)
+                    self._ui.day_list.item(i).setToolTip(errors)
+                    self._ui.day_list.item(i).setBackground(QColor("#FF5733"))
+                if not self._ui.day_list.item(i).background().color() == QColor("#FF5733"):
+                    self._ui.day_list.item(i).setBackground(QColor("#52be80"))
+
     def fill_block_list(self, block_list):
         self._ui.block_list.clear()
         for info in block_list:
             self._ui.block_list.addItem(info)
+
+        self.set_block_warnings()
+
+    def set_block_warnings(self):
+        for i in range(self._ui.block_list.count()):
+            self._ui.block_list.item(i).setBackground(QColor("#000000"))
+
+        for lang in self._model.languages:
+            for block, i in zip(self._model.days[lang].blocks, range(0, self._ui.block_list.count())):
+                if block.errors:
+                    errors = str(block.errors)
+                    self._ui.block_list.item(i).setToolTip(errors)
+                    self._ui.block_list.item(i).setBackground(QColor("#FF5733"))
+                if not self._ui.block_list.item(i).background().color() == QColor("#FF5733"):
+                    self._ui.block_list.item(i).setBackground(QColor("#52be80"))
 
     def fill_lang_list(self, lang_list):
         self._ui.lang_list.clear()
@@ -393,6 +423,8 @@ class DayView(QWidget):
         self._controller.add_lang_to_templates(lang)
 
         self._ui.day_list.clearSelection()
+        self._model.analyze_survey()
+        self.set_day_warnings()
         self.disable_day()
 
     def delete_lang(self):
@@ -420,5 +452,7 @@ class DayView(QWidget):
         self._ui.lang_list.takeItem(index)
         self.block_view.remove_tab(lang)
         self._ui.day_list.clearSelection()
+        self._model.analyze_survey()
+        self.set_day_warnings()
         self._ui.lang_field.setText("")
         self.disable_day()

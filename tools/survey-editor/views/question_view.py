@@ -50,7 +50,6 @@ class QuestionView(QWidget):
         self._ui.question_template_load_button.clicked.connect(self.load_question_template)
         self._ui.question_template_del_button.clicked.connect(self.delete_question_template)
         self._ui.question_template_store_button.clicked.connect(self.store_question_template)
-        # todo deactivate condition if choice is a custom keyboard!
 
     def populate(self):
         question = self._model.questions[self._lang]
