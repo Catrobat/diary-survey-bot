@@ -1,0 +1,698 @@
+[
+  {
+    "day": 1,
+    "meta": "First day - gathering basic information",
+    "blocks": [
+      {
+        "time": "START",
+        "settings": [
+          [
+            "MANDATORY"
+          ]
+        ],
+        "meta": "First block of first day. Initial questions.",
+        "questions": [
+          {
+            "text": "Willkommmen zu einer Beispielstudie des diary-survey-bot. Wir werden ihnen Fragen zum klettern stellen.",
+            "meta": "Initial question",
+            "choice": [
+              [
+                "OK"
+              ]
+            ],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": "First"
+          },
+          {
+            "text": "Aus welchem Land kommst du?",
+            "meta": "Question about origin.",
+            "choice": [
+              [
+                "KB_COUNTRY"
+              ]
+            ],
+            "condition_required": [],
+            "condition": [],
+            "commands": [
+              [
+                "Force Keyboard Reply"
+              ]
+            ],
+            "variable": "COUNTRY"
+          },
+          {
+            "text": "In welcher Zeitzone lebst du?",
+            "meta": "Info about Timezone.",
+            "choice": [],
+            "condition_required": [],
+            "condition": [],
+            "commands": [
+              [
+                "Store timezone information"
+              ]
+            ],
+            "variable": "TIMEZONE"
+          },
+          {
+            "text": "Bist du m\u00e4nnlich oder weiblich?",
+            "meta": "Question about gender.",
+            "choice": [
+              [
+                "m\u00e4nnlich"
+              ],
+              [
+                "weiblich"
+              ]
+            ],
+            "condition_required": [],
+            "condition": [],
+            "commands": [
+              [
+                "Store gender information"
+              ]
+            ],
+            "variable": "GENDER"
+          },
+          {
+            "text": "Wie alt bist du?",
+            "meta": "Question about age.",
+            "choice": [],
+            "condition_required": [],
+            "condition": [],
+            "commands": [
+              [
+                "Store age information"
+              ]
+            ],
+            "variable": "AGE"
+          },
+          {
+            "text": "Wie lange kletterst du schon?",
+            "meta": "",
+            "choice": [
+              [
+                "< 1 Jahr"
+              ],
+              [
+                "1-4 Jahre"
+              ],
+              [
+                "> 4 Jahre"
+              ]
+            ],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": "ROCKTIME"
+          },
+          {
+            "text": "Danke die Studie wird morgen fortgesetzt!",
+            "meta": "",
+            "choice": [],
+            "condition_required": [],
+            "condition": [],
+            "commands": [
+              [
+                "Continue automatic queue"
+              ]
+            ],
+            "variable": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "day": 2,
+    "meta": "Basic questions about training and progress.",
+    "blocks": [
+      {
+        "time": "",
+        "settings": [],
+        "meta": "Basic questions in the morning.",
+        "questions": [
+          {
+            "text": "Was hast du heute zum Fr\u00fchst\u00fcck gegessen?",
+            "meta": "Info about breakfast.",
+            "choice": [],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": "BREAKFAST"
+          },
+          {
+            "text": "Wie f\u00fchlst du dich heute k\u00f6rperlich auf einer Skala von 1-5?",
+            "meta": "Question about physical condition.",
+            "choice": [
+              [
+                "1"
+              ],
+              [
+                "2"
+              ],
+              [
+                "3"
+              ],
+              [
+                "4"
+              ],
+              [
+                "5"
+              ]
+            ],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": "FEELING"
+          },
+          {
+            "text": "Danke, wir werden dir am Abend ein paar Fragen zu deinem Training stellen.",
+            "meta": "",
+            "choice": [],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": ""
+          }
+        ]
+      },
+      {
+        "time": "",
+        "settings": [],
+        "meta": "After workout training questions.",
+        "questions": [
+          {
+            "text": "Was hast du heute trainiert?",
+            "meta": "Type of training.",
+            "choice": [
+              [
+                "Ausdauer"
+              ],
+              [
+                "Kraft"
+              ],
+              [
+                "Technik"
+              ]
+            ],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": "TRAININGTYPE"
+          },
+          {
+            "text": "Wie zufrieden bist du mit deinem Training auf einer Skala von 1-5?",
+            "meta": "Training satisfaction.",
+            "choice": [
+              [
+                "1"
+              ],
+              [
+                "2"
+              ],
+              [
+                "3"
+              ],
+              [
+                "4"
+              ],
+              [
+                "5"
+              ]
+            ],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": "TRAININGSAT"
+          },
+          {
+            "text": "Beschreibe kurz dein heutiges Training.",
+            "meta": "Workout description.",
+            "choice": [],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": "WORKOUTDESCRIPTION"
+          },
+          {
+            "text": "Danke, morgen geht's weiter.",
+            "meta": "",
+            "choice": [],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "day": 6,
+    "meta": "Basic questions about training and progress.",
+    "blocks": [
+      {
+        "time": "",
+        "settings": [],
+        "meta": "Basic questions in the morning.",
+        "questions": [
+          {
+            "text": "Was hast du heute zum Fr\u00fchst\u00fcck gegessen?",
+            "meta": "Info about breakfast.",
+            "choice": [],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": "BREAKFAST"
+          },
+          {
+            "text": "Wie f\u00fchlst du dich heute k\u00f6rperlich auf einer Skala von 1-5?",
+            "meta": "Question about physical condition.",
+            "choice": [
+              [
+                "1"
+              ],
+              [
+                "2"
+              ],
+              [
+                "3"
+              ],
+              [
+                "4"
+              ],
+              [
+                "5"
+              ]
+            ],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": "FEELING"
+          },
+          {
+            "text": "Danke, wir werden dir am Abend ein paar Fragen zu deinem Training stellen.",
+            "meta": "",
+            "choice": [],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": ""
+          }
+        ]
+      },
+      {
+        "time": "",
+        "settings": [],
+        "meta": "After workout training questions.",
+        "questions": [
+          {
+            "text": "Was hast du heute trainiert?",
+            "meta": "Type of training.",
+            "choice": [
+              [
+                "Ausdauer"
+              ],
+              [
+                "Kraft"
+              ],
+              [
+                "Technik"
+              ]
+            ],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": "TRAININGTYPE"
+          },
+          {
+            "text": "Wie zufrieden bist du mit deinem Training auf einer Skala von 1-5?",
+            "meta": "Training satisfaction.",
+            "choice": [
+              [
+                "1"
+              ],
+              [
+                "2"
+              ],
+              [
+                "3"
+              ],
+              [
+                "4"
+              ],
+              [
+                "5"
+              ]
+            ],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": "TRAININGSAT"
+          },
+          {
+            "text": "Beschreibe kurz dein heutiges Training.",
+            "meta": "Workout description.",
+            "choice": [],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": "WORKOUTDESCRIPTION"
+          },
+          {
+            "text": "Danke, morgen geht's weiter.",
+            "meta": "",
+            "choice": [],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "day": 7,
+    "meta": "Basic questions about training and progress.",
+    "blocks": [
+      {
+        "time": "",
+        "settings": [],
+        "meta": "Basic questions in the morning.",
+        "questions": [
+          {
+            "text": "Was hast du heute zum Fr\u00fchst\u00fcck gegessen?",
+            "meta": "Info about breakfast.",
+            "choice": [],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": "BREAKFAST"
+          },
+          {
+            "text": "Wie f\u00fchlst du dich heute k\u00f6rperlich auf einer Skala von 1-5?",
+            "meta": "Question about physical condition.",
+            "choice": [
+              [
+                "1"
+              ],
+              [
+                "2"
+              ],
+              [
+                "3"
+              ],
+              [
+                "4"
+              ],
+              [
+                "5"
+              ]
+            ],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": "FEELING"
+          },
+          {
+            "text": "Danke, wir werden dir am Abend ein paar Fragen zu deinem Training stellen.",
+            "meta": "",
+            "choice": [],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": ""
+          }
+        ]
+      },
+      {
+        "time": "",
+        "settings": [],
+        "meta": "After workout training questions.",
+        "questions": [
+          {
+            "text": "Was hast du heute trainiert?",
+            "meta": "Type of training.",
+            "choice": [
+              [
+                "Ausdauer"
+              ],
+              [
+                "Kraft"
+              ],
+              [
+                "Technik"
+              ]
+            ],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": "TRAININGTYPE"
+          },
+          {
+            "text": "Wie zufrieden bist du mit deinem Training auf einer Skala von 1-5?",
+            "meta": "Training satisfaction.",
+            "choice": [
+              [
+                "1"
+              ],
+              [
+                "2"
+              ],
+              [
+                "3"
+              ],
+              [
+                "4"
+              ],
+              [
+                "5"
+              ]
+            ],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": "TRAININGSAT"
+          },
+          {
+            "text": "Beschreibe kurz dein heutiges Training.",
+            "meta": "Workout description.",
+            "choice": [],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": "WORKOUTDESCRIPTION"
+          },
+          {
+            "text": "Danke, morgen geht's weiter.",
+            "meta": "",
+            "choice": [],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "day": 8,
+    "meta": "Basic questions about training and progress.",
+    "blocks": [
+      {
+        "time": "",
+        "settings": [],
+        "meta": "Basic questions in the morning.",
+        "questions": [
+          {
+            "text": "Was hast du heute zum Fr\u00fchst\u00fcck gegessen?",
+            "meta": "Info about breakfast.",
+            "choice": [],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": "BREAKFAST"
+          },
+          {
+            "text": "Wie f\u00fchlst du dich heute k\u00f6rperlich auf einer Skala von 1-5?",
+            "meta": "Question about physical condition.",
+            "choice": [
+              [
+                "1"
+              ],
+              [
+                "2"
+              ],
+              [
+                "3"
+              ],
+              [
+                "4"
+              ],
+              [
+                "5"
+              ]
+            ],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": "FEELING"
+          },
+          {
+            "text": "Danke, wir werden dir am Abend ein paar Fragen zu deinem Training stellen.",
+            "meta": "",
+            "choice": [],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": ""
+          }
+        ]
+      },
+      {
+        "time": "",
+        "settings": [],
+        "meta": "After workout training questions.",
+        "questions": [
+          {
+            "text": "Was hast du heute trainiert?",
+            "meta": "Type of training.",
+            "choice": [
+              [
+                "Ausdauer"
+              ],
+              [
+                "Kraft"
+              ],
+              [
+                "Technik"
+              ]
+            ],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": "TRAININGTYPE"
+          },
+          {
+            "text": "Wie zufrieden bist du mit deinem Training auf einer Skala von 1-5?",
+            "meta": "Training satisfaction.",
+            "choice": [
+              [
+                "1"
+              ],
+              [
+                "2"
+              ],
+              [
+                "3"
+              ],
+              [
+                "4"
+              ],
+              [
+                "5"
+              ]
+            ],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": "TRAININGSAT"
+          },
+          {
+            "text": "Beschreibe kurz dein heutiges Training.",
+            "meta": "Workout description.",
+            "choice": [],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": "WORKOUTDESCRIPTION"
+          },
+          {
+            "text": "Danke, morgen geht's weiter.",
+            "meta": "",
+            "choice": [],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "day": 9,
+    "meta": "Final day - some concluding questions.",
+    "blocks": [
+      {
+        "time": "09:00",
+        "settings": [],
+        "meta": "",
+        "questions": [
+          {
+            "text": "Wie w\u00fcrdest du diese Studie auf einer Skala von 1-10 bewerten?",
+            "meta": "Opinion of the survey.",
+            "choice": [
+              [
+                "1"
+              ],
+              [
+                "2"
+              ],
+              [
+                "3"
+              ],
+              [
+                "4"
+              ],
+              [
+                "5"
+              ],
+              [
+                "6"
+              ],
+              [
+                "7"
+              ],
+              [
+                "8"
+              ],
+              [
+                "9"
+              ],
+              [
+                "10"
+              ]
+            ],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": "OPINION"
+          },
+          {
+            "text": "Was k\u00f6nnten wir verbessern?",
+            "meta": "Improvement input.",
+            "choice": [],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": "IMPROVE"
+          },
+          {
+            "text": "Danke f\u00fcr's mitmachen.",
+            "meta": "",
+            "choice": [],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": ""
+          }
+        ]
+      }
+    ]
+  }
+]

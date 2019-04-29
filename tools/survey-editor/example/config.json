@@ -1,0 +1,8 @@
+{
+  "default-language": "en",
+  "project-name": "example-survey",
+  "custom-keyboards": [
+    "KB_COUNTRY"
+  ],
+  "editor-mode": ""
+}

@@ -1,0 +1,698 @@
+[
+  {
+    "day": 1,
+    "meta": "First day - gathering basic information",
+    "blocks": [
+      {
+        "time": "START",
+        "settings": [
+          [
+            "MANDATORY"
+          ]
+        ],
+        "meta": "First block of first day. Initial questions.",
+        "questions": [
+          {
+            "text": "Hello and welcome to this example survey of the diary-survey-bot.\nWe will ask you daily questions about rock-climbing.",
+            "meta": "Initial question",
+            "choice": [
+              [
+                "OK"
+              ]
+            ],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": "First"
+          },
+          {
+            "text": "But first where are you from?",
+            "meta": "Question about origin.",
+            "choice": [
+              [
+                "KB_COUNTRY"
+              ]
+            ],
+            "condition_required": [],
+            "condition": [],
+            "commands": [
+              [
+                "Force Keyboard Reply"
+              ]
+            ],
+            "variable": "COUNTRY"
+          },
+          {
+            "text": "Can you tell us the timezone you are living in?",
+            "meta": "Info about Timezone.",
+            "choice": [],
+            "condition_required": [],
+            "condition": [],
+            "commands": [
+              [
+                "Store timezone information"
+              ]
+            ],
+            "variable": "TIMEZONE"
+          },
+          {
+            "text": "What is your gender?",
+            "meta": "Question about gender.",
+            "choice": [
+              [
+                "male"
+              ],
+              [
+                "female"
+              ]
+            ],
+            "condition_required": [],
+            "condition": [],
+            "commands": [
+              [
+                "Store gender information"
+              ]
+            ],
+            "variable": "GENDER"
+          },
+          {
+            "text": "How old are you?",
+            "meta": "Question about age.",
+            "choice": [],
+            "condition_required": [],
+            "condition": [],
+            "commands": [
+              [
+                "Store age information"
+              ]
+            ],
+            "variable": "AGE"
+          },
+          {
+            "text": "How long have you been rock-climbing?",
+            "meta": "",
+            "choice": [
+              [
+                "< 1 year"
+              ],
+              [
+                "1-4 years"
+              ],
+              [
+                "> 4 years"
+              ]
+            ],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": "ROCKTIME"
+          },
+          {
+            "text": "Thanks we will continue this survey tomorrow!",
+            "meta": "",
+            "choice": [],
+            "condition_required": [],
+            "condition": [],
+            "commands": [
+              [
+                "Continue automatic queue"
+              ]
+            ],
+            "variable": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "day": 2,
+    "meta": "Basic questions about training and progress.",
+    "blocks": [
+      {
+        "time": "",
+        "settings": [],
+        "meta": "Basic questions in the morning.",
+        "questions": [
+          {
+            "text": "What did you eat for breakfast?",
+            "meta": "Info about breakfast.",
+            "choice": [],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": "BREAKFAST"
+          },
+          {
+            "text": "How are you feeling physically today on a scale from 1-5?",
+            "meta": "Question about physical condition.",
+            "choice": [
+              [
+                "1"
+              ],
+              [
+                "2"
+              ],
+              [
+                "3"
+              ],
+              [
+                "4"
+              ],
+              [
+                "5"
+              ]
+            ],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": "FEELING"
+          },
+          {
+            "text": "Thanks, we will ask you about your training in the evening!",
+            "meta": "",
+            "choice": [],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": ""
+          }
+        ]
+      },
+      {
+        "time": "",
+        "settings": [],
+        "meta": "After workout training questions.",
+        "questions": [
+          {
+            "text": "What kind of training did you do today?",
+            "meta": "Type of training.",
+            "choice": [
+              [
+                "Endurance"
+              ],
+              [
+                "Strength"
+              ],
+              [
+                "Technique"
+              ]
+            ],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": "TRAININGTYPE"
+          },
+          {
+            "text": "How satisfied are you with your workout on a scale from 1-5?",
+            "meta": "Training satisfaction.",
+            "choice": [
+              [
+                "1"
+              ],
+              [
+                "2"
+              ],
+              [
+                "3"
+              ],
+              [
+                "4"
+              ],
+              [
+                "5"
+              ]
+            ],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": "TRAININGSAT"
+          },
+          {
+            "text": "Describe your workout shortly.",
+            "meta": "Workout description.",
+            "choice": [],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": "WORKOUTDESCRIPTION"
+          },
+          {
+            "text": "Thank you. We will continue in the morning.",
+            "meta": "",
+            "choice": [],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "day": 6,
+    "meta": "Basic questions about training and progress.",
+    "blocks": [
+      {
+        "time": "",
+        "settings": [],
+        "meta": "Basic questions in the morning.",
+        "questions": [
+          {
+            "text": "What did you eat for breakfast?",
+            "meta": "Info about breakfast.",
+            "choice": [],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": "BREAKFAST"
+          },
+          {
+            "text": "How are you feeling physically today on a scale from 1-5?",
+            "meta": "Question about physical condition.",
+            "choice": [
+              [
+                "1"
+              ],
+              [
+                "2"
+              ],
+              [
+                "3"
+              ],
+              [
+                "4"
+              ],
+              [
+                "5"
+              ]
+            ],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": "FEELING"
+          },
+          {
+            "text": "Thanks, we will ask you about your training in the evening!",
+            "meta": "",
+            "choice": [],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": ""
+          }
+        ]
+      },
+      {
+        "time": "",
+        "settings": [],
+        "meta": "After workout training questions.",
+        "questions": [
+          {
+            "text": "What kind of training did you do today?",
+            "meta": "Type of training.",
+            "choice": [
+              [
+                "Endurance"
+              ],
+              [
+                "Strength"
+              ],
+              [
+                "Technique"
+              ]
+            ],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": "TRAININGTYPE"
+          },
+          {
+            "text": "How satisfied are you with your workout on a scale from 1-5?",
+            "meta": "Training satisfaction.",
+            "choice": [
+              [
+                "1"
+              ],
+              [
+                "2"
+              ],
+              [
+                "3"
+              ],
+              [
+                "4"
+              ],
+              [
+                "5"
+              ]
+            ],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": "TRAININGSAT"
+          },
+          {
+            "text": "Describe your workout shortly.",
+            "meta": "Workout description.",
+            "choice": [],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": "WORKOUTDESCRIPTION"
+          },
+          {
+            "text": "Thank you. We will continue in the morning.",
+            "meta": "",
+            "choice": [],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "day": 7,
+    "meta": "Basic questions about training and progress.",
+    "blocks": [
+      {
+        "time": "",
+        "settings": [],
+        "meta": "Basic questions in the morning.",
+        "questions": [
+          {
+            "text": "What did you eat for breakfast?",
+            "meta": "Info about breakfast.",
+            "choice": [],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": "BREAKFAST"
+          },
+          {
+            "text": "How are you feeling physically today on a scale from 1-5?",
+            "meta": "Question about physical condition.",
+            "choice": [
+              [
+                "1"
+              ],
+              [
+                "2"
+              ],
+              [
+                "3"
+              ],
+              [
+                "4"
+              ],
+              [
+                "5"
+              ]
+            ],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": "FEELING"
+          },
+          {
+            "text": "Thanks, we will ask you about your training in the evening!",
+            "meta": "",
+            "choice": [],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": ""
+          }
+        ]
+      },
+      {
+        "time": "",
+        "settings": [],
+        "meta": "After workout training questions.",
+        "questions": [
+          {
+            "text": "What kind of training did you do today?",
+            "meta": "Type of training.",
+            "choice": [
+              [
+                "Endurance"
+              ],
+              [
+                "Strength"
+              ],
+              [
+                "Technique"
+              ]
+            ],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": "TRAININGTYPE"
+          },
+          {
+            "text": "How satisfied are you with your workout on a scale from 1-5?",
+            "meta": "Training satisfaction.",
+            "choice": [
+              [
+                "1"
+              ],
+              [
+                "2"
+              ],
+              [
+                "3"
+              ],
+              [
+                "4"
+              ],
+              [
+                "5"
+              ]
+            ],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": "TRAININGSAT"
+          },
+          {
+            "text": "Describe your workout shortly.",
+            "meta": "Workout description.",
+            "choice": [],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": "WORKOUTDESCRIPTION"
+          },
+          {
+            "text": "Thank you. We will continue in the morning.",
+            "meta": "",
+            "choice": [],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "day": 8,
+    "meta": "Basic questions about training and progress.",
+    "blocks": [
+      {
+        "time": "",
+        "settings": [],
+        "meta": "Basic questions in the morning.",
+        "questions": [
+          {
+            "text": "What did you eat for breakfast?",
+            "meta": "Info about breakfast.",
+            "choice": [],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": "BREAKFAST"
+          },
+          {
+            "text": "How are you feeling physically today on a scale from 1-5?",
+            "meta": "Question about physical condition.",
+            "choice": [
+              [
+                "1"
+              ],
+              [
+                "2"
+              ],
+              [
+                "3"
+              ],
+              [
+                "4"
+              ],
+              [
+                "5"
+              ]
+            ],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": "FEELING"
+          },
+          {
+            "text": "Thanks, we will ask you about your training in the evening!",
+            "meta": "",
+            "choice": [],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": ""
+          }
+        ]
+      },
+      {
+        "time": "",
+        "settings": [],
+        "meta": "After workout training questions.",
+        "questions": [
+          {
+            "text": "What kind of training did you do today?",
+            "meta": "Type of training.",
+            "choice": [
+              [
+                "Endurance"
+              ],
+              [
+                "Strength"
+              ],
+              [
+                "Technique"
+              ]
+            ],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": "TRAININGTYPE"
+          },
+          {
+            "text": "How satisfied are you with your workout on a scale from 1-5?",
+            "meta": "Training satisfaction.",
+            "choice": [
+              [
+                "1"
+              ],
+              [
+                "2"
+              ],
+              [
+                "3"
+              ],
+              [
+                "4"
+              ],
+              [
+                "5"
+              ]
+            ],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": "TRAININGSAT"
+          },
+          {
+            "text": "Describe your workout shortly.",
+            "meta": "Workout description.",
+            "choice": [],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": "WORKOUTDESCRIPTION"
+          },
+          {
+            "text": "Thank you. We will continue in the morning.",
+            "meta": "",
+            "choice": [],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "day": 9,
+    "meta": "Final day - some concluding questions.",
+    "blocks": [
+      {
+        "time": "09:00",
+        "settings": [],
+        "meta": "",
+        "questions": [
+          {
+            "text": "How would you rate this survey on a scale from 1-10?",
+            "meta": "Opinion of the survey.",
+            "choice": [
+              [
+                "1"
+              ],
+              [
+                "2"
+              ],
+              [
+                "3"
+              ],
+              [
+                "4"
+              ],
+              [
+                "5"
+              ],
+              [
+                "6"
+              ],
+              [
+                "7"
+              ],
+              [
+                "8"
+              ],
+              [
+                "9"
+              ],
+              [
+                "10"
+              ]
+            ],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": "OPINION"
+          },
+          {
+            "text": "How could we have done better?",
+            "meta": "Improvement input.",
+            "choice": [],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": "IMPROVE"
+          },
+          {
+            "text": "Thanks for participating!",
+            "meta": "",
+            "choice": [],
+            "condition_required": [],
+            "condition": [],
+            "commands": [],
+            "variable": ""
+          }
+        ]
+      }
+    ]
+  }
+]
