@@ -162,7 +162,7 @@ class DayView(QWidget):
         for lang in self._model.languages:
             for day, i in zip(self._model.surveys[lang].days, range(0, self._ui.day_list.count())):
                 if day.errors:
-                    errors = str(day.errors)
+                    errors = str(set(day.errors))
                     self._ui.day_list.item(i).setToolTip(errors)
                     self._ui.day_list.item(i).setBackground(QColor("#FF5733"))
                 if not self._ui.day_list.item(i).background().color() == QColor("#FF5733"):
@@ -178,15 +178,17 @@ class DayView(QWidget):
     def set_block_warnings(self):
         for i in range(self._ui.block_list.count()):
             self._ui.block_list.item(i).setBackground(QColor("#000000"))
-
-        for lang in self._model.languages:
-            for block, i in zip(self._model.days[lang].blocks, range(0, self._ui.block_list.count())):
-                if block.errors:
-                    errors = str(block.errors)
-                    self._ui.block_list.item(i).setToolTip(errors)
-                    self._ui.block_list.item(i).setBackground(QColor("#FF5733"))
-                if not self._ui.block_list.item(i).background().color() == QColor("#FF5733"):
-                    self._ui.block_list.item(i).setBackground(QColor("#52be80"))
+        try:
+            for lang in self._model.languages:
+                for block, i in zip(self._model.days[lang].blocks, range(0, self._ui.block_list.count())):
+                    if block.errors:
+                        errors = str(set(block.errors))
+                        self._ui.block_list.item(i).setToolTip(errors)
+                        self._ui.block_list.item(i).setBackground(QColor("#FF5733"))
+                    if not self._ui.block_list.item(i).background().color() == QColor("#FF5733"):
+                        self._ui.block_list.item(i).setBackground(QColor("#52be80"))
+        except KeyError:
+            pass
 
     def fill_lang_list(self, lang_list):
         self._ui.lang_list.clear()
@@ -389,14 +391,15 @@ class DayView(QWidget):
             day = Day()
             day.set_day(index)
             self._model.surveys[lang].add_day(day)
-        self._model.update_surveys()
-        self.update_info()
 
         max_index = 0
         if self._model.surveys[self._model.default_language].days:
             max_index = len(self._model.surveys[self._model.default_language].days) - 1
         item = self._ui.day_list.item(max_index)
         self._ui.day_list.setCurrentItem(item)
+
+        self._model.update_surveys()
+        self.update_info()
 
     def delete_day(self):
         if not self._ui.day_list.selectedItems():

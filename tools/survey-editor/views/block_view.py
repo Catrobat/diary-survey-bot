@@ -6,7 +6,7 @@ Documentation: https://github.com/Catrobat/diary-survey-bot
 
 Qt version: 5.12.1
 """
-
+from PyQt5.QtGui import QColor
 from PyQt5.QtWidgets import QWidget, QMessageBox
 
 from controllers.question_controller import QuestionController
@@ -83,6 +83,21 @@ class BlockView(QWidget):
         self._ui.question_list.clear()
         for question in questions:
             self._ui.question_list.addItem(question)
+
+        self.set_question_warnings()
+
+    def set_question_warnings(self):
+        for i in range(self._ui.question_list.count()):
+            self._ui.question_list.item(i).setBackground(QColor("#000000"))
+
+        for lang in self._model.languages:
+            for question, i in zip(self._model.blocks[lang].questions, range(0, self._ui.question_list.count())):
+                if question.errors:
+                    errors = str(set(question.errors))
+                    self._ui.question_list.item(i).setToolTip(errors)
+                    self._ui.question_list.item(i).setBackground(QColor("#FF5733"))
+                if not self._ui.question_list.item(i).background().color() == QColor("#FF5733"):
+                    self._ui.question_list.item(i).setBackground(QColor("#52be80"))
 
     def question_list_event(self):
         if not self._ui.question_list.selectedItems():
