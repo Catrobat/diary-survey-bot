@@ -100,6 +100,7 @@ class BlockController(QObject):
             for lang in template:
                 self._model.blocks[lang].set_meta(template[lang]["meta"])
                 self._model.blocks[lang].set_settings(template[lang]["settings"])
+                self._model.blocks[lang].set_time(template[lang]["time"])
                 self._model.blocks[lang].questions = []
                 for q in template[lang]["questions"]:
                     question = Question()

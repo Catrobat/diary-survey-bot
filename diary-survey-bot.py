@@ -121,12 +121,12 @@ def database_setup(clear):
     try:
         db = sqlite3.connect('survey/participants.db')
         db.execute("CREATE TABLE participants (data_set BLOB, ID INTEGER, conditions BLOB, timezone TEXT,"
-                   "country TEXT, gender TEXT, language TEXT, question INTEGER,age INTEGER, day INTEGER"
+                   "country TEXT, gender TEXT, language TEXT, question INTEGER,age INTEGER, day INTEGER,"
                    "q_idle INTEGER, active INTEGER, block INTEGER, pointer INTEGER)")
         if clear:
             db.execute("DROP TABLE participants")
             db.execute("CREATE TABLE participants (data_set BLOB, ID INTEGER, conditions BLOB, timezone TEXT,"
-                       "country TEXT, gender TEXT, language TEXT, question INTEGER,age INTEGER, day INTEGER"
+                       "country TEXT, gender TEXT, language TEXT, question INTEGER,age INTEGER, day INTEGER,"
                        "q_idle INTEGER, active INTEGER, block INTEGER, pointer INTEGER)")
 
         db.commit()

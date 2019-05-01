@@ -157,7 +157,8 @@ class QuestionView(QWidget):
             self._ui.condition_list.setItem(size, 1, QTableWidgetItem(condition[1]))
 
     def add_command(self):
-        command = [self._ui.commands_combobox.currentText()]
+        command = self._ui.commands_combobox.currentText()
+        command = [item for item in question_commands if item[0] == command][0][1]
         if command in self._model.questions[self._model.lang].commands:
             return
         for lang in self._model.languages:

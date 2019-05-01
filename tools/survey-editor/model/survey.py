@@ -286,6 +286,7 @@ class Survey:
     def __init__(self, survey, language):
         self.language = language
         self.errors = []
+        self.json_error = None
         self.days = []
         self.valid = True
         if survey is not None:
@@ -319,7 +320,8 @@ class Survey:
                     self.add_day(d)
             except KeyError as e:
                 self.valid = False
-                self.error = "Corrupted Survey. Missing or misspelled key " + str(e) + " in Survey: " + self.language
+                self.json_error = "Corrupted Survey. Missing or misspelled key " + \
+                                  str(e) + " in Survey: " + self.language
 
     def add_day(self, day):
         if isinstance(day, Day):
@@ -394,7 +396,7 @@ class Model:
         self.languages.append(lang)
         survey = Survey(json_survey, lang)
         if not survey.valid:
-            return survey.error
+            return survey.json_error
         self.surveys[lang] = survey
         return None
 
@@ -541,13 +543,13 @@ class Model:
 
     def analyze_survey(self):
         for lang in self.languages:
-                self.surveys[lang].errors.clear()
-                for day in self.surveys[lang].days:
-                    day.errors.clear()
-                    for block in day.blocks:
-                        block.errors.clear()
-                        for question in block.questions:
-                            question.errors.clear()
+            self.surveys[lang].errors.clear()
+            for day in self.surveys[lang].days:
+                day.errors.clear()
+                for block in day.blocks:
+                    block.errors.clear()
+                    for question in block.questions:
+                        question.errors.clear()
 
         for lang in self.languages:
             for day in self.surveys[lang].days:

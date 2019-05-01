@@ -37,7 +37,7 @@
             "condition": [],
             "commands": [
               [
-                "Force Keyboard Reply"
+                "COUNTRY"
               ]
             ],
             "variable": "COUNTRY"
@@ -45,12 +45,16 @@
           {
             "text": "In welcher Zeitzone lebst du?",
             "meta": "Info about Timezone.",
-            "choice": [],
+            "choice": [
+              [
+                "KB_TIMEZONE"
+              ]
+            ],
             "condition_required": [],
             "condition": [],
             "commands": [
               [
-                "Store timezone information"
+                "TIMEZONE"
               ]
             ],
             "variable": "TIMEZONE"
@@ -70,7 +74,7 @@
             "condition": [],
             "commands": [
               [
-                "Store gender information"
+                "GENDER"
               ]
             ],
             "variable": "GENDER"
@@ -83,7 +87,7 @@
             "condition": [],
             "commands": [
               [
-                "Store age information"
+                "AGE"
               ]
             ],
             "variable": "AGE"
@@ -104,7 +108,12 @@
             ],
             "condition_required": [],
             "condition": [],
-            "commands": [],
+            "commands": [
+              "Q_ON",
+              [
+                "Q_ON"
+              ]
+            ],
             "variable": "ROCKTIME"
           },
           {
@@ -114,9 +123,7 @@
             "condition_required": [],
             "condition": [],
             "commands": [
-              [
-                "Continue automatic queue"
-              ]
+              []
             ],
             "variable": ""
           }
@@ -129,7 +136,7 @@
     "meta": "Basic questions about training and progress.",
     "blocks": [
       {
-        "time": "",
+        "time": "08:00",
         "settings": [],
         "meta": "Basic questions in the morning.",
         "questions": [
@@ -179,7 +186,7 @@
         ]
       },
       {
-        "time": "",
+        "time": "18:00",
         "settings": [],
         "meta": "After workout training questions.",
         "questions": [
@@ -254,7 +261,7 @@
     "meta": "Basic questions about training and progress.",
     "blocks": [
       {
-        "time": "",
+        "time": "08:00",
         "settings": [],
         "meta": "Basic questions in the morning.",
         "questions": [
@@ -304,7 +311,7 @@
         ]
       },
       {
-        "time": "",
+        "time": "18:00",
         "settings": [],
         "meta": "After workout training questions.",
         "questions": [
@@ -379,7 +386,7 @@
     "meta": "Basic questions about training and progress.",
     "blocks": [
       {
-        "time": "",
+        "time": "08:00",
         "settings": [],
         "meta": "Basic questions in the morning.",
         "questions": [
@@ -429,7 +436,7 @@
         ]
       },
       {
-        "time": "",
+        "time": "18:00",
         "settings": [],
         "meta": "After workout training questions.",
         "questions": [
@@ -504,7 +511,7 @@
     "meta": "Basic questions about training and progress.",
     "blocks": [
       {
-        "time": "",
+        "time": "08:00",
         "settings": [],
         "meta": "Basic questions in the morning.",
         "questions": [
@@ -554,7 +561,7 @@
         ]
       },
       {
-        "time": "",
+        "time": "18:00",
         "settings": [],
         "meta": "After workout training questions.",
         "questions": [
