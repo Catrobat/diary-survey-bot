@@ -38,6 +38,8 @@ its decent API and popularity. The bot is written in python3 and uses this
 [Here](https://telegram.org/blog/bot-revolution) is the official
 telegram info about bots and how you can set up your own.
 
+For a detailed guide on how to use this bot visit the **Wiki**!
+
 ## Features:
 
 - Multi language support
