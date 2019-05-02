@@ -50,6 +50,7 @@ For a detailed guide on how to use this bot visit the **Wiki**!
 - Timezone support
 - Backup database
 - Data storing in easy to use csv files
+- Editor for creating surveys
 
 ## Usage:
 
