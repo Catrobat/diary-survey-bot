@@ -206,10 +206,9 @@ class QuestionView(QWidget):
             return
 
         index = self._ui.all_conditions_list.currentRow()
-        choice = self._ui.all_conditions_list.item(index, 0).text()
         key = self._ui.all_conditions_list.item(index, 1).text()
-        condition = [choice, key]
-        self._model.questions[self._model.lang].add_condition_rq(condition)
+        self._model.questions[self._model.lang].add_condition_rq(key)
+        self._model.update_surveys()
         self.fill_condition_required()
 
     def delete_condition_rq(self):
@@ -217,10 +216,9 @@ class QuestionView(QWidget):
             return
 
         index = self._ui.rq_conditions_list.currentRow()
-        choice = self._ui.rq_conditions_list.item(index, 0)
-        key = self._ui.rq_conditions_list.item(index, 1)
-        condition = [choice, key]
-        self._model.questions[self._model.lang].delete_condition_rq(condition)
+        key = self._ui.rq_conditions_list.item(index, 0)
+        self._model.questions[self._model.lang].delete_condition_rq(key)
+        self._model.update_surveys()
         self.fill_condition_required()
 
     def fill_all_conditions_list(self):
@@ -238,8 +236,7 @@ class QuestionView(QWidget):
         for condition in conditions:
             size = self._ui.rq_conditions_list.rowCount()
             self._ui.rq_conditions_list.insertRow(size)
-            self._ui.rq_conditions_list.setItem(size, 0, QTableWidgetItem(condition[0]))
-            self._ui.rq_conditions_list.setItem(size, 1, QTableWidgetItem(condition[1]))
+            self._ui.rq_conditions_list.setItem(size, 0, QTableWidgetItem(condition))
 
     def save_data(self):
         variable = self._ui.variable_field.text()

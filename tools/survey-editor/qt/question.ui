@@ -797,11 +797,6 @@
               </property>
               <column>
                <property name="text">
-                <string>Choice</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
                 <string>Key</string>
                </property>
               </column>

@@ -61,7 +61,7 @@ class Question:
         if isinstance(condition_required, list):
             self.condition_required = condition_required
         else:
-            print("condition_required: " + condition_required + " should be defined as nested lists. ")
+            print("condition_required: " + condition_required + " should be defined as a list. ")
 
     def add_condition(self, item):
         if isinstance(item, list) and len(item) == 2:
@@ -77,13 +77,13 @@ class Question:
             print("condition: " + item + " should be defined as nested lists. ")
 
     def add_condition_rq(self, item):
-        if isinstance(item, list) and len(item) == 2:
+        if isinstance(item, str):
             self.condition_required.append(item)
         else:
-            print("condition required: " + item + " should be defined as nested lists. ")
+            print("condition required: " + item + " should be defined as string. ")
 
     def delete_condition_rq(self, item):
-        if isinstance(item, list):
+        if isinstance(item, str):
             if item in self.condition_required:
                 self.condition_required.remove(item)
         else:
@@ -465,8 +465,8 @@ class Model:
         for day in survey.days:
             for block in day.blocks:
                 for question in block.questions:
-                    if condition in question.condition_required:
-                        question.condition_required.remove(condition)
+                    if condition[1] in question.condition_required:
+                        question.condition_required.remove(condition[1])
 
     def insert_condition_coordinates(self, coordinates):
         tree = self.conditions[self.lang]
